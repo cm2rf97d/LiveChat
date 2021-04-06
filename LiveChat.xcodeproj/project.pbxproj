@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 52;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -13,6 +13,7 @@
 		27EDF9AC261C07CF00ADFDA6 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 27EDF9AA261C07CF00ADFDA6 /* LaunchScreen.storyboard */; };
 		27EDF9BA261C0FEF00ADFDA6 /* HomepageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27EDF9B9261C0FEF00ADFDA6 /* HomepageViewController.swift */; };
 		27EDF9BD261C100B00ADFDA6 /* HomePageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27EDF9BC261C100B00ADFDA6 /* HomePageView.swift */; };
+		27EDF9C4261C1A4A00ADFDA6 /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = 27EDF9C3261C1A4A00ADFDA6 /* SnapKit */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -31,6 +32,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				27EDF9C4261C1A4A00ADFDA6 /* SnapKit in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -107,6 +109,9 @@
 			dependencies = (
 			);
 			name = LiveChat;
+			packageProductDependencies = (
+				27EDF9C3261C1A4A00ADFDA6 /* SnapKit */,
+			);
 			productName = LiveChat;
 			productReference = 27EDF99C261C07CE00ADFDA6 /* LiveChat.app */;
 			productType = "com.apple.product-type.application";
@@ -134,6 +139,9 @@
 				Base,
 			);
 			mainGroup = 27EDF993261C07CE00ADFDA6;
+			packageReferences = (
+				27EDF9C2261C1A4A00ADFDA6 /* XCRemoteSwiftPackageReference "SnapKit" */,
+			);
 			productRefGroup = 27EDF99D261C07CE00ADFDA6 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -357,6 +365,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		27EDF9C2261C1A4A00ADFDA6 /* XCRemoteSwiftPackageReference "SnapKit" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/SnapKit/SnapKit";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.0.1;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		27EDF9C3261C1A4A00ADFDA6 /* SnapKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 27EDF9C2261C1A4A00ADFDA6 /* XCRemoteSwiftPackageReference "SnapKit" */;
+			productName = SnapKit;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 27EDF994261C07CE00ADFDA6 /* Project object */;
 }
