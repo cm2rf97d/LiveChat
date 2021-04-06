@@ -1,23 +1,21 @@
 //
-//  HomePageView.swift
+//  RegisterView.swift
 //  LiveChat
 //
 //  Created by 陳郁勳 on 2021/4/6.
 //
 
 import UIKit
-import SnapKit
 
-class HomePageView: UIView
+class RegisterView: UIView
 {
-    // MARK: - IBOutlet
     let titleLabel: UILabel =
     {
         let label = UILabel()
-        label.text = "ICRC"
-        label.textColor = .white
-        label.font = UIFont.systemFont(ofSize: 50)
         label.textAlignment = .center
+        label.text = "Register"
+        label.font = UIFont.systemFont(ofSize: 50)
+        label.textColor = .white
         return label
     }()
     
@@ -43,38 +41,16 @@ class HomePageView: UIView
         return field
     }()
     
-    let signUpButton: UIButton =
-    {
-        let button = UIButton()
-        button.setTitle("Sign In", for: .normal)
-        button.setTitleColor(.systemBlue, for: .normal)
-        button.setTitleColor(.black, for: .highlighted)
-        button.addTarget(self, action: #selector(HomepageViewController.signInSuccess), for: .touchUpInside)
-        return button
-    }()
-    
-    let forgetPasswordButton: UIButton =
-    {
-        let button = UIButton()
-        button.setTitle("Forget Password?", for: .normal)
-        button.setTitleColor(.systemBlue, for: .normal)
-        button.setTitleColor(.black, for: .highlighted)
-        button.addTarget(self, action: #selector(HomepageViewController.signInSuccess), for: .touchUpInside)
-        return button
-    }()
-    
     let registerButton: UIButton =
     {
         let button = UIButton()
         button.setTitle("Register", for: .normal)
         button.setTitleColor(.systemBlue, for: .normal)
         button.setTitleColor(.black, for: .highlighted)
-        button.addTarget(self, action: #selector(HomepageViewController.gotoRegister), for: .touchUpInside)
+        button.addTarget(self, action: #selector(HomepageViewController.signInSuccess), for: .touchUpInside)
         return button
     }()
-
-
-    // MARK: - Init
+    
     override init(frame: CGRect)
     {
         super.init(frame: frame)
@@ -82,8 +58,6 @@ class HomePageView: UIView
         addSubview(titleLabel)
         addSubview(accountTextField)
         addSubview(passwordTextField)
-        addSubview(signUpButton)
-        addSubview(forgetPasswordButton)
         addSubview(registerButton)
         autoLayout()
     }
@@ -93,7 +67,6 @@ class HomePageView: UIView
         fatalError("init(coder:) has not been implemented")
     }
     
-    // MARK: - Layout
     func autoLayout()
     {
         titleLabel.snp.makeConstraints
@@ -120,27 +93,11 @@ class HomePageView: UIView
             make.height.equalTo(30)
         }
         
-        signUpButton.snp.makeConstraints
+        registerButton.snp.makeConstraints
         { (make) in
             make.centerX.equalTo(self)
             make.top.equalTo(600)
             make.width.equalTo(100)
-            make.height.equalTo(30)
-        }
-        
-        forgetPasswordButton.snp.makeConstraints
-        { (make) in
-            make.centerX.equalTo(self)
-            make.top.equalTo(450)
-            make.width.equalTo(200)
-            make.height.equalTo(30)
-        }
-        
-        registerButton.snp.makeConstraints
-        { (make) in
-            make.right.equalTo(30)
-            make.bottom.equalTo(-50)
-            make.width.equalTo(200)
             make.height.equalTo(30)
         }
     }

@@ -14,6 +14,8 @@
 		27EDF9BA261C0FEF00ADFDA6 /* HomepageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27EDF9B9261C0FEF00ADFDA6 /* HomepageViewController.swift */; };
 		27EDF9BD261C100B00ADFDA6 /* HomePageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27EDF9BC261C100B00ADFDA6 /* HomePageView.swift */; };
 		27EDF9C4261C1A4A00ADFDA6 /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = 27EDF9C3261C1A4A00ADFDA6 /* SnapKit */; };
+		27EDF9D3261C50E200ADFDA6 /* RegisterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27EDF9D2261C50E200ADFDA6 /* RegisterView.swift */; };
+		27EDF9D6261C50F100ADFDA6 /* RegisterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27EDF9D5261C50F100ADFDA6 /* RegisterViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -25,6 +27,8 @@
 		27EDF9AD261C07CF00ADFDA6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		27EDF9B9261C0FEF00ADFDA6 /* HomepageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomepageViewController.swift; sourceTree = "<group>"; };
 		27EDF9BC261C100B00ADFDA6 /* HomePageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomePageView.swift; sourceTree = "<group>"; };
+		27EDF9D2261C50E200ADFDA6 /* RegisterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterView.swift; sourceTree = "<group>"; };
+		27EDF9D5261C50F100ADFDA6 /* RegisterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -74,6 +78,7 @@
 			isa = PBXGroup;
 			children = (
 				27EDF9B9261C0FEF00ADFDA6 /* HomepageViewController.swift */,
+				27EDF9D5261C50F100ADFDA6 /* RegisterViewController.swift */,
 			);
 			path = Control;
 			sourceTree = "<group>";
@@ -82,6 +87,7 @@
 			isa = PBXGroup;
 			children = (
 				27EDF9BC261C100B00ADFDA6 /* HomePageView.swift */,
+				27EDF9D2261C50E200ADFDA6 /* RegisterView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -169,7 +175,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				27EDF9A0261C07CE00ADFDA6 /* AppDelegate.swift in Sources */,
+				27EDF9D3261C50E200ADFDA6 /* RegisterView.swift in Sources */,
 				27EDF9A2261C07CE00ADFDA6 /* SceneDelegate.swift in Sources */,
+				27EDF9D6261C50F100ADFDA6 /* RegisterViewController.swift in Sources */,
 				27EDF9BD261C100B00ADFDA6 /* HomePageView.swift in Sources */,
 				27EDF9BA261C0FEF00ADFDA6 /* HomepageViewController.swift in Sources */,
 			);

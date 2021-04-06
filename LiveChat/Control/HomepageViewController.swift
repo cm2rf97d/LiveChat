@@ -12,7 +12,6 @@ class HomepageViewController: UIViewController,UITextFieldDelegate
     let homepageview = HomePageView()
     // Keep Keyboard Height
     var keyboardHeight: CGFloat = 0
-    weak var scrollView: UIScrollView!
     
     // MARK: - Life Cycle
     override func viewDidLoad()
@@ -34,6 +33,12 @@ class HomepageViewController: UIViewController,UITextFieldDelegate
         navigationController?.setNavigationBarHidden(true, animated: animated)
     }
     
+    override func viewWillDisappear(_ animated: Bool)
+    {
+        super.viewWillDisappear(animated)
+        navigationController?.setNavigationBarHidden(false, animated: animated)
+    }
+    
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?)
     {
         self.view.endEditing(true)
@@ -43,5 +48,15 @@ class HomepageViewController: UIViewController,UITextFieldDelegate
     {
         textField.resignFirstResponder()
         return true
+    }
+    
+    @objc func signInSuccess()
+    {
+        print("SignIn Success")
+    }
+    
+    @objc func gotoRegister()
+    {
+        self.navigationController?.pushViewController(RegisterViewController(), animated: true)
     }
 }
