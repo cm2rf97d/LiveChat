@@ -7,8 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		2793C1B5261C9EEF000262CE /* TestViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2793C1B4261C9EEF000262CE /* TestViewController.swift */; };
-		2793C1B8261C9F22000262CE /* TestView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2793C1B7261C9F22000262CE /* TestView.swift */; };
+		2793C1B5261C9EEF000262CE /* ChatroomVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2793C1B4261C9EEF000262CE /* ChatroomVC.swift */; };
+		2793C1B8261C9F22000262CE /* ChatroomView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2793C1B7261C9F22000262CE /* ChatroomView.swift */; };
 		27EDF9A0261C07CE00ADFDA6 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27EDF99F261C07CE00ADFDA6 /* AppDelegate.swift */; };
 		27EDF9A2261C07CE00ADFDA6 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27EDF9A1261C07CE00ADFDA6 /* SceneDelegate.swift */; };
 		27EDF9A9261C07CF00ADFDA6 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 27EDF9A8261C07CF00ADFDA6 /* Assets.xcassets */; };
@@ -20,11 +20,13 @@
 		27EDF9D6261C50F100ADFDA6 /* RegisterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27EDF9D5261C50F100ADFDA6 /* RegisterViewController.swift */; };
 		27EDF9DB261C5D2200ADFDA6 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 27EDF9DA261C5D2200ADFDA6 /* GoogleService-Info.plist */; };
 		B9A7A201EA07989C0845055E /* Pods_LiveChat.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F19046B1905EEF71907EDDBE /* Pods_LiveChat.framework */; };
+		D9FFBEE0261D8C4B00BF5841 /* ChatroomTVCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9FFBEDF261D8C4B00BF5841 /* ChatroomTVCell.swift */; };
+		D9FFBEE3261D8D0400BF5841 /* ChatLogVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9FFBEE2261D8D0400BF5841 /* ChatLogVC.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		2793C1B4261C9EEF000262CE /* TestViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestViewController.swift; sourceTree = "<group>"; };
-		2793C1B7261C9F22000262CE /* TestView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestView.swift; sourceTree = "<group>"; };
+		2793C1B4261C9EEF000262CE /* ChatroomVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatroomVC.swift; sourceTree = "<group>"; };
+		2793C1B7261C9F22000262CE /* ChatroomView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatroomView.swift; sourceTree = "<group>"; };
 		27EDF99C261C07CE00ADFDA6 /* LiveChat.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LiveChat.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		27EDF99F261C07CE00ADFDA6 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		27EDF9A1261C07CE00ADFDA6 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -38,6 +40,8 @@
 		27EDF9DA261C5D2200ADFDA6 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		55CCBDF0B6C612070F02E9C2 /* Pods-LiveChat.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LiveChat.release.xcconfig"; path = "Target Support Files/Pods-LiveChat/Pods-LiveChat.release.xcconfig"; sourceTree = "<group>"; };
 		C2E78282F940B29F98F38EA7 /* Pods-LiveChat.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LiveChat.debug.xcconfig"; path = "Target Support Files/Pods-LiveChat/Pods-LiveChat.debug.xcconfig"; sourceTree = "<group>"; };
+		D9FFBEDF261D8C4B00BF5841 /* ChatroomTVCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatroomTVCell.swift; sourceTree = "<group>"; };
+		D9FFBEE2261D8D0400BF5841 /* ChatLogVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatLogVC.swift; sourceTree = "<group>"; };
 		F19046B1905EEF71907EDDBE /* Pods_LiveChat.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_LiveChat.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -93,7 +97,8 @@
 			children = (
 				27EDF9B9261C0FEF00ADFDA6 /* HomepageViewController.swift */,
 				27EDF9D5261C50F100ADFDA6 /* RegisterViewController.swift */,
-				2793C1B4261C9EEF000262CE /* TestViewController.swift */,
+				2793C1B4261C9EEF000262CE /* ChatroomVC.swift */,
+				D9FFBEE2261D8D0400BF5841 /* ChatLogVC.swift */,
 			);
 			path = Control;
 			sourceTree = "<group>";
@@ -103,7 +108,8 @@
 			children = (
 				27EDF9BC261C100B00ADFDA6 /* HomePageView.swift */,
 				27EDF9D2261C50E200ADFDA6 /* RegisterView.swift */,
-				2793C1B7261C9F22000262CE /* TestView.swift */,
+				2793C1B7261C9F22000262CE /* ChatroomView.swift */,
+				D9FFBEDF261D8C4B00BF5841 /* ChatroomTVCell.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -252,13 +258,15 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				2793C1B5261C9EEF000262CE /* TestViewController.swift in Sources */,
+				2793C1B5261C9EEF000262CE /* ChatroomVC.swift in Sources */,
+				D9FFBEE3261D8D0400BF5841 /* ChatLogVC.swift in Sources */,
 				27EDF9A0261C07CE00ADFDA6 /* AppDelegate.swift in Sources */,
 				27EDF9D3261C50E200ADFDA6 /* RegisterView.swift in Sources */,
 				27EDF9A2261C07CE00ADFDA6 /* SceneDelegate.swift in Sources */,
-				2793C1B8261C9F22000262CE /* TestView.swift in Sources */,
+				2793C1B8261C9F22000262CE /* ChatroomView.swift in Sources */,
 				27EDF9D6261C50F100ADFDA6 /* RegisterViewController.swift in Sources */,
 				27EDF9BD261C100B00ADFDA6 /* HomePageView.swift in Sources */,
+				D9FFBEE0261D8C4B00BF5841 /* ChatroomTVCell.swift in Sources */,
 				27EDF9BA261C0FEF00ADFDA6 /* HomepageViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

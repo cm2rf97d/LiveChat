@@ -64,7 +64,7 @@ class HomepageViewController: UIViewController,UITextFieldDelegate
                 
                 if error == nil
                 {
-                    let vc = TestViewController()
+                    let vc = ChatroomVC()
                     self.navigationController?.pushViewController(vc, animated: true)
                 }
                 else
