@@ -6,22 +6,21 @@
 //
 
 import UIKit
+import Firebase
+import FirebaseAuth
 
 class HomepageViewController: UIViewController,UITextFieldDelegate
 {
     let homepageview = HomePageView()
-    // Keep Keyboard Height
-    var keyboardHeight: CGFloat = 0
     
     // MARK: - Life Cycle
     override func viewDidLoad()
     {
         super.viewDidLoad()
         self.navigationController?.navigationBar.barTintColor = .black
-        homepageview.accountTextField.delegate = self
-        homepageview.passwordTextField.delegate = self
     }
 
+    //MARK: - override Function
     override func loadView()
     {
         self.view = homepageview
@@ -44,16 +43,59 @@ class HomepageViewController: UIViewController,UITextFieldDelegate
         self.view.endEditing(true)
     }
     
+    //MARK: - Custom Function
+    func setUpKeyboard()
+    {
+        homepageview.accountTextField.delegate = self
+        homepageview.passwordTextField.delegate = self
+    }
+    
     func textFieldShouldReturn(_ textField: UITextField) -> Bool
     {
         textField.resignFirstResponder()
         return true
     }
     
-    @objc func signInSuccess()
+    @objc func signInAction()
     {
-        print("SignIn Success")
+        if let account = homepageview.accountTextField.text, let password = homepageview.passwordTextField.text
+        {
+            FirebaseAuth.Auth.auth().signIn(withEmail: account,password: password,completion:{(user, error) in
+                
+                if error == nil
+                {
+                    let vc = TestViewController()
+                    self.navigationController?.pushViewController(vc, animated: true)
+                }
+                else
+                {
+                    print("error")
+                }
+            })
+        }
     }
+    
+    @objc func forgetPassword(sender: UIButton)
+    {
+        if sender.tag == 0
+        {
+            if let account = homepageview.accountTextField.text
+            {
+                forgetPasswordWithEmail(email: account)
+            }
+        }
+    }
+    
+    func forgetPasswordWithEmail(email: String){
+        FirebaseAuth.Auth.auth().sendPasswordReset(withEmail: email) { error in
+                print("123")
+                if let error = error {
+                    print(error.localizedDescription)
+                } else {
+                    // 寄送新密碼
+                }
+            }
+        }
     
     @objc func gotoRegister()
     {

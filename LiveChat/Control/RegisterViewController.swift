@@ -6,8 +6,10 @@
 //
 
 import UIKit
+import Firebase
+import FirebaseAuth
 
-class RegisterViewController: UIViewController
+class RegisterViewController: UIViewController,UITextFieldDelegate
 {
     let registerView = RegisterView()
     
@@ -19,5 +21,34 @@ class RegisterViewController: UIViewController
     override func loadView()
     {
         self.view = registerView
+    }
+    
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?)
+    {
+        self.view.endEditing(true)
+    }
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool
+    {
+        textField.resignFirstResponder()
+        return true
+    }
+    
+    @objc func createAccountAction(_ sender: AnyObject)
+    {
+        if let account = registerView.accountTextField.text, let password = registerView.passwordTextField.text
+        {
+            FirebaseAuth.Auth.auth().createUser(withEmail: account, password: password, completion: {(user, error) in
+                
+                if error == nil
+                {
+                    self.navigationController?.popViewController(animated: true)
+                }
+                else
+                {
+                    print("error")
+                }
+            })
+        }
     }
 }

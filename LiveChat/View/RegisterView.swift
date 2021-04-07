@@ -47,7 +47,7 @@ class RegisterView: UIView
         button.setTitle("Register", for: .normal)
         button.setTitleColor(.systemBlue, for: .normal)
         button.setTitleColor(.black, for: .highlighted)
-        button.addTarget(self, action: #selector(HomepageViewController.signInSuccess), for: .touchUpInside)
+        button.addTarget(self, action: #selector(RegisterViewController.createAccountAction(_:)), for: .touchUpInside)
         return button
     }()
     

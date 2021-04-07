@@ -40,6 +40,7 @@ class HomePageView: UIView
         field.clearButtonMode = .whileEditing
         field.keyboardType = .emailAddress
         field.placeholder = " password"
+        field.isSecureTextEntry = true
         return field
     }()
     
@@ -49,7 +50,7 @@ class HomePageView: UIView
         button.setTitle("Sign In", for: .normal)
         button.setTitleColor(.systemBlue, for: .normal)
         button.setTitleColor(.black, for: .highlighted)
-        button.addTarget(self, action: #selector(HomepageViewController.signInSuccess), for: .touchUpInside)
+        button.addTarget(self, action: #selector(HomepageViewController.signInAction), for: .touchUpInside)
         return button
     }()
     
@@ -59,7 +60,8 @@ class HomePageView: UIView
         button.setTitle("Forget Password?", for: .normal)
         button.setTitleColor(.systemBlue, for: .normal)
         button.setTitleColor(.black, for: .highlighted)
-        button.addTarget(self, action: #selector(HomepageViewController.signInSuccess), for: .touchUpInside)
+        button.tag = 0
+        button.addTarget(self, action: #selector(HomepageViewController.forgetPassword(sender:)), for: .touchUpInside)
         return button
     }()
     

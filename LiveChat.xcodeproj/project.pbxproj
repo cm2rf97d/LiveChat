@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2793C1B5261C9EEF000262CE /* TestViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2793C1B4261C9EEF000262CE /* TestViewController.swift */; };
+		2793C1B8261C9F22000262CE /* TestView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2793C1B7261C9F22000262CE /* TestView.swift */; };
 		27EDF9A0261C07CE00ADFDA6 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27EDF99F261C07CE00ADFDA6 /* AppDelegate.swift */; };
 		27EDF9A2261C07CE00ADFDA6 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27EDF9A1261C07CE00ADFDA6 /* SceneDelegate.swift */; };
 		27EDF9A9261C07CF00ADFDA6 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 27EDF9A8261C07CF00ADFDA6 /* Assets.xcassets */; };
@@ -16,9 +18,13 @@
 		27EDF9C4261C1A4A00ADFDA6 /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = 27EDF9C3261C1A4A00ADFDA6 /* SnapKit */; };
 		27EDF9D3261C50E200ADFDA6 /* RegisterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27EDF9D2261C50E200ADFDA6 /* RegisterView.swift */; };
 		27EDF9D6261C50F100ADFDA6 /* RegisterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27EDF9D5261C50F100ADFDA6 /* RegisterViewController.swift */; };
+		27EDF9DB261C5D2200ADFDA6 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 27EDF9DA261C5D2200ADFDA6 /* GoogleService-Info.plist */; };
+		B9A7A201EA07989C0845055E /* Pods_LiveChat.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F19046B1905EEF71907EDDBE /* Pods_LiveChat.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		2793C1B4261C9EEF000262CE /* TestViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestViewController.swift; sourceTree = "<group>"; };
+		2793C1B7261C9F22000262CE /* TestView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestView.swift; sourceTree = "<group>"; };
 		27EDF99C261C07CE00ADFDA6 /* LiveChat.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LiveChat.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		27EDF99F261C07CE00ADFDA6 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		27EDF9A1261C07CE00ADFDA6 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -29,6 +35,10 @@
 		27EDF9BC261C100B00ADFDA6 /* HomePageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomePageView.swift; sourceTree = "<group>"; };
 		27EDF9D2261C50E200ADFDA6 /* RegisterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterView.swift; sourceTree = "<group>"; };
 		27EDF9D5261C50F100ADFDA6 /* RegisterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterViewController.swift; sourceTree = "<group>"; };
+		27EDF9DA261C5D2200ADFDA6 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		55CCBDF0B6C612070F02E9C2 /* Pods-LiveChat.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LiveChat.release.xcconfig"; path = "Target Support Files/Pods-LiveChat/Pods-LiveChat.release.xcconfig"; sourceTree = "<group>"; };
+		C2E78282F940B29F98F38EA7 /* Pods-LiveChat.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LiveChat.debug.xcconfig"; path = "Target Support Files/Pods-LiveChat/Pods-LiveChat.debug.xcconfig"; sourceTree = "<group>"; };
+		F19046B1905EEF71907EDDBE /* Pods_LiveChat.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_LiveChat.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -37,6 +47,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				27EDF9C4261C1A4A00ADFDA6 /* SnapKit in Frameworks */,
+				B9A7A201EA07989C0845055E /* Pods_LiveChat.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -48,6 +59,8 @@
 			children = (
 				27EDF99E261C07CE00ADFDA6 /* LiveChat */,
 				27EDF99D261C07CE00ADFDA6 /* Products */,
+				74801D0A87DA1DA12CC7CB8A /* Pods */,
+				46D0AEC052191FCA7C76D5AF /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -67,6 +80,7 @@
 				27EDF9A8261C07CF00ADFDA6 /* Assets.xcassets */,
 				27EDF9AA261C07CF00ADFDA6 /* LaunchScreen.storyboard */,
 				27EDF9AD261C07CF00ADFDA6 /* Info.plist */,
+				27EDF9DA261C5D2200ADFDA6 /* GoogleService-Info.plist */,
 				27EDF9B6261C0DA900ADFDA6 /* Model */,
 				27EDF9B5261C0DA100ADFDA6 /* View */,
 				27EDF9B4261C0D9800ADFDA6 /* Control */,
@@ -79,6 +93,7 @@
 			children = (
 				27EDF9B9261C0FEF00ADFDA6 /* HomepageViewController.swift */,
 				27EDF9D5261C50F100ADFDA6 /* RegisterViewController.swift */,
+				2793C1B4261C9EEF000262CE /* TestViewController.swift */,
 			);
 			path = Control;
 			sourceTree = "<group>";
@@ -88,6 +103,7 @@
 			children = (
 				27EDF9BC261C100B00ADFDA6 /* HomePageView.swift */,
 				27EDF9D2261C50E200ADFDA6 /* RegisterView.swift */,
+				2793C1B7261C9F22000262CE /* TestView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -99,6 +115,23 @@
 			path = Model;
 			sourceTree = "<group>";
 		};
+		46D0AEC052191FCA7C76D5AF /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				F19046B1905EEF71907EDDBE /* Pods_LiveChat.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		74801D0A87DA1DA12CC7CB8A /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				C2E78282F940B29F98F38EA7 /* Pods-LiveChat.debug.xcconfig */,
+				55CCBDF0B6C612070F02E9C2 /* Pods-LiveChat.release.xcconfig */,
+			);
+			path = Pods;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -106,9 +139,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 27EDF9B0261C07CF00ADFDA6 /* Build configuration list for PBXNativeTarget "LiveChat" */;
 			buildPhases = (
+				EEA27F2C3ED8BCE65A892433 /* [CP] Check Pods Manifest.lock */,
 				27EDF998261C07CE00ADFDA6 /* Sources */,
 				27EDF999261C07CE00ADFDA6 /* Frameworks */,
 				27EDF99A261C07CE00ADFDA6 /* Resources */,
+				7AEAFDE7811F769903F47EA5 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -164,19 +199,64 @@
 			files = (
 				27EDF9AC261C07CF00ADFDA6 /* LaunchScreen.storyboard in Resources */,
 				27EDF9A9261C07CF00ADFDA6 /* Assets.xcassets in Resources */,
+				27EDF9DB261C5D2200ADFDA6 /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		7AEAFDE7811F769903F47EA5 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-LiveChat/Pods-LiveChat-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-LiveChat/Pods-LiveChat-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-LiveChat/Pods-LiveChat-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		EEA27F2C3ED8BCE65A892433 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-LiveChat-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		27EDF998261C07CE00ADFDA6 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2793C1B5261C9EEF000262CE /* TestViewController.swift in Sources */,
 				27EDF9A0261C07CE00ADFDA6 /* AppDelegate.swift in Sources */,
 				27EDF9D3261C50E200ADFDA6 /* RegisterView.swift in Sources */,
 				27EDF9A2261C07CE00ADFDA6 /* SceneDelegate.swift in Sources */,
+				2793C1B8261C9F22000262CE /* TestView.swift in Sources */,
 				27EDF9D6261C50F100ADFDA6 /* RegisterViewController.swift in Sources */,
 				27EDF9BD261C100B00ADFDA6 /* HomePageView.swift in Sources */,
 				27EDF9BA261C0FEF00ADFDA6 /* HomepageViewController.swift in Sources */,
@@ -315,6 +395,7 @@
 		};
 		27EDF9B1261C07CF00ADFDA6 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = C2E78282F940B29F98F38EA7 /* Pods-LiveChat.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -334,6 +415,7 @@
 		};
 		27EDF9B2261C07CF00ADFDA6 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 55CCBDF0B6C612070F02E9C2 /* Pods-LiveChat.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
