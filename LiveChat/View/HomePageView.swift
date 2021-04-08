@@ -29,6 +29,7 @@ class HomePageView: UIView
         field.clearButtonMode = .whileEditing
         field.keyboardType = .emailAddress
         field.placeholder = " account"
+        field.text = "123456@qwer.com"
         return field
     }()
     
@@ -40,6 +41,7 @@ class HomePageView: UIView
         field.clearButtonMode = .whileEditing
         field.keyboardType = .emailAddress
         field.placeholder = " password"
+        field.text = "123456"
         field.isSecureTextEntry = true
         return field
     }()
