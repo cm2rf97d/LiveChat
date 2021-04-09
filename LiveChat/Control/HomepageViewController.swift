@@ -65,7 +65,15 @@ class HomepageViewController: UIViewController,UITextFieldDelegate
                 if error == nil
                 {
                     let vc = ChatroomVC()
-                    self.navigationController?.pushViewController(vc, animated: true)
+                    let profileVC = ProfileViewController()
+                    let friendsVC = FriendsViewController()
+                    vc.tabBarItem.image = UIImage(systemName: "message.fill")
+                    profileVC.tabBarItem.image = UIImage(systemName: "person.fill")
+                    friendsVC.tabBarItem.image = UIImage(systemName: "person.3.fill")
+                    let tabbarControl = UITabBarController()
+                    tabbarControl.viewControllers = [vc, profileVC, friendsVC]
+                    
+                    self.navigationController?.pushViewController(tabbarControl, animated: true)
                 }
                 else
                 {
