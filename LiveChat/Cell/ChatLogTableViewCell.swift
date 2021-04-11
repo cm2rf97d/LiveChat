@@ -13,28 +13,41 @@ class ChatLogTableViewCell: UITableViewCell {
     
     static let identifier = "ChatLogCel"
     
+    var isIncoming: Bool! {
+        didSet {
+            bubleView.backgroundColor = isIncoming ? .white : .systemBlue
+            myTextlabel.textColor = isIncoming ? .black : .white
+            myTextlabel.snp.remakeConstraints { (make) in
+                isIncoming ? make.left.equalTo(self).offset(32) :make.right.equalTo(self).offset(-32)
+                make.top.equalTo(self).offset(32)
+                make.bottom.equalTo(self).offset(-32)
+                make.width.lessThanOrEqualTo(250)
+            }
+        }
+    }
     //MARK: - IBOutlets
     
     let myTextlabel: UILabel = {
         let label = UILabel()
-        label.textAlignment = .right
         label.font = UIFont.systemFont(ofSize: 20)
         return label
     }()
     
-    let yourTextlabel: UILabel = {
-        let label = UILabel()
-        label.textAlignment = .left
-        label.font = UIFont.systemFont(ofSize: 20)
-        return label
+    let bubleView: UIView = {
+        let view = UIView()
+        view.backgroundColor = .systemBlue
+        view.layer.cornerRadius = 20
+        return view
     }()
     
     //MARK: - Init
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
+        backgroundColor = .clear
+        addSubview(bubleView)
         addSubview(myTextlabel)
-        addSubview(yourTextlabel)
+        setLayout()
     }
     
     required init?(coder: NSCoder) {
@@ -43,17 +56,19 @@ class ChatLogTableViewCell: UITableViewCell {
     
     //MARK: - Set Layouts
     
-    override func layoutSubviews() {
+    func setLayout() {
         myTextlabel.snp.makeConstraints { (make) in
-            make.right.equalTo(self).offset(-8)
-            make.centerY.height.equalTo(self)
-            make.width.equalTo(300)
+            make.right.equalTo(self).offset(-32)
+            make.top.equalTo(self).offset(32)
+            make.bottom.equalTo(self).offset(-32)
+            make.width.lessThanOrEqualTo(250)
         }
         
-        yourTextlabel.snp.makeConstraints { (make) in
-            make.left.equalTo(self).offset(+8)
-            make.centerY.height.equalTo(self)
-            make.width.equalTo(300)
+        bubleView.snp.makeConstraints { (make) in
+            make.right.equalTo(myTextlabel).offset(16)
+            make.top.equalTo(myTextlabel).offset(-16)
+            make.bottom.equalTo(myTextlabel).offset(16)
+            make.left.equalTo(myTextlabel).offset(-16)
         }
         
     }

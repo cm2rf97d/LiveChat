@@ -30,7 +30,6 @@ class ChatLogVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         view = chatLogView
-        view.backgroundColor = .white
         chatLogView.myTableView.delegate = self
         chatLogView.myTableView.dataSource = self
         chatLogView.myTextField.delegate = self
@@ -73,7 +72,6 @@ class ChatLogVC: UIViewController {
             }
         
         }
-    
     }
 
     //MARK: - UITableViewDelegate, UITableViewDataSource
@@ -85,14 +83,16 @@ extension ChatLogVC: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath:IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier:ChatLogTableViewCell.identifier, for: indexPath) as?ChatLogTableViewCell else { return UITableViewCell() }
-            
+        guard let cell = tableView.dequeueReusableCell(withIdentifier:ChatLogTableViewCell.identifier, for: indexPath) as? ChatLogTableViewCell else { return UITableViewCell() }
         if userID == userIDs[indexPath.row] {
-            cell.myTextlabel.text = someonesMessages[indexPath.row]
+            cell.isIncoming = false
         }else{
-            cell.yourTextlabel.text = someonesMessages[indexPath.row]
+            cell.isIncoming = true
         }
-
+        cell.myTextlabel.text = someonesMessages[indexPath.row]
+        cell.myTextlabel.numberOfLines = 0
+        
+        
         return cell
     }
         

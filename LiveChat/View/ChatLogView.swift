@@ -15,13 +15,14 @@ class ChatLogView: UIView {
         let tv = UITableView()
         tv.register(ChatLogTableViewCell.self,forCellReuseIdentifier: ChatLogTableViewCell.identifier)
         tv.separatorStyle = .none
-        tv.rowHeight = 50
+        tv.backgroundColor = .clear
         return tv
     }()
     
     let myTextField: UITextField = {
         let tf = UITextField()
         tf.placeholder = "Enter..."
+        tf.backgroundColor = .clear
         return tf
     }()
     
@@ -51,6 +52,7 @@ class ChatLogView: UIView {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
+        backgroundColor = #colorLiteral(red: 0.8039215803, green: 0.8039215803, blue: 0.8039215803, alpha: 1)
         addSubview(myTableView)
         addSubview(bottomView)
     }
