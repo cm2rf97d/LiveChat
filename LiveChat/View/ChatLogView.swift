@@ -15,7 +15,11 @@ class ChatLogView: UIView {
         let tv = UITableView()
         tv.register(ChatLogTableViewCell.self,forCellReuseIdentifier: ChatLogTableViewCell.identifier)
         tv.separatorStyle = .none
-        tv.rowHeight = 50
+//        tv.estimatedRowHeight = 90
+        tv.rowHeight = UITableView.automaticDimension
+//        tv.estimatedRowHeight = UITableView.automaticDimension
+        
+        
         return tv
     }()
     
@@ -53,6 +57,7 @@ class ChatLogView: UIView {
         super.init(frame: frame)
         addSubview(myTableView)
         addSubview(bottomView)
+        layouts()
     }
     
     required init?(coder: NSCoder) {
@@ -60,7 +65,7 @@ class ChatLogView: UIView {
     }
         
     //MARK: - Set Layouts
-    override func layoutSubviews() {
+    func layouts(){
         myTableView.snp.makeConstraints { (make) in
             make.width.centerX.equalTo(self)
             make.bottom.equalTo(bottomView.snp.top)

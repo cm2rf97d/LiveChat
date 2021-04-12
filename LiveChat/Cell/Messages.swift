@@ -7,10 +7,10 @@
 
 import UIKit
 
-class Messages: NSObject {
+struct Messages {
     
+    var id: String?
     var text: String?
     var time: Date?
-    var id: String?
     
 }
