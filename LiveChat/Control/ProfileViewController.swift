@@ -7,7 +7,7 @@
 
 import UIKit
 
-class ProfileViewController: UIViewController, UIGestureRecognizerDelegate {
+class ProfileViewController: UIViewController {
 
     
     //MARK: - Properties
@@ -15,7 +15,9 @@ class ProfileViewController: UIViewController, UIGestureRecognizerDelegate {
     let profileView = ProfileView()
     let mySections: [MySections] = [.profileImage, .profile]
     var profileInfo = ["id", "name"]
-    let imageTouch = UITapGestureRecognizer(target: self, action: #selector(changeImg))
+    var profileOrBackgroundImg: ProfileOrBackgroundImg = .profile
+    var profileImage: UIImage?
+    var backgroundImage: UIImage?
     
     //MARK: - Life Cycle
     
@@ -24,22 +26,33 @@ class ProfileViewController: UIViewController, UIGestureRecognizerDelegate {
         view = profileView
         profileView.myTableView.delegate = self
         profileView.myTableView.dataSource = self
-//        imageTouch.delegate = self
     }
     
     //MARK: - Functions
     
     
     @objc func changeImg() {
-        print("test")
+        let ImagePicker = UIImagePickerController()
+        ImagePicker.sourceType = .photoLibrary
+        ImagePicker.delegate = self
+        ImagePicker.allowsEditing = true
+        self.present(ImagePicker, animated: true, completion: nil)
     }
     
 }
 
-//MARK: - TableView Sections
+//MARK: - Enums
+
+//MARK: TableView Sections
 
 enum MySections {
     case profileImage, profile
+}
+
+//MARK: ProfileOrBackgroundImg
+
+enum ProfileOrBackgroundImg {
+    case profile, background
 }
 
 //MARK: - UITableViewDelegate, UITableViewDataSource
@@ -64,10 +77,16 @@ extension ProfileViewController: UITableViewDelegate, UITableViewDataSource {
         switch mySections[indexPath.section] {
         case .profileImage:
             guard let cell = tableView.dequeueReusableCell(withIdentifier: ProfileImageTableViewCell.identifier, for: indexPath) as? ProfileImageTableViewCell else { return UITableViewCell()}
-            
-//            cell.profileBtn.addTarget(self, action: #selector(changeImg), for: .touchUpInside)
-//            cell.profileImg.addGestureRecognizer(imageTouch)
-            
+            cell.tapProfileImgAction = {
+                self.profileOrBackgroundImg = .profile
+                self.changeImg()
+            }
+            cell.tapbackgroundImgAction = {
+                self.profileOrBackgroundImg = .background
+                self.changeImg()
+            }
+            cell.profileImg.image = self.profileImage
+            cell.topBackgroundView.image = self.backgroundImage
             return cell
         case .profile:
             guard let cell = tableView.dequeueReusableCell(withIdentifier: ProfileInfoTableViewCell.identifier, for: indexPath) as? ProfileInfoTableViewCell else { return UITableViewCell()}
@@ -92,3 +111,24 @@ extension ProfileViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
 }
+
+extension ProfileViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+    
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+        
+        if let image = info[UIImagePickerController.InfoKey(rawValue: "UIImagePickerControllerEditedImage")] as? UIImage {
+            
+            if profileOrBackgroundImg == .profile {
+                self.profileImage = image
+            }else{
+                self.backgroundImage = image
+            }
+            
+            dismiss(animated: true, completion: nil)
+            profileView.myTableView.reloadData()
+            
+        }
+    }
+    
+}
+

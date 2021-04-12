@@ -24,6 +24,7 @@ class ProfileView: UIView {
     override init(frame: CGRect) {
         super.init(frame: frame)
         addSubview(myTableView)
+        layouts()
     }
     
     required init?(coder: NSCoder) {
@@ -32,7 +33,7 @@ class ProfileView: UIView {
     
     //MARK: - Set Layouts
     
-    override func layoutSubviews() {
+    func layouts() {
         
         myTableView.snp.makeConstraints { (make) in
             make.top.bottom.equalTo(self.safeAreaInsets)

@@ -16,7 +16,7 @@ class ChatLogVC: UIViewController {
     
     var chatName = ""
     let chatLogView = ChatLogView()
-    var someonesMessages = [String]() {
+    var messages = [String]() {
         didSet{
             chatLogView.myTableView.reloadData()
         }
@@ -24,6 +24,7 @@ class ChatLogVC: UIViewController {
     
     var userIDs = [String]()
     var userID: String?
+    var message = Messages()
     
     // MARK: - Lifecycle
     
@@ -48,7 +49,7 @@ class ChatLogVC: UIViewController {
         let ref = Database.database().reference().child("\(chatName)")
         let childRef = ref.childByAutoId()
         if let text = chatLogView.myTextField.text {
-            let values = ["text": text, "id": userID!, "time": timeStamp] as [String : Any]
+            let values = ["id": userID!, "text": text, "time": timeStamp] as [String : Any]
             childRef.updateChildValues(values)
             
             }
@@ -61,9 +62,11 @@ class ChatLogVC: UIViewController {
             ref.observe(.childAdded) { (snapshot) in
                 
                 if let dictionary = snapshot.value as? [String: AnyObject] {
+                    
                     if let id = dictionary["id"] as? String, let text = dictionary["text"] as? String {
-                        print(text)
-                        self.someonesMessages.append(text)
+//                        self.message.id = id
+//                        self.message.text = text
+                        self.messages.append(text)
                         self.userIDs.append(id)
                     }
                     
@@ -79,15 +82,25 @@ class ChatLogVC: UIViewController {
 extension ChatLogVC: UITableViewDelegate, UITableViewDataSource {
         
     func tableView(_ tableView: UITableView, numberOfRowsInSection numberOfRowsInSectionsection: Int) -> Int {
-        someonesMessages.count
+        messages.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath:IndexPath) -> UITableViewCell {
+<<<<<<< HEAD
         guard let cell = tableView.dequeueReusableCell(withIdentifier:ChatLogTableViewCell.identifier, for: indexPath) as? ChatLogTableViewCell else { return UITableViewCell() }
         if userID == userIDs[indexPath.row] {
             cell.isIncoming = false
         }else{
             cell.isIncoming = true
+=======
+        guard let cell = tableView.dequeueReusableCell(withIdentifier:ChatLogTableViewCell.identifier, for: indexPath) as?ChatLogTableViewCell else { return UITableViewCell() }
+        
+        if userID == userIDs[indexPath.row] {
+            cell.myTextlabel.text = messages[indexPath.row]
+        }else{
+            cell.yourTextlabel.text = messages[indexPath.row]
+            cell.yourID.text = userIDs[indexPath.row]
+>>>>>>> Mark-Feature1
         }
         cell.myTextlabel.text = someonesMessages[indexPath.row]
         cell.myTextlabel.numberOfLines = 0
@@ -95,7 +108,9 @@ extension ChatLogVC: UITableViewDelegate, UITableViewDataSource {
         
         return cell
     }
-        
+//    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+//        return UITableView.automaticDimension
+//    }
         
         
     }
