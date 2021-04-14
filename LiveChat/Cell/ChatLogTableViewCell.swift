@@ -60,6 +60,8 @@ class ChatLogTableViewCell: UITableViewCell {
         image.layer.cornerRadius = 15
         image.backgroundColor = .systemBlue
         return image
+    }()
+    
     let bubleView: UIView = {
         let view = UIView()
         view.backgroundColor = .systemBlue
@@ -114,6 +116,8 @@ class ChatLogTableViewCell: UITableViewCell {
             make.top.equalTo(myTextlabel).offset(-16)
             make.bottom.equalTo(myTextlabel).offset(16)
             make.left.equalTo(myTextlabel).offset(-16)
+        }
+        
         yourTextlabel.snp.makeConstraints { (make) in
             make.left.equalTo(self).offset(+8)
             make.top.equalTo(yourID.snp.bottom)
@@ -122,6 +126,4 @@ class ChatLogTableViewCell: UITableViewCell {
         }
         
     }
-    
-
 }

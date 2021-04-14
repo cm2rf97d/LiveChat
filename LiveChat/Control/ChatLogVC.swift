@@ -31,6 +31,7 @@ class ChatLogVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         view = chatLogView
+        view.backgroundColor = .white
         chatLogView.myTableView.delegate = self
         chatLogView.myTableView.dataSource = self
         chatLogView.myTextField.delegate = self
@@ -60,9 +61,7 @@ class ChatLogVC: UIViewController {
         let ref = Database.database().reference().child("\(chatName)")
         
             ref.observe(.childAdded) { (snapshot) in
-                
                 if let dictionary = snapshot.value as? [String: AnyObject] {
-                    
                     if let id = dictionary["id"] as? String, let text = dictionary["text"] as? String {
 //                        self.message.id = id
 //                        self.message.text = text
@@ -86,34 +85,28 @@ extension ChatLogVC: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath:IndexPath) -> UITableViewCell {
-<<<<<<< HEAD
         guard let cell = tableView.dequeueReusableCell(withIdentifier:ChatLogTableViewCell.identifier, for: indexPath) as? ChatLogTableViewCell else { return UITableViewCell() }
         if userID == userIDs[indexPath.row] {
             cell.isIncoming = false
         }else{
             cell.isIncoming = true
-=======
-        guard let cell = tableView.dequeueReusableCell(withIdentifier:ChatLogTableViewCell.identifier, for: indexPath) as?ChatLogTableViewCell else { return UITableViewCell() }
-        
-        if userID == userIDs[indexPath.row] {
-            cell.myTextlabel.text = messages[indexPath.row]
-        }else{
-            cell.yourTextlabel.text = messages[indexPath.row]
-            cell.yourID.text = userIDs[indexPath.row]
->>>>>>> Mark-Feature1
         }
-        cell.myTextlabel.text = someonesMessages[indexPath.row]
+        
+//        guard let cell = tableView.dequeueReusableCell(withIdentifier:ChatLogTableViewCell.identifier, for: indexPath) as?ChatLogTableViewCell else { return UITableViewCell() }
+        
+//        if userID == userIDs[indexPath.row] {
+//            cell.myTextlabel.text = messages[indexPath.row]
+//        }else{
+//            cell.yourTextlabel.text = messages[indexPath.row]
+//            cell.yourID.text = userIDs[indexPath.row]
+//        }
+        cell.myTextlabel.text = messages[indexPath.row]
         cell.myTextlabel.numberOfLines = 0
         
         
         return cell
     }
-//    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-//        return UITableView.automaticDimension
-//    }
-        
-        
-    }
+}
 
 extension ChatLogVC: UITextFieldDelegate {
         
