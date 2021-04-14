@@ -19,7 +19,7 @@ class ProfileImageTableViewCell: UITableViewCell {
     
     let profileImg: UIImageView = {
         let iv = UIImageView()
-        iv.backgroundColor = .green
+        iv.backgroundColor = .black
         iv.layer.cornerRadius = 50
         iv.clipsToBounds = true
         iv.isUserInteractionEnabled = true
@@ -28,7 +28,7 @@ class ProfileImageTableViewCell: UITableViewCell {
     
     lazy var topBackgroundView: UIImageView = {
         let view = UIImageView()
-        view.backgroundColor = .brown
+        view.backgroundColor = .black
         view.isUserInteractionEnabled = true
         view.addSubview(profileImg)
         return view

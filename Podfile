@@ -10,4 +10,7 @@ target 'LiveChat' do
   pod 'Firebase/Auth'
   pod 'Firebase/Analytics'
   pod 'Firebase/Database'
+  pod 'Firebase/Messaging'
+  pod 'Firebase/Firestore'
+  pod 'Firebase/Storage'
 end

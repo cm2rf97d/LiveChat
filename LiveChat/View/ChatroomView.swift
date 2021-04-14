@@ -13,6 +13,7 @@ class ChatroomView: UIView
         var chatTableView: UITableView = {
             let tableView = UITableView()
             tableView.register(ChatroomTVCell.self, forCellReuseIdentifier: ChatroomTVCell.chatCellID)
+            tableView.register(ChatroomBannerCell.self, forCellReuseIdentifier: ChatroomBannerCell.identifier)
             tableView.rowHeight = 60
             return tableView
         }()
