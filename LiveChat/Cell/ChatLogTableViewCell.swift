@@ -12,14 +12,16 @@ class ChatLogTableViewCell: UITableViewCell {
     //MARK: - Properties
     
     static let identifier = "ChatLogCell"
+    let chatLogView = ChatLogView()
     
     var isIncoming: Bool! {
         didSet {
             bubleView.backgroundColor = isIncoming ? .white : .systemBlue
             myTextlabel.textColor = isIncoming ? .black : .white
+            
             myTextlabel.snp.remakeConstraints { (make) in
-                isIncoming ? make.left.equalTo(self).offset(32) : make.right.equalTo(self).offset(-32)
-                make.top.equalTo(self).offset(32)
+                isIncoming ? make.left.equalTo(self).offset(50) : make.right.equalTo(self).offset(-32)
+                make.top.equalTo(self).offset(55)
                 make.bottom.equalTo(self).offset(-32)
                 make.width.lessThanOrEqualTo(250)
             }
@@ -29,42 +31,31 @@ class ChatLogTableViewCell: UITableViewCell {
     
     let myTextlabel: UILabel = {
         let label = UILabel()
-        label.textAlignment = .right
-        label.font = UIFont.systemFont(ofSize: 30)
+        label.textAlignment = .left
+        label.font = UIFont.systemFont(ofSize: 20)
         label.numberOfLines = 0
         label.lineBreakMode = .byCharWrapping
         return label
     }()
     
-//    let yourTextlabel: UILabel = {
-//        let label = UILabel()
-//        label.textAlignment = .left
-//        label.font = UIFont.systemFont(ofSize: 30)
-//        label.numberOfLines = 0
-//        label.lineBreakMode = .byCharWrapping
-//        return label
-//    }()
-    
     let bubleView: UIView = {
         let view = UIView()
         view.backgroundColor = .systemBlue
-        view.layer.cornerRadius = 20
+        view.layer.cornerRadius = 15
         return view
     }()
     
-    let yourID: UILabel = {
+    var yourID: UILabel = {
         let label = UILabel()
-        label.textAlignment = .left
         label.font = UIFont.systemFont(ofSize: 15)
         label.numberOfLines = 0
         label.lineBreakMode = .byCharWrapping
         return label
     }()
     
-    let yourProfileImage: UIImageView = {
+    var yourProfileImage: UIImageView = {
         let image = UIImageView()
         image.layer.cornerRadius = 15
-        image.backgroundColor = .systemBlue
         return image
     }()
     
@@ -75,7 +66,6 @@ class ChatLogTableViewCell: UITableViewCell {
         backgroundColor = .clear
         addSubview(bubleView)
         addSubview(myTextlabel)
-//        addSubview(yourTextlabel)
         addSubview(yourID)
         addSubview(yourProfileImage)
         layouts()
@@ -88,12 +78,12 @@ class ChatLogTableViewCell: UITableViewCell {
     //MARK: - Set Layouts
     
     func layouts() {
-        myTextlabel.snp.makeConstraints { (make) in
-            make.right.equalTo(self).offset(-32)
-            make.top.equalTo(self).offset(32)
-            make.bottom.equalTo(self).offset(-32)
-            make.width.lessThanOrEqualTo(250)
-        }
+//        myTextlabel.snp.makeConstraints { (make) in
+//            make.right.equalTo(self).offset(-32)
+//            make.top.equalTo(self).offset(32)
+//            make.bottom.equalTo(self).offset(-32)
+//            make.width.lessThanOrEqualTo(250)
+//        }
         
         yourID.snp.makeConstraints { (make) in
             make.left.equalTo(yourProfileImage.snp.right).offset(+2)
@@ -105,28 +95,16 @@ class ChatLogTableViewCell: UITableViewCell {
         yourProfileImage.snp.makeConstraints { (make) in
             make.left.equalTo(self).offset(+8)
             make.top.equalTo(self).offset(+2)
-//            make.bottom.equalTo(yourTextlabel.snp.top).offset(+2)
             make.height.equalTo(30)
             make.width.equalTo(30)
         }
-        
-//        yourTextlabel.snp.makeConstraints { (make) in
-//            make.left.equalTo(self).offset(+8)
-//            make.top.equalTo(yourID.snp.bottom)
-//            make.bottom.equalTo(self)
-//            make.width.equalTo(300)
-//        }
             
         bubleView.snp.makeConstraints { (make) in
-            make.right.equalTo(myTextlabel).offset(16)
-            make.top.equalTo(myTextlabel).offset(-16)
-            make.bottom.equalTo(myTextlabel).offset(16)
-            make.left.equalTo(myTextlabel).offset(-16)
+            make.right.equalTo(myTextlabel).offset(15)
+            make.top.equalTo(myTextlabel).offset(-15)
+            make.bottom.equalTo(myTextlabel).offset(15)
+            make.left.equalTo(myTextlabel).offset(-15)
         }
-        
-        
-        
     }
     
-
 }

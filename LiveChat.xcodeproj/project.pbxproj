@@ -26,10 +26,10 @@
 		464B920D261FF6AA006AEEE2 /* ProfileInfoTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 464B920C261FF6AA006AEEE2 /* ProfileInfoTableViewCell.swift */; };
 		464B921026203228006AEEE2 /* FriendsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 464B920F26203228006AEEE2 /* FriendsView.swift */; };
 		464B921326203239006AEEE2 /* FriendsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 464B921226203239006AEEE2 /* FriendsViewController.swift */; };
-		464BB163261EB409007718CC /* ChatLogView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 464BB162261EB409007718CC /* ChatLogView.swift */; };
 		464BB167261EB48C007718CC /* ChatLogTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 464BB166261EB48C007718CC /* ChatLogTableViewCell.swift */; };
 		464BB16B261ECB83007718CC /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 464BB16A261ECB83007718CC /* User.swift */; };
 		464BB16E261ED9EE007718CC /* Messages.swift in Sources */ = {isa = PBXBuildFile; fileRef = 464BB16D261ED9EE007718CC /* Messages.swift */; };
+		D91DF32D26256FCF0010C1F5 /* ChatLogView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D91DF32C26256FCF0010C1F5 /* ChatLogView.swift */; };
 		D9FFBEE0261D8C4B00BF5841 /* ChatroomTVCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9FFBEDF261D8C4B00BF5841 /* ChatroomTVCell.swift */; };
 		D9FFBEE3261D8D0400BF5841 /* ChatLogVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9FFBEE2261D8D0400BF5841 /* ChatLogVC.swift */; };
 /* End PBXBuildFile section */
@@ -55,11 +55,11 @@
 		464B920C261FF6AA006AEEE2 /* ProfileInfoTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileInfoTableViewCell.swift; sourceTree = "<group>"; };
 		464B920F26203228006AEEE2 /* FriendsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendsView.swift; sourceTree = "<group>"; };
 		464B921226203239006AEEE2 /* FriendsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendsViewController.swift; sourceTree = "<group>"; };
-		464BB162261EB409007718CC /* ChatLogView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatLogView.swift; sourceTree = "<group>"; };
 		464BB166261EB48C007718CC /* ChatLogTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatLogTableViewCell.swift; sourceTree = "<group>"; };
 		464BB16A261ECB83007718CC /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = User.swift; path = LiveChat/Cell/User.swift; sourceTree = SOURCE_ROOT; };
 		464BB16D261ED9EE007718CC /* Messages.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Messages.swift; path = LiveChat/Cell/Messages.swift; sourceTree = SOURCE_ROOT; };
 		75BA6CAEE5669B5C55D7E0FD /* Pods-LiveChat.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LiveChat.release.xcconfig"; path = "Target Support Files/Pods-LiveChat/Pods-LiveChat.release.xcconfig"; sourceTree = "<group>"; };
+		D91DF32C26256FCF0010C1F5 /* ChatLogView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatLogView.swift; sourceTree = "<group>"; };
 		D9FFBEDF261D8C4B00BF5841 /* ChatroomTVCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatroomTVCell.swift; sourceTree = "<group>"; };
 		D9FFBEE2261D8D0400BF5841 /* ChatLogVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatLogVC.swift; sourceTree = "<group>"; };
 		FF6F764FE6249ABF44E4A984 /* Pods_LiveChat.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_LiveChat.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -132,7 +132,7 @@
 				27EDF9BC261C100B00ADFDA6 /* HomePageView.swift */,
 				27EDF9D2261C50E200ADFDA6 /* RegisterView.swift */,
 				2793C1B7261C9F22000262CE /* ChatroomView.swift */,
-				464BB162261EB409007718CC /* ChatLogView.swift */,
+				D91DF32C26256FCF0010C1F5 /* ChatLogView.swift */,
 				464B9203261FEDF2006AEEE2 /* ProfileView.swift */,
 				464B920F26203228006AEEE2 /* FriendsView.swift */,
 			);
@@ -300,7 +300,6 @@
 				2793C1B5261C9EEF000262CE /* ChatroomVC.swift in Sources */,
 				D9FFBEE3261D8D0400BF5841 /* ChatLogVC.swift in Sources */,
 				464BB16E261ED9EE007718CC /* Messages.swift in Sources */,
-				464BB163261EB409007718CC /* ChatLogView.swift in Sources */,
 				27EDF9A0261C07CE00ADFDA6 /* AppDelegate.swift in Sources */,
 				464B9207261FEE01006AEEE2 /* ProfileViewController.swift in Sources */,
 				27EDF9D3261C50E200ADFDA6 /* RegisterView.swift in Sources */,
@@ -309,6 +308,7 @@
 				2793C1B8261C9F22000262CE /* ChatroomView.swift in Sources */,
 				464B920A261FF34A006AEEE2 /* ProfileImageTableViewCell.swift in Sources */,
 				27EDF9D6261C50F100ADFDA6 /* RegisterViewController.swift in Sources */,
+				D91DF32D26256FCF0010C1F5 /* ChatLogView.swift in Sources */,
 				27EDF9BD261C100B00ADFDA6 /* HomePageView.swift in Sources */,
 				D9FFBEE0261D8C4B00BF5841 /* ChatroomTVCell.swift in Sources */,
 				464B921026203228006AEEE2 /* FriendsView.swift in Sources */,

@@ -1,8 +1,8 @@
 //
-//  ChatLogView.swift
+//  ChatLogView2.swift
 //  LiveChat
 //
-//  Created by Wang Sheng Ping on 2021/4/8.
+//  Created by 董恩志 on 2021/4/13.
 //
 
 import UIKit
@@ -10,7 +10,7 @@ import UIKit
 class ChatLogView: UIView {
 
     //MARK: - IBOutlets
-        
+            
     let myTableView: UITableView = {
         let tv = UITableView()
         tv.register(ChatLogTableViewCell.self,forCellReuseIdentifier: ChatLogTableViewCell.identifier)
@@ -46,6 +46,7 @@ class ChatLogView: UIView {
         bv.addSubview(myTextField)
         bv.addSubview(sendBtn)
         bv.addSubview(separatorLine)
+        
         return bv
     }()
     
@@ -66,33 +67,35 @@ class ChatLogView: UIView {
     //MARK: - Set Layouts
     func layouts(){
         myTableView.snp.makeConstraints { (make) in
-            make.width.centerX.equalTo(self)
+            make.left.right.top.equalTo(self)
             make.bottom.equalTo(bottomView.snp.top)
-            make.top.equalTo(self)
+//            make.bottom.equalTo(self)
         }
         
         bottomView.snp.makeConstraints { (make) in
             make.left.width.equalTo(self)
-            make.bottom.equalTo(self.safeAreaInsets)
-            make.height.equalTo(50)
+            make.bottom.equalTo(self)
+            make.height.equalTo(100)
         }
-        
+
         myTextField.snp.makeConstraints { (make) in
-            make.bottom.height.equalTo(bottomView)
+            make.top.equalTo(bottomView).multipliedBy(0.1)
             make.left.equalTo(bottomView).offset(+8)
-            make.right.equalTo(sendBtn.snp.left)
+            make.right.lessThanOrEqualTo(sendBtn.snp.left)
+            make.width.equalTo(bottomView).multipliedBy(0.8)
+            make.height.equalTo(bottomView).multipliedBy(0.5)
         }
-        
+
         sendBtn.snp.makeConstraints { (make) in
-            make.right.centerY.height.equalTo(bottomView)
-            make.width.equalTo(80)
+            make.right.equalTo(bottomView)
+            make.height.equalTo(bottomView).multipliedBy(0.5)
+            make.width.equalTo(bottomView).multipliedBy(0.2)
         }
-        
+
         separatorLine.snp.makeConstraints { (make) in
-            make.top.width.centerX.equalTo(bottomView)
+            make.top.width.equalTo(bottomView)
             make.height.equalTo(1)
         }
     }
-        
-    
 }
+
