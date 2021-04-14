@@ -8,6 +8,7 @@
 import UIKit
 import Firebase
 import FirebaseAuth
+import FirebaseDatabase
 
 class RegisterViewController: UIViewController,UITextFieldDelegate
 {
@@ -42,6 +43,13 @@ class RegisterViewController: UIViewController,UITextFieldDelegate
                 
                 if error == nil
                 {
+                    // Add User Information
+                    let userAccount = Database.database().reference().child("userAccount")
+                    let childUserAccount = userAccount.childByAutoId()
+                    if let account = self.registerView.accountTextField.text{
+                        let values = ["account": account] as [String : Any]
+                        childUserAccount.updateChildValues(values)
+                    }
                     self.navigationController?.popViewController(animated: true)
                 }
                 else
