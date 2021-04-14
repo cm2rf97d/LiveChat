@@ -6,6 +6,8 @@
 //
 
 import UIKit
+import FirebaseStorage
+import FirebaseAuth
 
 class ProfileViewController: UIViewController {
 
@@ -16,8 +18,17 @@ class ProfileViewController: UIViewController {
     let mySections: [MySections] = [.profileImage, .profile]
     var profileInfo = ["id", "name"]
     var profileOrBackgroundImg: ProfileOrBackgroundImg = .profile
-    var profileImage: UIImage?
-    var backgroundImage: UIImage?
+    var profileImage: UIImage? {
+        didSet{
+            profileView.myTableView.reloadData()
+        }
+    }
+    var backgroundImage: UIImage?  {
+        didSet{
+            profileView.myTableView.reloadData()
+        }
+    }
+    let userID = Auth.auth().currentUser?.uid
     
     //MARK: - Life Cycle
     
@@ -26,6 +37,7 @@ class ProfileViewController: UIViewController {
         view = profileView
         profileView.myTableView.delegate = self
         profileView.myTableView.dataSource = self
+        downloadImgs()
     }
     
     //MARK: - Functions
@@ -39,17 +51,71 @@ class ProfileViewController: UIViewController {
         self.present(ImagePicker, animated: true, completion: nil)
     }
     
+    func uploadImgs(image: UIImage) {
+        
+        let storageProfileImg =
+            Storage.storage().reference(withPath: "users/\(userID!)/profileImage.jpg")
+        let storageBackgroundImg =
+            Storage.storage().reference(withPath: "users/\(userID!)/backgroundImage.jpg")
+        
+        let uploadMetaData = StorageMetadata.init()
+        uploadMetaData.contentType = "image/jpeg"
+        
+        if profileOrBackgroundImg == .profile {
+            //upload profile image
+            guard let dataImg = image.jpegData(compressionQuality: 0.75) else { return }
+            storageProfileImg.putData(dataImg, metadata: uploadMetaData) { (data, error) in
+                if let error = error {
+                    print("Error: \(error)")
+                }else if let data = data {
+                    print("imgae url: \(data)")
+                }
+            }
+        }else if profileOrBackgroundImg == .background{
+            //upload background image
+            guard let backgroundDataImg = image.jpegData(compressionQuality: 0.75) else { return }
+            storageBackgroundImg.putData(backgroundDataImg, metadata: uploadMetaData) { (data, error) in
+                if let error = error {
+                    print("Error: \(error)")
+                }else if let data = data {
+                    print("imgae url: \(data)")
+                }
+            }
+        }
+        
+    }
+    
+    func downloadImgs() {
+        let downloadProfileImg = Storage.storage().reference(withPath: "users/\(userID!)/profileImage.jpg")
+        let downloadBackgroundImg = Storage.storage().reference(withPath: "users/\(userID!)/backgroundImage.jpg")
+        
+        downloadProfileImg.getData(maxSize: 1 * 1024 * 1024) { (data, error) in
+            if let error = error {
+                print("Error: \(error.localizedDescription)")
+            }else if let data = data{
+                self.profileImage = UIImage(data: data)
+            }
+        }
+        downloadBackgroundImg.getData(maxSize: 1 * 1024 * 1024) { (data, error) in
+            if let error = error {
+                print("Error: \(error.localizedDescription)")
+            }else if let data = data{
+                self.backgroundImage = UIImage(data: data)
+            }
+        }
+    }
+    
 }
 
 //MARK: - Enums
 
-//MARK: TableView Sections
+//TableView Sections
 
 enum MySections {
     case profileImage, profile
 }
 
-//MARK: ProfileOrBackgroundImg
+//ProfileOrBackgroundImg
 
 enum ProfileOrBackgroundImg {
     case profile, background
@@ -117,16 +183,13 @@ extension ProfileViewController: UIImagePickerControllerDelegate, UINavigationCo
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         
         if let image = info[UIImagePickerController.InfoKey(rawValue: "UIImagePickerControllerEditedImage")] as? UIImage {
-            
+            uploadImgs(image: image)
             if profileOrBackgroundImg == .profile {
                 self.profileImage = image
             }else{
                 self.backgroundImage = image
             }
-            
             dismiss(animated: true, completion: nil)
-            profileView.myTableView.reloadData()
-            
         }
     }
     

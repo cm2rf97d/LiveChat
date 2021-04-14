@@ -10,6 +10,7 @@ import Firebase
 import FirebaseAuth
 import FirebaseDatabase
 
+
 class ChatLogVC: UIViewController {
 
     // MARK: - Properties
@@ -64,8 +65,8 @@ class ChatLogVC: UIViewController {
                 if let dictionary = snapshot.value as? [String: AnyObject] {
                     
                     if let id = dictionary["id"] as? String, let text = dictionary["text"] as? String {
-//                        self.message.id = id
-//                        self.message.text = text
+                        self.message.id = id
+                        self.message.text = text
                         self.messages.append(text)
                         self.userIDs.append(id)
                     }
@@ -75,6 +76,24 @@ class ChatLogVC: UIViewController {
             }
         
         }
+    
+//    func test1() {
+//            let content = UNMutableNotificationContent()
+//        content.title = "\(String(describing: message.id))"
+//        content.body = "\(String(describing: message.text))"
+//        content.badge = 1
+//        content.sound = UNNotificationSound.default
+//
+//        let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 0.1, repeats: false)
+//
+//            let request = UNNotificationRequest(identifier: "notification", content: content, trigger: trigger)
+//
+//            UNUserNotificationCenter.current().add(request, withCompletionHandler: {error in
+//                print("成功建立通知...")
+//            })
+//
+//        }
+    
     }
 
     //MARK: - UITableViewDelegate, UITableViewDataSource
@@ -95,6 +114,7 @@ extension ChatLogVC: UITableViewDelegate, UITableViewDataSource {
         }else{
             cell.isIncoming = true
             cell.yourID.text = userIDs[indexPath.row]
+//            test1()
         }
         cell.myTextlabel.text = messages[indexPath.row]
         cell.myTextlabel.numberOfLines = 0

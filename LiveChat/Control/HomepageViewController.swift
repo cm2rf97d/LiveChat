@@ -71,8 +71,9 @@ class HomepageViewController: UIViewController,UITextFieldDelegate
                     profileVC.tabBarItem.image = UIImage(systemName: "person.fill")
                     friendsVC.tabBarItem.image = UIImage(systemName: "person.3.fill")
                     let tabbarControl = UITabBarController()
+                    tabbarControl.tabBar.barTintColor = .black
+                    tabbarControl.tabBar.tintColor = .white
                     tabbarControl.viewControllers = [vc, profileVC, friendsVC]
-                    
                     self.navigationController?.pushViewController(tabbarControl, animated: true)
                 }
                 else
