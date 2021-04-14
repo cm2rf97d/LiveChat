@@ -22,6 +22,12 @@ class ChatroomVC: UIViewController
         setNavigation()
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        tabBarController?.tabBar.isHidden = false
+    }
+    
     // MARK: - Methods
     func setNavigation() {
         self.navigationItem.title = "聊天室"
@@ -57,7 +63,9 @@ extension ChatroomVC : UITableViewDelegate,UITableViewDataSource {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let vc = ChatLogVC()
         vc.chatName = tests[indexPath.row]
+        tabBarController?.tabBar.isHidden = true
         navigationController?.pushViewController(vc, animated: true)
+        
     }
     
 }

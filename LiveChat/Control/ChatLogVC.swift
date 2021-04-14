@@ -47,7 +47,9 @@ class ChatLogVC: UIViewController {
     @objc func sendMsg() {
         let timeStamp = NSDate().timeIntervalSince1970
         let ref = Database.database().reference().child("\(chatName)")
+        print("ref = \(ref)")
         let childRef = ref.childByAutoId()
+        print("childRef = \(childRef)")
         if let text = chatLogView.myTextField.text {
             let values = ["id": userID!, "text": text, "time": timeStamp] as [String : Any]
             childRef.updateChildValues(values)
@@ -60,7 +62,6 @@ class ChatLogVC: UIViewController {
         let ref = Database.database().reference().child("\(chatName)")
         
             ref.observe(.childAdded) { (snapshot) in
-                
                 if let dictionary = snapshot.value as? [String: AnyObject] {
                     
                     if let id = dictionary["id"] as? String, let text = dictionary["text"] as? String {
@@ -101,9 +102,7 @@ extension ChatLogVC: UITableViewDelegate, UITableViewDataSource {
             
         return cell
     }
-        
-        
-    }
+}
 
 extension ChatLogVC: UITextFieldDelegate {
         
