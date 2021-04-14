@@ -30,6 +30,7 @@
 		464BB16B261ECB83007718CC /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 464BB16A261ECB83007718CC /* User.swift */; };
 		464BB16E261ED9EE007718CC /* Messages.swift in Sources */ = {isa = PBXBuildFile; fileRef = 464BB16D261ED9EE007718CC /* Messages.swift */; };
 		D91DF32D26256FCF0010C1F5 /* ChatLogView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D91DF32C26256FCF0010C1F5 /* ChatLogView.swift */; };
+		D9D5EFA32626D5CE000EC73C /* ScrollToEndpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9D5EFA22626D5CE000EC73C /* ScrollToEndpoint.swift */; };
 		D9FFBEE0261D8C4B00BF5841 /* ChatroomTVCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9FFBEDF261D8C4B00BF5841 /* ChatroomTVCell.swift */; };
 		D9FFBEE3261D8D0400BF5841 /* ChatLogVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9FFBEE2261D8D0400BF5841 /* ChatLogVC.swift */; };
 /* End PBXBuildFile section */
@@ -60,6 +61,7 @@
 		464BB16D261ED9EE007718CC /* Messages.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Messages.swift; path = LiveChat/Cell/Messages.swift; sourceTree = SOURCE_ROOT; };
 		75BA6CAEE5669B5C55D7E0FD /* Pods-LiveChat.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LiveChat.release.xcconfig"; path = "Target Support Files/Pods-LiveChat/Pods-LiveChat.release.xcconfig"; sourceTree = "<group>"; };
 		D91DF32C26256FCF0010C1F5 /* ChatLogView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatLogView.swift; sourceTree = "<group>"; };
+		D9D5EFA22626D5CE000EC73C /* ScrollToEndpoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScrollToEndpoint.swift; sourceTree = "<group>"; };
 		D9FFBEDF261D8C4B00BF5841 /* ChatroomTVCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatroomTVCell.swift; sourceTree = "<group>"; };
 		D9FFBEE2261D8D0400BF5841 /* ChatLogVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatLogVC.swift; sourceTree = "<group>"; };
 		FF6F764FE6249ABF44E4A984 /* Pods_LiveChat.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_LiveChat.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -109,6 +111,7 @@
 				27EDF9B5261C0DA100ADFDA6 /* View */,
 				464BB165261EB464007718CC /* Cell */,
 				27EDF9B4261C0D9800ADFDA6 /* Control */,
+				D9D5EFA52626D5EE000EC73C /* Method */,
 			);
 			path = LiveChat;
 			sourceTree = "<group>";
@@ -174,6 +177,14 @@
 				75BA6CAEE5669B5C55D7E0FD /* Pods-LiveChat.release.xcconfig */,
 			);
 			path = Pods;
+			sourceTree = "<group>";
+		};
+		D9D5EFA52626D5EE000EC73C /* Method */ = {
+			isa = PBXGroup;
+			children = (
+				D9D5EFA22626D5CE000EC73C /* ScrollToEndpoint.swift */,
+			);
+			path = Method;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -308,6 +319,7 @@
 				2793C1B8261C9F22000262CE /* ChatroomView.swift in Sources */,
 				464B920A261FF34A006AEEE2 /* ProfileImageTableViewCell.swift in Sources */,
 				27EDF9D6261C50F100ADFDA6 /* RegisterViewController.swift in Sources */,
+				D9D5EFA32626D5CE000EC73C /* ScrollToEndpoint.swift in Sources */,
 				D91DF32D26256FCF0010C1F5 /* ChatLogView.swift in Sources */,
 				27EDF9BD261C100B00ADFDA6 /* HomePageView.swift in Sources */,
 				D9FFBEE0261D8C4B00BF5841 /* ChatroomTVCell.swift in Sources */,
@@ -456,7 +468,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 5U9UNZJQWA;
+				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = LiveChat/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -476,7 +488,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 5U9UNZJQWA;
+				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = LiveChat/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",

@@ -11,7 +11,7 @@ class ChatLogView: UIView {
 
     //MARK: - IBOutlets
             
-    let myTableView: UITableView = {
+    let chatLogTableView: UITableView = {
         let tv = UITableView()
         tv.register(ChatLogTableViewCell.self,forCellReuseIdentifier: ChatLogTableViewCell.identifier)
         tv.separatorStyle = .none
@@ -20,17 +20,17 @@ class ChatLogView: UIView {
         return tv
     }()
     
-    let myTextField: UITextField = {
+    let inputTextField: UITextField = {
         let tf = UITextField()
         tf.placeholder = "Enter..."
         tf.backgroundColor = .clear
+        tf.borderStyle = .roundedRect
         return tf
     }()
     
     let sendBtn: UIButton = {
         let btn = UIButton(type: .system)
         btn.setTitle("Send", for: .normal)
-        btn.addTarget(self, action: #selector(ChatLogVC.sendMsg), for: .touchUpInside)
         return btn
     }()
     
@@ -39,13 +39,21 @@ class ChatLogView: UIView {
         sl.backgroundColor = .gray
         return sl
     }()
+    
+    let uploadImageView: UIImageView = {
+        let imageView = UIImageView()
+        imageView.image = UIImage(named: "imageIcon")
+        imageView.isUserInteractionEnabled = true
+        return imageView
+    }()
         
     lazy var bottomView: UIView = {
         let bv = UIView()
         bv.backgroundColor = .white
-        bv.addSubview(myTextField)
+        bv.addSubview(inputTextField)
         bv.addSubview(sendBtn)
         bv.addSubview(separatorLine)
+        bv.addSubview(uploadImageView)
         
         return bv
     }()
@@ -55,9 +63,11 @@ class ChatLogView: UIView {
     override init(frame: CGRect) {
         super.init(frame: frame)
         backgroundColor = #colorLiteral(red: 0.8039215803, green: 0.8039215803, blue: 0.8039215803, alpha: 1)
-        addSubview(myTableView)
+        addSubview(chatLogTableView)
         addSubview(bottomView)
         layouts()
+//        uploadImageView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(ChatLogVC.handleUpLoadTap)))
+//        sendBtn.addTarget(self, action: #selector(ChatLogVC.sendMsg), for: .touchUpInside)
     }
     
     required init?(coder: NSCoder) {
@@ -66,9 +76,13 @@ class ChatLogView: UIView {
         
     //MARK: - Set Layouts
     func layouts(){
-        myTableView.snp.makeConstraints { (make) in
-            make.left.right.top.equalTo(self)
-            make.bottom.equalTo(bottomView.snp.top)
+        chatLogTableView.snp.makeConstraints { (make) in
+//            make.left.right.top.equalTo(self)
+//            make.bottom.equalTo(bottomView.snp.top)
+            make.left.right.equalTo(self)
+            make.bottom.equalTo(bottomView.snp.top).offset(10)
+            make.top.equalTo(self).offset(100)
+            
 //            make.bottom.equalTo(self)
         }
         
@@ -78,11 +92,11 @@ class ChatLogView: UIView {
             make.height.equalTo(100)
         }
 
-        myTextField.snp.makeConstraints { (make) in
+        inputTextField.snp.makeConstraints { (make) in
             make.top.equalTo(bottomView).multipliedBy(0.1)
-            make.left.equalTo(bottomView).offset(+8)
-            make.right.lessThanOrEqualTo(sendBtn.snp.left)
-            make.width.equalTo(bottomView).multipliedBy(0.8)
+            make.left.equalTo(uploadImageView.snp.right).offset(10)
+            make.right.equalTo(sendBtn.snp.left)
+//            make.width.equalTo(bottomView).multipliedBy(0.7)
             make.height.equalTo(bottomView).multipliedBy(0.5)
         }
 
@@ -95,6 +109,13 @@ class ChatLogView: UIView {
         separatorLine.snp.makeConstraints { (make) in
             make.top.width.equalTo(bottomView)
             make.height.equalTo(1)
+        }
+        
+        uploadImageView.snp.makeConstraints { (make) in
+            make.top.equalTo(separatorLine.snp.bottom).offset(1)
+            make.left.equalTo(bottomView).offset(5)
+            make.height.equalTo(bottomView.snp.width).multipliedBy(0.08)
+            make.width.equalTo(bottomView).multipliedBy(0.08)
         }
     }
 }

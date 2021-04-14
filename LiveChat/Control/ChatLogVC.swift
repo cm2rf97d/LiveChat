@@ -16,9 +16,23 @@ class ChatLogVC: UIViewController {
     
     var chatName = ""
     let chatLogView = ChatLogView()
+    let chatLogCell = ChatLogTableViewCell()
     var messages = [String]() {
         didSet{
-            chatLogView.myTableView.reloadData()
+            chatLogView.chatLogTableView.reloadData()
+//            scrollToBottom()
+//            chatLogView.myTableView.scrollTo(direction: .bottom)
+        }
+    }
+    
+    var isIncoming: Bool! {
+        didSet {
+//            chatLogCell.yourID.isHidden = isIncoming ? false:true
+//            chatLogCell.yourProfileImage.isHidden = isIncoming ? false:true
+//            chatLogCell.yourTextlabel.isHidden = isIncoming ? false:true
+//            chatLogCell.yourbubleView.isHidden = isIncoming ? false:true
+//            chatLogCell.mybubleView.isHidden = isIncoming ? true:false
+//            chatLogCell.myTextlabel.isHidden = isIncoming ? true:false
         }
     }
     
@@ -31,16 +45,19 @@ class ChatLogVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         view = chatLogView
-        chatLogView.myTableView.delegate = self
-        chatLogView.myTableView.dataSource = self
-        chatLogView.myTextField.delegate = self
+        chatLogView.chatLogTableView.delegate = self
+        chatLogView.chatLogTableView.dataSource = self
+        chatLogView.inputTextField.delegate = self
         setNavigation()
         observeMsg()
         userID = Auth.auth().currentUser?.uid
         setupKeyboardObservers()
-        chatLogView.myTableView.keyboardDismissMode = .interactive
+        chatLogView.chatLogTableView.keyboardDismissMode = .interactive
         touchAnywhereToCloseKeyboard()
-       
+        //tableView 顛倒
+        chatLogView.chatLogTableView.transform = CGAffineTransform(scaleX: 1, y: -1)
+        touchToLoadImage()
+        chatLogView.sendBtn.addTarget(self, action: #selector(sendMessage), for: .touchUpInside)
     }
     
     override func viewDidDisappear(_ animated: Bool) {
@@ -61,9 +78,9 @@ class ChatLogVC: UIViewController {
         true
     }
     
-    override var canResignFirstResponder: Bool {
-        true
-    }
+//    override var canResignFirstResponder: Bool {
+//        true
+//    }
     
 //    lazy var inputContainerView: UIView = {
 //        let bview = UIView()
@@ -103,6 +120,8 @@ class ChatLogVC: UIViewController {
             make.height.equalTo(100)
         }
         
+//        chatLogView.chatLogTableView.scrollTo(direction: .bottom)
+        
         let keyboardDuration = notification.userInfo? [UIResponder.keyboardAnimationDurationUserInfoKey] as? TimeInterval
         UIView.animate(withDuration: keyboardDuration!) {
             self.view.layoutIfNeeded()
@@ -125,15 +144,16 @@ class ChatLogVC: UIViewController {
     
     //MARK: 接Msg
     @objc func sendMsg() {
+        guard chatLogView.inputTextField.text != "" else { return }
         let timeStamp = NSDate().timeIntervalSince1970
         let ref = Database.database().reference().child("\(chatName)")
         let childRef = ref.childByAutoId()
-        if let text = chatLogView.myTextField.text {
+        if let text = chatLogView.inputTextField.text {
             let values = ["id": userID!, "text": text, "time": timeStamp] as [String : Any]
             childRef.updateChildValues(values)
             
         }
-        //        chatLogView.myTextField.text = ""
+        chatLogView.inputTextField.text = ""
     }
     
     func observeMsg() {
@@ -146,11 +166,15 @@ class ChatLogVC: UIViewController {
                 if let id = dictionary["id"] as? String, let text = dictionary["text"] as? String {
                     //                        self.message.id = id
                     //                        self.message.text = text
-                    self.messages.append(text)
-                    self.userIDs.append(id)
+//                    self.messages.append(text)
+                    self.messages.insert(text, at: 0)
+//                    self.userIDs.append(id)
+                    self.userIDs.insert(id, at: 0)
                 }
             }
         }
+        
+//                chatLogView.chatLogTableView.scrollTo(direction: .top)
     }
     
     //MARK: 關閉keyboard
@@ -162,6 +186,12 @@ class ChatLogVC: UIViewController {
     @objc func dismissKeyboard() {
         view.endEditing(true)
     }
+    
+    func scrollToNewMessage(){
+        let indexPath = IndexPath(item: 0, section: 0)
+        chatLogView.chatLogTableView.scrollToRow(at: indexPath, at: .bottom, animated: true)
+        
+        }
     
 }
 //MARK: - UITableViewDelegate, UITableViewDataSource
@@ -178,35 +208,97 @@ extension ChatLogVC: UITableViewDelegate, UITableViewDataSource {
         //cell 無法被點選
         cell.selectionStyle = .none
         //防止cell重用
-        cell.yourID.text = nil
-        cell.yourProfileImage.backgroundColor = nil
+//        cell.yourID.text = nil
+//        cell.yourProfileImage.backgroundColor = nil
+        //cell 顛倒
+        cell.transform = CGAffineTransform(scaleX: 1, y: -1)
         
         if userID == userIDs[indexPath.row] {
-            cell.isIncoming = false
+//            isIncoming = false
+            cell.yourID.isHidden = true
+            cell.yourProfileImage.isHidden = true
+            cell.yourTextlabel.isHidden = true
+            cell.yourbubleView.isHidden = true
+            cell.myTextlabel.isHidden = false
+            cell.mybubleView.isHidden = false
+            
+            cell.myTextlabel.text = messages[indexPath.row]
         }else{
-            cell.isIncoming = true
+//            isIncoming = true
+            cell.yourID.isHidden = false
+            cell.yourProfileImage.isHidden = false
+            cell.yourTextlabel.isHidden = false
+            cell.yourbubleView.isHidden = false
+            cell.mybubleView.isHidden = true
+            cell.myTextlabel.isHidden = true
+            
             cell.yourID.text = userIDs[indexPath.row]
             cell.yourProfileImage.backgroundColor = .systemBlue
+            cell.yourTextlabel.text = messages[indexPath.row]
         }
-        cell.myTextlabel.text = messages[indexPath.row]
-        cell.myTextlabel.numberOfLines = 0
+//        cell.myTextlabel.numberOfLines = 0
         
         return cell
     }
 }
 
+//MARK: - TextFieldDelegate
 extension ChatLogVC: UITextFieldDelegate {
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        sendMsg()
+        if chatLogView.inputTextField.text != "" {
+            sendMessage()
+        }
         return true
+    }
+    
+    @objc func sendMessage() {
+        sendMsg()
+        scrollToNewMessage()
     }
     
     //    func textFieldShouldEndEditing(_ textField: UITextField) -> Bool {
     //        self.view.endEditing(true)
     //        return true
     //    }
+}
+
+//MARK: - ImagePickerControllerDelegate,UINavigationControllerDelegate
+extension ChatLogVC: UIImagePickerControllerDelegate,UINavigationControllerDelegate {
     
+    func touchToLoadImage() {
+        let tap = UITapGestureRecognizer(target: self, action: #selector(handleUpLoadTap))
+        chatLogView.uploadImageView.addGestureRecognizer(tap)
+    }
+    
+    @objc func handleUpLoadTap() {
+        let imagePickerController = UIImagePickerController()
+        imagePickerController.delegate = self
+        imagePickerController.allowsEditing = true
+        present(imagePickerController, animated: true, completion: nil)
+    }
+    
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+        
+        var selectedImageFromPicker: UIImage?
+        
+        if let editedImage = info[UIImagePickerController.InfoKey(rawValue: "UIImagePickerControllerEditedImage")] as? UIImage {
+            selectedImageFromPicker = editedImage
+        }
+        
+        if let selectedImage = selectedImageFromPicker {
+            uploadToFirebaseStorageUsingImage(image: selectedImage)
+        }
+    }
+    
+    private func uploadToFirebaseStorageUsingImage(image: UIImage) {
+        print("Upload to firebase")
+        dismiss(animated: true, completion: nil)
+    }
+    
+    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+        dismiss(animated: true, completion: nil)
+    }
     
 }
 
