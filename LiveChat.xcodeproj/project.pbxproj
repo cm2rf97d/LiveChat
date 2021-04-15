@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		1F711809B6E6782A5E15AADD /* Pods_LiveChat.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FF6F764FE6249ABF44E4A984 /* Pods_LiveChat.framework */; };
 		278E010F2623EE0D00E0015B /* SearchFriendViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 278E010E2623EE0D00E0015B /* SearchFriendViewController.swift */; };
 		278E01122623EE2500E0015B /* SearchFriendView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 278E01112623EE2500E0015B /* SearchFriendView.swift */; };
 		278E0130262448DE00E0015B /* FriendsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 278E012F262448DE00E0015B /* FriendsTableViewCell.swift */; };
@@ -35,6 +34,9 @@
 		464BB16B261ECB83007718CC /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 464BB16A261ECB83007718CC /* User.swift */; };
 		464BB16E261ED9EE007718CC /* Messages.swift in Sources */ = {isa = PBXBuildFile; fileRef = 464BB16D261ED9EE007718CC /* Messages.swift */; };
 		464BE20B2625540600208D99 /* ChatroomBannerCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 464BE20A2625540600208D99 /* ChatroomBannerCell.swift */; };
+		464D65402626DE2800293379 /* ProfileDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 464D653F2626DE2800293379 /* ProfileDetailViewController.swift */; };
+		464D65432626DE9400293379 /* ProfileDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 464D65422626DE9400293379 /* ProfileDetailView.swift */; };
+		464D65472626F12400293379 /* ProfileDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = 464D65462626F12400293379 /* ProfileDetail.swift */; };
 		D9FFBEE0261D8C4B00BF5841 /* ChatroomTVCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9FFBEDF261D8C4B00BF5841 /* ChatroomTVCell.swift */; };
 		D9FFBEE3261D8D0400BF5841 /* ChatLogVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9FFBEE2261D8D0400BF5841 /* ChatLogVC.swift */; };
 /* End PBXBuildFile section */
@@ -67,6 +69,9 @@
 		464BB16A261ECB83007718CC /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = User.swift; path = LiveChat/Cell/User.swift; sourceTree = SOURCE_ROOT; };
 		464BB16D261ED9EE007718CC /* Messages.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Messages.swift; path = LiveChat/Cell/Messages.swift; sourceTree = SOURCE_ROOT; };
 		464BE20A2625540600208D99 /* ChatroomBannerCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatroomBannerCell.swift; sourceTree = "<group>"; };
+		464D653F2626DE2800293379 /* ProfileDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileDetailViewController.swift; sourceTree = "<group>"; };
+		464D65422626DE9400293379 /* ProfileDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileDetailView.swift; sourceTree = "<group>"; };
+		464D65462626F12400293379 /* ProfileDetail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ProfileDetail.swift; path = LiveChat/View/ProfileDetail.swift; sourceTree = SOURCE_ROOT; };
 		826B9541FB3278EAFCA32D88 /* Pods-LiveChat.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LiveChat.debug.xcconfig"; path = "Target Support Files/Pods-LiveChat/Pods-LiveChat.debug.xcconfig"; sourceTree = "<group>"; };
 		93C20FC52177B29D0C2082BE /* Pods-LiveChat.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LiveChat.release.xcconfig"; path = "Target Support Files/Pods-LiveChat/Pods-LiveChat.release.xcconfig"; sourceTree = "<group>"; };
 		BE1E1E4DC098DC0CB5A52965 /* Pods_LiveChat.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_LiveChat.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -130,6 +135,7 @@
 				2793C1B4261C9EEF000262CE /* ChatroomVC.swift */,
 				D9FFBEE2261D8D0400BF5841 /* ChatLogVC.swift */,
 				464B9206261FEE01006AEEE2 /* ProfileViewController.swift */,
+				464D653F2626DE2800293379 /* ProfileDetailViewController.swift */,
 				464B921226203239006AEEE2 /* FriendsViewController.swift */,
 				278E010E2623EE0D00E0015B /* SearchFriendViewController.swift */,
 			);
@@ -144,6 +150,7 @@
 				2793C1B7261C9F22000262CE /* ChatroomView.swift */,
 				464BB162261EB409007718CC /* ChatLogView.swift */,
 				464B9203261FEDF2006AEEE2 /* ProfileView.swift */,
+				464D65422626DE9400293379 /* ProfileDetailView.swift */,
 				464B920F26203228006AEEE2 /* FriendsView.swift */,
 				278E01112623EE2500E0015B /* SearchFriendView.swift */,
 			);
@@ -155,6 +162,7 @@
 			children = (
 				464BB16A261ECB83007718CC /* User.swift */,
 				464BB16D261ED9EE007718CC /* Messages.swift */,
+				464D65462626F12400293379 /* ProfileDetail.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -310,6 +318,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				464BB16B261ECB83007718CC /* User.swift in Sources */,
+				464D65402626DE2800293379 /* ProfileDetailViewController.swift in Sources */,
 				2793C1B5261C9EEF000262CE /* ChatroomVC.swift in Sources */,
 				D9FFBEE3261D8D0400BF5841 /* ChatLogVC.swift in Sources */,
 				464BB16E261ED9EE007718CC /* Messages.swift in Sources */,
@@ -324,9 +333,11 @@
 				464B920A261FF34A006AEEE2 /* ProfileImageTableViewCell.swift in Sources */,
 				27EDF9D6261C50F100ADFDA6 /* RegisterViewController.swift in Sources */,
 				27EDF9BD261C100B00ADFDA6 /* HomePageView.swift in Sources */,
+				464D65472626F12400293379 /* ProfileDetail.swift in Sources */,
 				278E01122623EE2500E0015B /* SearchFriendView.swift in Sources */,
 				D9FFBEE0261D8C4B00BF5841 /* ChatroomTVCell.swift in Sources */,
 				464B921026203228006AEEE2 /* FriendsView.swift in Sources */,
+				464D65432626DE9400293379 /* ProfileDetailView.swift in Sources */,
 				278E010F2623EE0D00E0015B /* SearchFriendViewController.swift in Sources */,
 				464B921326203239006AEEE2 /* FriendsViewController.swift in Sources */,
 				278E0130262448DE00E0015B /* FriendsTableViewCell.swift in Sources */,

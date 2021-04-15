@@ -1,3 +1,19 @@
 *.xcuserstate
 xcuserdata /
 LiveChat.xcodeproj/xcuserdata/dongenzhi.xcuserdatad/xcschemes/xcschememanagement.plist
+LiveChat/Control/ChatroomVC_BACKUP_8311.swift
+LiveChat/Control/ChatroomVC_BACKUP_8608.swift
+LiveChat/Control/ChatroomVC_BASE_8311.swift
+LiveChat/Control/ChatroomVC_BASE_8608.swift
+LiveChat/Control/ChatroomVC_LOCAL_8311.swift
+LiveChat/Control/ChatroomVC_LOCAL_8608.swift
+LiveChat/Control/ChatroomVC_REMOTE_8311.swift
+LiveChat/Control/ChatroomVC_REMOTE_8608.swift
+LiveChat/Control/HomepageViewController_BACKUP_9621.swift
+LiveChat/Control/HomepageViewController_BACKUP_9749.swift
+LiveChat/Control/HomepageViewController_BASE_9621.swift
+LiveChat/Control/HomepageViewController_BASE_9749.swift
+LiveChat/Control/HomepageViewController_LOCAL_9621.swift
+LiveChat/Control/HomepageViewController_LOCAL_9749.swift
+LiveChat/Control/HomepageViewController_REMOTE_9621.swift
+LiveChat/Control/HomepageViewController_REMOTE_9749.swift
