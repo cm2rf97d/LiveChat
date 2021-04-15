@@ -10,6 +10,7 @@ import Firebase
 import FirebaseAuth
 import FirebaseDatabase
 
+
 class ChatLogVC: UIViewController {
     
     // MARK: - Properties
@@ -170,11 +171,39 @@ class ChatLogVC: UIViewController {
                     self.messages.insert(text, at: 0)
 //                    self.userIDs.append(id)
                     self.userIDs.insert(id, at: 0)
+//            ref.observe(.childAdded) { (snapshot) in
+//                if let dictionary = snapshot.value as? [String: AnyObject] {
+//
+//                    if let id = dictionary["id"] as? String, let text = dictionary["text"] as? String {
+//                        self.message.id = id
+//                        self.message.text = text
+//                        self.messages.append(text)
+//                        self.userIDs.append(id)
+//                    }
+                    
                 }
             }
         }
         
 //                chatLogView.chatLogTableView.scrollTo(direction: .top)
+    
+//    func test1() {
+//            let content = UNMutableNotificationContent()
+//        content.title = "\(String(describing: message.id))"
+//        content.body = "\(String(describing: message.text))"
+//        content.badge = 1
+//        content.sound = UNNotificationSound.default
+//
+//        let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 0.1, repeats: false)
+//
+//            let request = UNNotificationRequest(identifier: "notification", content: content, trigger: trigger)
+//
+//            UNUserNotificationCenter.current().add(request, withCompletionHandler: {error in
+//                print("成功建立通知...")
+//            })
+//
+//        }
+    
     }
     
     //MARK: 關閉keyboard
@@ -238,9 +267,15 @@ extension ChatLogVC: UITableViewDelegate, UITableViewDataSource {
         }
 //        cell.myTextlabel.numberOfLines = 0
         
+//            test1()
+//        }
+//        cell.myTextlabel.text = messages[indexPath.row]
+//        cell.myTextlabel.numberOfLines = 0
+            
         return cell
     }
 }
+
 
 //MARK: - TextFieldDelegate
 extension ChatLogVC: UITextFieldDelegate {
@@ -264,7 +299,7 @@ extension ChatLogVC: UITextFieldDelegate {
 }
 
 //MARK: - ImagePickerControllerDelegate,UINavigationControllerDelegate
-extension ChatLogVC: UIImagePickerControllerDelegate,UINavigationControllerDelegate {
+    extension ChatLogVC: UIImagePickerControllerDelegate,UINavigationControllerDelegate {
     
     func touchToLoadImage() {
         let tap = UITapGestureRecognizer(target: self, action: #selector(handleUpLoadTap))

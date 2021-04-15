@@ -65,15 +65,19 @@ class HomepageViewController: UIViewController,UITextFieldDelegate
                 if error == nil
                 {
                     let vc = ChatroomVC()
+                    let nvvc = UINavigationController(rootViewController: vc)
                     let profileVC = ProfileViewController()
+                    let nvProfileVC = UINavigationController(rootViewController: profileVC)
                     let friendsVC = FriendsViewController()
-                    vc.tabBarItem.image = UIImage(systemName: "message.fill")
-                    profileVC.tabBarItem.image = UIImage(systemName: "person.fill")
-                    friendsVC.tabBarItem.image = UIImage(systemName: "person.3.fill")
+                    let nvFriendsVC = UINavigationController(rootViewController: friendsVC)
+                    nvvc.tabBarItem.image = UIImage(systemName: "message.fill")
+                    nvProfileVC.tabBarItem.image = UIImage(systemName: "person.fill")
+                    nvFriendsVC.tabBarItem.image = UIImage(systemName: "person.3.fill")
                     let tabbarControl = UITabBarController()
-                    tabbarControl.viewControllers = [vc, profileVC, friendsVC]
+                    tabbarControl.viewControllers = [nvvc, nvProfileVC, nvFriendsVC]
                     
-                    self.navigationController?.pushViewController(tabbarControl, animated: true)
+                    tabbarControl.modalPresentationStyle = .fullScreen
+                    self.present(tabbarControl, animated: true, completion: nil)
                 }
                 else
                 {
@@ -96,7 +100,6 @@ class HomepageViewController: UIViewController,UITextFieldDelegate
     
     func forgetPasswordWithEmail(email: String){
         FirebaseAuth.Auth.auth().sendPasswordReset(withEmail: email) { error in
-                print("123")
                 if let error = error {
                     print(error.localizedDescription)
                 } else {

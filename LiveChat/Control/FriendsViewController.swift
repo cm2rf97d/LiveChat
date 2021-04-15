@@ -6,24 +6,85 @@
 //
 
 import UIKit
+import Firebase
+import FirebaseAuth
+import FirebaseDatabase
 
-class FriendsViewController: UIViewController {
-
-    override func viewDidLoad() {
-        super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
+class FriendsViewController: UIViewController
+{
+    let friendView = FriendsView()
+    
+    var friends: [String] = []
+    {
+        didSet
+        {
+            friendView.friendsTableView.reloadData()
+        }
     }
     
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+    override func viewDidLoad()
+    {
+        super.viewDidLoad()
+        friendView.friendsTableView.delegate = self
+        friendView.friendsTableView.dataSource = self
+        setNavigation()
+        getFriendList()
     }
-    */
+    
+    override func loadView()
+    {
+        self.view = friendView
+    }
+    
+    func getFriendList()
+    {
+        let userID = Auth.auth().currentUser?.uid
+        if let userID = userID
+        {
+            let friend = Database.database().reference().child("Friend")
+            let myFriend = friend.child(userID)
+            
+            myFriend.observe(.childAdded)
+            { (snapshot) in
+                if let dictionary = snapshot.value as? [String: AnyObject]
+                {
+                    if let account = dictionary["account"] as? String
+                    {
+                        self.friends.append(account)
+                    }
+                }
+            }
+        }
+    }
+    
+    func setNavigation()
+    {
+        self.navigationItem.title = "好友"
+        let addFriendBTN = UIBarButtonItem(image: UIImage(systemName: "plus"), style: .plain, target: self, action: #selector(addNewFriend))
+        self.navigationItem.rightBarButtonItem = addFriendBTN
+    }
+    
+    @objc func addNewFriend()
+    {
+        let vc = SearchFriendViewController()
+        let nvVC = UINavigationController(rootViewController: vc)
+        present(nvVC, animated: true, completion: nil)
+    }
+}
 
+extension FriendsViewController: UITableViewDelegate,UITableViewDataSource
+{
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int
+    {
+        print("friends.count = \(friends.count)")
+        return friends.count
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell
+    {
+        guard let cell = tableView.dequeueReusableCell(withIdentifier:FriendsTableViewCell.identifier, for: indexPath) as? FriendsTableViewCell else { return UITableViewCell() }
+        cell.friendslabel.text = friends[indexPath.row]
+        
+        return cell
+    }
 }
