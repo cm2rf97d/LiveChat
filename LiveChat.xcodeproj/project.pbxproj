@@ -7,12 +7,14 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		1F711809B6E6782A5E15AADD /* Pods_LiveChat.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FF6F764FE6249ABF44E4A984 /* Pods_LiveChat.framework */; };
 		278E010F2623EE0D00E0015B /* SearchFriendViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 278E010E2623EE0D00E0015B /* SearchFriendViewController.swift */; };
 		278E01122623EE2500E0015B /* SearchFriendView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 278E01112623EE2500E0015B /* SearchFriendView.swift */; };
 		278E0130262448DE00E0015B /* FriendsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 278E012F262448DE00E0015B /* FriendsTableViewCell.swift */; };
 		2793C1B5261C9EEF000262CE /* ChatroomVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2793C1B4261C9EEF000262CE /* ChatroomVC.swift */; };
 		2793C1B8261C9F22000262CE /* ChatroomView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2793C1B7261C9F22000262CE /* ChatroomView.swift */; };
+		27CBCC432627FD7900ABC42C /* LoadingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27CBCC422627FD7900ABC42C /* LoadingViewController.swift */; };
+		27CBCC472627FDC600ABC42C /* LoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27CBCC462627FDC600ABC42C /* LoadingView.swift */; };
+		27CBCC4B262814CA00ABC42C /* loading.json in Resources */ = {isa = PBXBuildFile; fileRef = 27CBCC4A262814CA00ABC42C /* loading.json */; };
 		27EDF9A0261C07CE00ADFDA6 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27EDF99F261C07CE00ADFDA6 /* AppDelegate.swift */; };
 		27EDF9A2261C07CE00ADFDA6 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27EDF9A1261C07CE00ADFDA6 /* SceneDelegate.swift */; };
 		27EDF9A9261C07CF00ADFDA6 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 27EDF9A8261C07CF00ADFDA6 /* Assets.xcassets */; };
@@ -45,6 +47,9 @@
 		278E012F262448DE00E0015B /* FriendsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendsTableViewCell.swift; sourceTree = "<group>"; };
 		2793C1B4261C9EEF000262CE /* ChatroomVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatroomVC.swift; sourceTree = "<group>"; };
 		2793C1B7261C9F22000262CE /* ChatroomView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatroomView.swift; sourceTree = "<group>"; };
+		27CBCC422627FD7900ABC42C /* LoadingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingViewController.swift; sourceTree = "<group>"; };
+		27CBCC462627FDC600ABC42C /* LoadingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingView.swift; sourceTree = "<group>"; };
+		27CBCC4A262814CA00ABC42C /* loading.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = loading.json; sourceTree = "<group>"; };
 		27EDF99C261C07CE00ADFDA6 /* LiveChat.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LiveChat.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		27EDF99F261C07CE00ADFDA6 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		27EDF9A1261C07CE00ADFDA6 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -112,6 +117,7 @@
 				27EDF9A1261C07CE00ADFDA6 /* SceneDelegate.swift */,
 				27EDF9A8261C07CF00ADFDA6 /* Assets.xcassets */,
 				27EDF9AA261C07CF00ADFDA6 /* LaunchScreen.storyboard */,
+				27CBCC4A262814CA00ABC42C /* loading.json */,
 				27EDF9AD261C07CF00ADFDA6 /* Info.plist */,
 				27EDF9DA261C5D2200ADFDA6 /* GoogleService-Info.plist */,
 				27EDF9B6261C0DA900ADFDA6 /* Model */,
@@ -132,6 +138,7 @@
 				464B9206261FEE01006AEEE2 /* ProfileViewController.swift */,
 				464B921226203239006AEEE2 /* FriendsViewController.swift */,
 				278E010E2623EE0D00E0015B /* SearchFriendViewController.swift */,
+				27CBCC422627FD7900ABC42C /* LoadingViewController.swift */,
 			);
 			path = Control;
 			sourceTree = "<group>";
@@ -146,6 +153,7 @@
 				464B9203261FEDF2006AEEE2 /* ProfileView.swift */,
 				464B920F26203228006AEEE2 /* FriendsView.swift */,
 				278E01112623EE2500E0015B /* SearchFriendView.swift */,
+				27CBCC462627FDC600ABC42C /* LoadingView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -256,6 +264,7 @@
 			files = (
 				27EDF9AC261C07CF00ADFDA6 /* LaunchScreen.storyboard in Resources */,
 				27EDF9A9261C07CF00ADFDA6 /* Assets.xcassets in Resources */,
+				27CBCC4B262814CA00ABC42C /* loading.json in Resources */,
 				27EDF9DB261C5D2200ADFDA6 /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -319,6 +328,8 @@
 				464B9207261FEE01006AEEE2 /* ProfileViewController.swift in Sources */,
 				27EDF9D3261C50E200ADFDA6 /* RegisterView.swift in Sources */,
 				464B9204261FEDF2006AEEE2 /* ProfileView.swift in Sources */,
+				27CBCC432627FD7900ABC42C /* LoadingViewController.swift in Sources */,
+				27CBCC472627FDC600ABC42C /* LoadingView.swift in Sources */,
 				27EDF9A2261C07CE00ADFDA6 /* SceneDelegate.swift in Sources */,
 				2793C1B8261C9F22000262CE /* ChatroomView.swift in Sources */,
 				464B920A261FF34A006AEEE2 /* ProfileImageTableViewCell.swift in Sources */,
@@ -401,7 +412,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.4;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -456,7 +467,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.4;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;

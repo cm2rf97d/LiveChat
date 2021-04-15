@@ -13,6 +13,7 @@ import FirebaseDatabase
 class FriendsViewController: UIViewController
 {
     let friendView = FriendsView()
+    
     var friends: [String] = []
     {
         didSet
@@ -37,7 +38,6 @@ class FriendsViewController: UIViewController
     
     func getFriendList()
     {
-        print("ASD")
         let userID = Auth.auth().currentUser?.uid
         if let userID = userID
         {
@@ -51,7 +51,6 @@ class FriendsViewController: UIViewController
                     if let account = dictionary["account"] as? String
                     {
                         self.friends.append(account)
-                        print("ZZ")
                     }
                 }
             }
@@ -85,7 +84,6 @@ extension FriendsViewController: UITableViewDelegate,UITableViewDataSource
     {
         guard let cell = tableView.dequeueReusableCell(withIdentifier:FriendsTableViewCell.identifier, for: indexPath) as? FriendsTableViewCell else { return UITableViewCell() }
         cell.friendslabel.text = friends[indexPath.row]
-        print(friends[indexPath.row])
         
         return cell
     }

@@ -48,9 +48,7 @@ class ChatLogVC: UIViewController {
     @objc func sendMsg() {
         let timeStamp = NSDate().timeIntervalSince1970
         let ref = Database.database().reference().child("\(chatName)")
-        print("ref = \(ref)")
         let childRef = ref.childByAutoId()
-        print("childRef = \(childRef)")
         if let text = chatLogView.myTextField.text {
             let values = ["id": userID!, "text": text, "time": timeStamp] as [String : Any]
             childRef.updateChildValues(values)

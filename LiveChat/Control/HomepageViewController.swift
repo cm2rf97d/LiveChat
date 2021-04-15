@@ -100,7 +100,6 @@ class HomepageViewController: UIViewController,UITextFieldDelegate
     
     func forgetPasswordWithEmail(email: String){
         FirebaseAuth.Auth.auth().sendPasswordReset(withEmail: email) { error in
-                print("123")
                 if let error = error {
                     print(error.localizedDescription)
                 } else {
