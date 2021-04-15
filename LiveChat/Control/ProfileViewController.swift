@@ -16,7 +16,6 @@ class ProfileViewController: UIViewController {
     
     let profileView = ProfileView()
     let mySections: [MySections] = [.profileImage, .profile]
-    var profileInfo = ["id", "name"]
     var profileOrBackgroundImg: ProfileOrBackgroundImg = .profile
     var profileImage: UIImage? {
         didSet{
@@ -29,6 +28,7 @@ class ProfileViewController: UIViewController {
         }
     }
     let userID = Auth.auth().currentUser?.uid
+    var profileDetail = ProfileDetail()
     
     //MARK: - Life Cycle
     
@@ -38,6 +38,12 @@ class ProfileViewController: UIViewController {
         profileView.myTableView.delegate = self
         profileView.myTableView.dataSource = self
         downloadImgs()
+        
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        profileView.myTableView.reloadData()
+        uploadProfileInfo()
     }
     
     //MARK: - Functions
@@ -61,6 +67,8 @@ class ProfileViewController: UIViewController {
         let uploadMetaData = StorageMetadata.init()
         uploadMetaData.contentType = "image/jpeg"
         
+        
+        
         if profileOrBackgroundImg == .profile {
             //upload profile image
             guard let dataImg = image.jpegData(compressionQuality: 0.75) else { return }
@@ -83,11 +91,30 @@ class ProfileViewController: UIViewController {
             }
         }
         
+        
+    }
+    
+    func uploadProfileInfo() {
+        let storageProfileInfo =
+            Storage.storage().reference(withPath: "users/\(userID!)/profileInfo")
+        let uploadMetaData = StorageMetadata.init()
+        uploadMetaData.contentType = "profileInfo"
+        
+        guard let profileDetailData = try? JSONSerialization.data(withJSONObject: profileDetail.profileDetail, options: []) else { return }
+            storageProfileInfo.putData(profileDetailData, metadata: uploadMetaData) { (data, error) in
+                if let error = error {
+                    print("Error: \(error)")
+                }else if let data = data {
+                    print("info: \(data)")
+                }
+            }
+        
     }
     
     func downloadImgs() {
         let downloadProfileImg = Storage.storage().reference(withPath: "users/\(userID!)/profileImage.jpg")
         let downloadBackgroundImg = Storage.storage().reference(withPath: "users/\(userID!)/backgroundImage.jpg")
+        let downloadProfileInfo = Storage.storage().reference(withPath: "users/\(userID!)/profileInfo")
         
         downloadProfileImg.getData(maxSize: 1 * 1024 * 1024) { (data, error) in
             if let error = error {
@@ -101,6 +128,15 @@ class ProfileViewController: UIViewController {
                 print("Error: \(error.localizedDescription)")
             }else if let data = data{
                 self.backgroundImage = UIImage(data: data)
+            }
+        }
+        downloadProfileInfo.getData(maxSize: 1 * 1024 * 1024) { (data, error) in
+            if let error = error {
+                print("Error: \(error.localizedDescription)")
+            }else if let data = data{
+                guard let teststrr = try? JSONSerialization.jsonObject(with: data, options: []) as? [String] else { return }
+                self.profileDetail.profileDetail = teststrr
+                self.profileView.myTableView.reloadData()
             }
         }
     }
@@ -134,7 +170,7 @@ extension ProfileViewController: UITableViewDelegate, UITableViewDataSource {
         case .profileImage:
             return 1
         case .profile:
-            return profileInfo.count
+            return profileDetail.profileInfo.count
         }
     }
     
@@ -156,13 +192,27 @@ extension ProfileViewController: UITableViewDelegate, UITableViewDataSource {
             return cell
         case .profile:
             guard let cell = tableView.dequeueReusableCell(withIdentifier: ProfileInfoTableViewCell.identifier, for: indexPath) as? ProfileInfoTableViewCell else { return UITableViewCell()}
-            cell.selectionStyle = .none
-            cell.textLabel?.text = profileInfo[indexPath.row]
+            
+            cell.textLabel?.text = profileDetail.profileInfo[indexPath.row]
+            cell.detailTextLabel?.text = profileDetail.profileDetail[indexPath.row]
+            
             
             return cell
         }
         
-        
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        switch mySections[indexPath.section] {
+        case .profileImage:
+            break
+        case .profile:
+            let personalDetail = ProfileDetailViewController()
+            personalDetail.sendProfileDataDelegate = self
+            personalDetail.receiveText = profileDetail.profileDetail[indexPath.row]
+            personalDetail.index = indexPath.row
+            navigationController?.pushViewController(personalDetail, animated: true)
+        }
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -173,6 +223,25 @@ extension ProfileViewController: UITableViewDelegate, UITableViewDataSource {
             return fullSizeHeight * 0.3
         case .profile:
             return 50
+        }
+    }
+    
+    //MARK: Header
+    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        switch mySections[section] {
+        case .profileImage:
+            return " "
+        case .profile:
+            return "個人資訊"
+        }
+    }
+    
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        switch mySections[section] {
+        case .profileImage:
+            return 0
+        case .profile:
+            return 20
         }
     }
     
@@ -195,3 +264,12 @@ extension ProfileViewController: UIImagePickerControllerDelegate, UINavigationCo
     
 }
 
+extension ProfileViewController: PassProfileDetailDelegate {
+    func sendProfileDetail(detail: String, index: Int) {
+        print(detail)
+        print(index)
+        profileDetail.profileDetail[index] = detail
+    }
+    
+    
+}

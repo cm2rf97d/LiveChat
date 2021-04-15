@@ -12,7 +12,7 @@ class ProfileView: UIView {
     //MARK: - IBOutlets
     
     let myTableView: UITableView = {
-        let tv = UITableView()
+        let tv = UITableView(frame: CGRect(), style: .grouped)
         tv.register(ProfileImageTableViewCell.self, forCellReuseIdentifier: ProfileImageTableViewCell.identifier)
         tv.register(ProfileInfoTableViewCell.self, forCellReuseIdentifier: ProfileInfoTableViewCell.identifier)
         tv.separatorStyle = .none

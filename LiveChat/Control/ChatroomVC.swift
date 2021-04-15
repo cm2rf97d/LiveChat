@@ -43,6 +43,7 @@ class ChatroomVC: UIViewController
     }
     
     
+    
     // MARK: - Methods
     func setNavigation() {
         self.navigationItem.title = "聊天室"
@@ -129,6 +130,7 @@ extension ChatroomVC : UITableViewDelegate,UITableViewDataSource {
             vc.chatName = tests[indexPath.row]
             navigationController?.pushViewController(vc, animated: true)
         }
+        tabBarController?.tabBar.isHidden = true
         
     }
     
@@ -151,7 +153,7 @@ extension ChatroomVC: UIScrollViewDelegate {
     func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
         timer.invalidate()
     }
-    
+
     func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
         setTimer()
     }

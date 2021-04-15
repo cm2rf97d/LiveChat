@@ -26,11 +26,24 @@ class ProfileImageTableViewCell: UITableViewCell {
         return iv
     }()
     
+    let chatBtn: UIButton = {
+        let btn = UIButton()
+        btn.setTitle("聊天", for: .normal)
+        btn.setTitleColor(.white, for: .normal)
+        btn.setTitleColor(.darkText, for: .highlighted)
+        btn.backgroundColor = .systemPink
+        btn.layer.cornerRadius = 5
+        btn.layer.borderWidth = 1
+        btn.layer.borderColor = UIColor.gray.cgColor
+        return btn
+    }()
+    
     lazy var topBackgroundView: UIImageView = {
         let view = UIImageView()
         view.backgroundColor = .black
         view.isUserInteractionEnabled = true
         view.addSubview(profileImg)
+        view.addSubview(chatBtn)
         return view
     }()
     
@@ -38,8 +51,7 @@ class ProfileImageTableViewCell: UITableViewCell {
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
-        addSubview(topBackgroundView)
-        contentView.isUserInteractionEnabled = false
+        contentView.addSubview(topBackgroundView)
         layouts()
         
         let tapProfile = UITapGestureRecognizer(target: self, action: #selector(profileDidTap))
@@ -71,9 +83,16 @@ class ProfileImageTableViewCell: UITableViewCell {
 
         profileImg.snp.makeConstraints { (make) in
             make.centerY.equalTo(topBackgroundView)
-            make.left.equalTo(self).offset(+10)
+            make.centerX.equalTo(self)
             make.height.equalTo(100)
             make.width.equalTo(100)
+        }
+        
+        chatBtn.snp.makeConstraints { (make) in
+            make.centerX.equalTo(self)
+            make.top.equalTo(profileImg.snp.bottom).offset(+8)
+            make.width.equalTo(50)
+            make.height.equalTo(30)
         }
         
     }

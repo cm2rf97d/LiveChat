@@ -11,10 +11,11 @@ class ChatroomView: UIView
 {
     // MARK: - IBOutlets
         var chatTableView: UITableView = {
-            let tableView = UITableView()
+            let tableView = UITableView(frame: CGRect(), style: .plain)
             tableView.register(ChatroomTVCell.self, forCellReuseIdentifier: ChatroomTVCell.chatCellID)
             tableView.register(ChatroomBannerCell.self, forCellReuseIdentifier: ChatroomBannerCell.identifier)
             tableView.rowHeight = 60
+            
             return tableView
         }()
         
