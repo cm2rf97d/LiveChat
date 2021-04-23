@@ -104,8 +104,7 @@ class ProfileViewController: UIViewController {
             Storage.storage().reference(withPath: "users/\(friendInfomation?.userID)/profileInfo")   //Mike Modify
         let uploadMetaData = StorageMetadata.init()
         uploadMetaData.contentType = "profileInfo"
-        
-        guard let profileDetailData = try? JSONSerialization.data(withJSONObject: profileDetail.profileDetail, options: []) else { return }
+        guard let profileDetailData = try? JSONSerialization.data(withJSONObject: self.profileDetail.profileDetail, options: []) else { return }
             storageProfileInfo.putData(profileDetailData, metadata: uploadMetaData) { (data, error) in
                 if let error = error {
                     print("Error: \(error)")
@@ -141,6 +140,7 @@ class ProfileViewController: UIViewController {
                 guard let teststrr = try? JSONSerialization.jsonObject(with: data, options: []) as? [String] else { return }
                 self.profileDetail.profileDetail = teststrr
                 self.profileView.myTableView.reloadData()
+                self.uploadProfileInfo()
             }
         }
     }

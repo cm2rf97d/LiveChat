@@ -26,25 +26,24 @@ class ProfileDetailViewController: UIViewController {
         super.viewDidLoad()
         view = profileDetailView
         profileDetailView.myTextField.delegate = self
-        didTapBtn()
         profileDetailView.myTextField.text = receiveText
+        profileDetailView.tapBtnAction = {
+            self.didTapBtn()
+        }
     }
     
     //MARK: - Functions
     
     func didTapBtn() {
-        profileDetailView.tapBtnAction = {
-            if let text = self.profileDetailView.myTextField.text, let index = self.index {
-                self.sendProfileDataDelegate?.sendProfileDetail(detail: text, index: index)
-            }
-            self.navigationController?.popViewController(animated: true)
+        if let text = self.profileDetailView.myTextField.text, let index = self.index {
+            self.sendProfileDataDelegate?.sendProfileDetail(detail: text, index: index)
         }
+        self.navigationController?.popViewController(animated: true)
+        
     }
-    
-    
 }
 
-
+    
 extension ProfileDetailViewController: UITextFieldDelegate {
         
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
@@ -57,3 +56,4 @@ extension ProfileDetailViewController: UITextFieldDelegate {
     }
     
 }
+

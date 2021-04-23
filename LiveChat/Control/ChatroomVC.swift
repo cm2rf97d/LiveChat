@@ -97,15 +97,11 @@ class ChatroomVC: UIViewController, presentChatViewDelegate
         timer = Timer.scheduledTimer(timeInterval: 3, target: self, selector: #selector(changeBanner), userInfo: nil, repeats: true)
     }
     
-    func addCurrentPage() {
+    @objc func changeBanner() {
         self.currentPage += 1
-        if self.currentPage > 2 {
+        if self.currentPage > 6 {
             self.currentPage = 0
         }
-    }
-    
-    @objc func changeBanner() {
-        addCurrentPage()
         xOffset = fullSizeWidth * CGFloat(self.currentPage)
     }
 }
@@ -132,12 +128,12 @@ extension ChatroomVC : UITableViewDelegate,UITableViewDataSource {
         case .banner:
             guard let cell = chatroomView.chatTableView.dequeueReusableCell(withIdentifier: ChatroomBannerCell.identifier, for: indexPath) as? ChatroomBannerCell else { return UITableViewCell()}
             cell.myScrollView.delegate = self
-            cell.myScrollView.contentOffset.x = xOffset
+            UIView.animate(withDuration: 1, animations: {
+                cell.myScrollView.contentOffset.x = self.xOffset
+            }, completion: nil)
             cell.pageControl.currentPage = self.currentPage
             cell.tapPageControlAction = {
-
-                self.addCurrentPage()
-                self.xOffset = self.fullSizeWidth * CGFloat(self.currentPage)
+                self.changeBanner()
                 self.timer.invalidate()
                 self.setTimer()
             }
@@ -187,13 +183,13 @@ extension ChatroomVC: UIScrollViewDelegate {
     func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
         
         let translatedPoint = scrollView.panGestureRecognizer.translation(in:scrollView)
-        
+        print(translatedPoint.x)
         if translatedPoint.x < 0 {
-            addCurrentPage()
+            changeBanner()
         }else{
             currentPage -= 1
             if currentPage < 0 {
-                currentPage = 2
+                currentPage = 6
             }
         }
         print(currentPage)
