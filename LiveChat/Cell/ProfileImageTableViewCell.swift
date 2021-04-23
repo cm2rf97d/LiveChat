@@ -13,6 +13,7 @@ class ProfileImageTableViewCell: UITableViewCell {
     //MARK: - Properties
     var tapProfileImgAction: (() -> Void)?
     var tapbackgroundImgAction: (() -> Void)?
+    var chatButtonAction: (() -> Void)? // Mike Add
     static let identifier = "profileImageCell"
     
     //MARK: - IBOutlets
@@ -58,6 +59,7 @@ class ProfileImageTableViewCell: UITableViewCell {
         profileImg.addGestureRecognizer(tapProfile)
         let tapBackground = UITapGestureRecognizer(target: self, action: #selector(backgroundDidTap))
         topBackgroundView.addGestureRecognizer(tapBackground)
+        chatBtn.addTarget(self, action: #selector(chatWithFriend), for: .touchUpInside) //Mike Add
     }
     
     
@@ -72,6 +74,10 @@ class ProfileImageTableViewCell: UITableViewCell {
     @objc private func backgroundDidTap() {
         tapbackgroundImgAction?()
     }
+    
+    @objc private func chatWithFriend(){    //Mike Add
+        chatButtonAction?()                 //Mike Add
+    }                                       //Mike Add
     
     //MARK: - Set Layouts
     

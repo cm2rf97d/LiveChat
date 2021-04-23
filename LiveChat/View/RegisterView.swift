@@ -9,6 +9,8 @@ import UIKit
 
 class RegisterView: UIView
 {
+    var registerButtonAction: (() -> Void)?
+    
     let titleLabel: UILabel =
     {
         let label = UILabel()
@@ -47,6 +49,7 @@ class RegisterView: UIView
         button.setTitle("Register", for: .normal)
         button.setTitleColor(.systemBlue, for: .normal)
         button.setTitleColor(.black, for: .highlighted)
+//        button.addTarget(self, action: #selector(registerAccount), for: .touchUpInside)
         button.addTarget(self, action: #selector(RegisterViewController.createAccountAction(_:)), for: .touchUpInside)
         return button
     }()
@@ -65,6 +68,11 @@ class RegisterView: UIView
     required init?(coder: NSCoder)
     {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    @objc private func registerAccount()
+    {
+        registerButtonAction?()
     }
     
     func autoLayout()

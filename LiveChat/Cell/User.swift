@@ -12,3 +12,10 @@ struct Users {
     var content: String
     var time: Date
 }
+
+struct FriendAccountUserId
+{
+    var userAccount: String
+    var userID: String
+}
+

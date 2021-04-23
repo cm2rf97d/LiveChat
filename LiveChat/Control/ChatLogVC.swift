@@ -15,7 +15,8 @@ class ChatLogVC: UIViewController {
     
     // MARK: - Properties
     
-    var chatName = ""
+//    var chatName = ""
+    var chatName: FriendAccountUserId?
     let chatLogView = ChatLogView()
     let chatLogCell = ChatLogTableViewCell()
     var messages = [String]() {
@@ -40,12 +41,16 @@ class ChatLogVC: UIViewController {
     var userIDs = [String]()
     var userID: String?
     var message = Messages()
+    var currentId: String = ""
     
     // MARK: - Lifecycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
         view = chatLogView
+        if let currentId = Auth.auth().currentUser?.uid{
+            self.currentId = currentId
+        }
         chatLogView.chatLogTableView.delegate = self
         chatLogView.chatLogTableView.dataSource = self
         chatLogView.inputTextField.delegate = self
@@ -65,6 +70,8 @@ class ChatLogVC: UIViewController {
         super.viewDidDisappear(animated)
         
         NotificationCenter.default.removeObserver(self)
+//        navigationController?.presentingViewController?.presentingViewController?.dismiss(animated: true, completion: nil)
+        tabBarController?.selectedIndex = 0
     }
     
     
@@ -72,7 +79,7 @@ class ChatLogVC: UIViewController {
     
     //MARK: navigation
     func setNavigation() {
-        self.navigationItem.title = chatName
+        self.navigationItem.title = chatName?.userAccount
     }
     
     override var canBecomeFirstResponder: Bool {
@@ -147,19 +154,21 @@ class ChatLogVC: UIViewController {
     @objc func sendMsg() {
         guard chatLogView.inputTextField.text != "" else { return }
         let timeStamp = NSDate().timeIntervalSince1970
-        let ref = Database.database().reference().child("\(chatName)")
-        let childRef = ref.childByAutoId()
-        if let text = chatLogView.inputTextField.text {
-            let values = ["id": userID!, "text": text, "time": timeStamp] as [String : Any]
-            childRef.updateChildValues(values)
-            
+        if let chatName = chatName{
+            let ref = Database.database().reference().child("ChatRoom").child(self.currentId).child(chatName.userID)
+            let childRef = ref.childByAutoId()
+            if let text = chatLogView.inputTextField.text {
+                let values = ["id": userID!, "text": text, "time": timeStamp] as [String : Any]
+                childRef.updateChildValues(values)
+                
+            }
+            chatLogView.inputTextField.text = ""
         }
-        chatLogView.inputTextField.text = ""
     }
     
     func observeMsg() {
-        let ref = Database.database().reference().child("\(chatName)")
-        
+        guard let chatName = chatName else {return}
+        let ref = Database.database().reference().child("ChatRoom").child(self.currentId).child(chatName.userID)
         ref.observe(.childAdded) { (snapshot) in
             
             if let dictionary = snapshot.value as? [String: AnyObject] {
@@ -289,7 +298,7 @@ extension ChatLogVC: UITextFieldDelegate {
     
     @objc func sendMessage() {
         sendMsg()
-        scrollToNewMessage()
+//        scrollToNewMessage()  //Mike Modify
     }
     
     //    func textFieldShouldEndEditing(_ textField: UITextField) -> Bool {

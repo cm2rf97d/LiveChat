@@ -13,7 +13,6 @@ class LoadingView: UIView
     var test1: AnimationView =
     {
         let animationView = AnimationView.init(name: "loading")
-//        animationView.backgroundColor = .black
         return animationView
     }()
     

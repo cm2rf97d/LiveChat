@@ -6,12 +6,14 @@
 //
 
 import UIKit
+import Firebase
+import FirebaseAuth
 
-class ChatroomVC: UIViewController
+class ChatroomVC: UIViewController, presentChatViewDelegate
 {
     // MARK: - Properties
     var chatroomView = ChatroomView()
-    var tests = ["1","2","3","4","5"]
+    var chatRoomUserId: [FriendAccountUserId] = []  //Mike Add
     let chatroomSections: [ChatroomSections] = [.banner, .chatroom]
     let fullSizeWidth = UIScreen.main.bounds.width
     var timer = Timer()
@@ -25,6 +27,11 @@ class ChatroomVC: UIViewController
             chatroomView.chatTableView.reloadData()
         }
     }
+    var friends: [FriendAccountUserId] = [] {
+        didSet{
+            chatroomView.chatTableView.reloadData()
+        }
+    }
     
     // MARK: - Lifecycle
     override func viewDidLoad() {
@@ -34,6 +41,7 @@ class ChatroomVC: UIViewController
         chatroomView.chatTableView.dataSource = self
         setNavigation()
         setTimer()
+        getFriendList()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -41,8 +49,6 @@ class ChatroomVC: UIViewController
         
         tabBarController?.tabBar.isHidden = false
     }
-    
-    
     
     // MARK: - Methods
     func setNavigation() {
@@ -52,7 +58,38 @@ class ChatroomVC: UIViewController
         self.navigationItem.rightBarButtonItem = addFriendBTN
     }
     
+    // Mike Add
+    func presentChatView(account: FriendAccountUserId)
+    {
+        chatRoomUserId.append(account)
+        let vc = ChatLogVC()
+        vc.chatName = account
+        navigationController?.pushViewController(vc, animated: true)
+    }
+    
+    // Mike Add
     @objc func addNewFriend() {
+        
+    }
+    
+    func getFriendList(){
+        
+        let userID = Auth.auth().currentUser?.uid
+        if let userID = userID{
+            let friend = Database.database().reference().child("Friend").child(userID)
+            
+            friend.observe(.childAdded){ (snapshot) in
+                if let dictionary = snapshot.value as? [String: AnyObject]{
+                    if let account = dictionary["account"] as? String,
+                       let userId  = dictionary["userID"]  as? String{
+                        self.friends.append(FriendAccountUserId(userAccount: account, userID: userId))
+                    }
+                }
+            }
+        }
+    }
+        
+    func sendUserId(userId: FriendAccountUserId) {
         
     }
     
@@ -71,9 +108,6 @@ class ChatroomVC: UIViewController
         addCurrentPage()
         xOffset = fullSizeWidth * CGFloat(self.currentPage)
     }
-    
-    
-    
 }
 
 //MARK: - TableViewDataSource
@@ -88,7 +122,7 @@ extension ChatroomVC : UITableViewDelegate,UITableViewDataSource {
         case .banner:
             return 1
         case .chatroom:
-            return tests.count
+            return friends.count
         }
     }
     
@@ -108,16 +142,14 @@ extension ChatroomVC : UITableViewDelegate,UITableViewDataSource {
                 self.setTimer()
             }
             
-            
             return cell
         case .chatroom:
             let cell = chatroomView.chatTableView.dequeueReusableCell(withIdentifier: ChatroomTVCell.chatCellID, for: indexPath) as! ChatroomTVCell
-            cell.chatPartnerNameLable.text = tests[indexPath.row]
+            cell.chatPartnerNameLable.text = friends[indexPath.row].userAccount
             cell.chatPartnerImage.image = UIImage(systemName: "pin")
             cell.timeLabel.text = "時間time"
             return cell
         }
-        
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
@@ -127,11 +159,10 @@ extension ChatroomVC : UITableViewDelegate,UITableViewDataSource {
         case .banner:
             break
         case .chatroom:
-            vc.chatName = tests[indexPath.row]
+            vc.chatName = friends[indexPath.row]
             navigationController?.pushViewController(vc, animated: true)
         }
         tabBarController?.tabBar.isHidden = true
-        
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -142,14 +173,9 @@ extension ChatroomVC : UITableViewDelegate,UITableViewDataSource {
             return 60
         }
     }
-    
-    
 }
 
 extension ChatroomVC: UIScrollViewDelegate {
-    
-
-    
     func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
         timer.invalidate()
     }

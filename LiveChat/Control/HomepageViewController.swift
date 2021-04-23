@@ -64,12 +64,13 @@ class HomepageViewController: UIViewController,UITextFieldDelegate
                 
                 if error == nil
                 {
-                    let vc = ChatroomVC()
-                    let nvvc = UINavigationController(rootViewController: vc)
                     let profileVC = ProfileViewController()
                     let nvProfileVC = UINavigationController(rootViewController: profileVC)
                     let friendsVC = FriendsViewController()
                     let nvFriendsVC = UINavigationController(rootViewController: friendsVC)
+                    let vc = ChatroomVC()
+                    friendsVC.presentChatViewDelegate = vc
+                    let nvvc = UINavigationController(rootViewController: vc)
                     nvvc.tabBarItem.image = UIImage(systemName: "message.fill")
                     nvProfileVC.tabBarItem.image = UIImage(systemName: "person.fill")
                     nvFriendsVC.tabBarItem.image = UIImage(systemName: "person.3.fill")

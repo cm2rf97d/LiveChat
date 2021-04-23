@@ -13,9 +13,11 @@ import Lottie
 
 class SearchFriendViewController: UIViewController
 {
+    var changeViewDelegate: changeViewDelegate?
+    var user: FriendAccountUserId?
     var userId: String = ""
     var friendLists: [String] = []
-    var userInfomations: [String] = []
+    var userInfomations: [FriendAccountUserId] = []
     let searchFriendView = SearchFriendView()
     
     override func viewDidLoad()
@@ -48,41 +50,70 @@ class SearchFriendViewController: UIViewController
     {
         if let userAccount = searchFriendView.searchTextField.text
         {
-            if userInfomations.contains(userAccount)
+//            if userInfomations.contains(where: { $0.userAccount == userAccount})
+            for i in 0..<userInfomations.count
             {
-                if friendLists.contains(userAccount)
+                if userInfomations[i].userAccount == userAccount
                 {
-                    searchFriendView.addFriendButton.setTitle("聊天", for: .normal)
-                    searchFriendView.addButtonAction = chatWithFriend
+                    if friendLists.contains(userAccount)
+                    {
+                        self.user = userInfomations[i]
+                        searchFriendView.addFriendButton.setTitle("聊天", for: .normal)
+                        searchFriendView.addButtonAction = chatWithFriend
+                    }
+                    else
+                    {
+                        searchFriendView.addFriendButton.setTitle("加入", for: .normal)
+                        searchFriendView.addButtonAction = addFriend
+                    }
+                    searchFriendView.friendLabel.text = userAccount
+                    searchFriendView.friendImageView.setView(hidden: false)
+                    searchFriendView.addFriendButton.setView(hidden: false)
+                    break
                 }
                 else
                 {
-                    searchFriendView.addFriendButton.setTitle("加入", for: .normal)
-                    searchFriendView.addButtonAction = addFriend
+                    searchFriendView.friendLabel.text = "Not Exist Account"
+                    searchFriendView.friendLabel.setView(hidden: false)
+                    searchFriendView.friendImageView.setView(hidden: true)
+                    searchFriendView.addFriendButton.setView(hidden: true)
                 }
-                searchFriendView.friendLabel.text = userAccount
-                searchFriendView.friendImageView.setView(hidden: false)
-                searchFriendView.addFriendButton.setView(hidden: false)
-            }
-            else
-            {
-                searchFriendView.friendLabel.text = "Not Exist Account"
-                searchFriendView.friendLabel.setView(hidden: false)
             }
             searchFriendView.friendLabel.setView(hidden: false)
-            
         }
     }
     
     @objc func addFriend()
     {
-        let userGroup = Database.database().reference().child("Friend")
-        let userGroupp = userGroup.child(self.userId)
-        let userFriendInfo = userGroupp.childByAutoId()
+        let userGroup = Database.database().reference().child("Friend").child(self.userId)
+        let userFriendInfo = userGroup.childByAutoId()
         if let account = searchFriendView.friendLabel.text
         {
-            let value = ["account": account] as [String : Any]
-            userFriendInfo.updateChildValues(value)
+            for i in 0..<userInfomations.count
+            {
+                if userInfomations[i].userAccount == account
+                {
+                    let values = ["account": userInfomations[i].userAccount,
+                                  "userID": userInfomations[i].userID] as [String : Any]
+                    userFriendInfo.updateChildValues(values)
+                    let userName =
+                    { () -> String in
+                        for i in 0..<self.userInfomations.count
+                        {
+                            if self.userInfomations[i].userID == self.userId
+                            {
+                                let test = self.userInfomations[i].userAccount
+                                print("test = \(test)")
+                                return test
+                            }
+                        }
+                            return ""
+                    }
+                    friendConnection(friend: userInfomations[i], myInfo: self.userId, userName: userName())
+                    break
+                }
+            }
+            
         }
         self.presentLoadingVC()
         DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 2)
@@ -90,19 +121,26 @@ class SearchFriendViewController: UIViewController
             self.searchFriend()
             self.dismiss(animated: true, completion: nil)
         }
-        
     }
     
     @objc func chatWithFriend()
     {
-        print("yyyyyyyyyyyy")
-        dismiss(animated: true, completion: nil)
+        self.dismiss(animated: true)
+        {
+            if let user = self.user
+            {
+                self.changeViewDelegate?.changeTabBar(account: user)
+            }
+        }
     }
     
-    
-    func animateStart()
+    func friendConnection(friend: FriendAccountUserId, myInfo: String, userName: String)
     {
-        
+        let userGroup = Database.database().reference().child("Friend").child(friend.userID)
+        let userFriendInfo = userGroup.childByAutoId()
+        let values = ["account": userName,
+                      "userID": myInfo] as [String : Any]
+        userFriendInfo.updateChildValues(values)
     }
     
     func loadUserInfo()
@@ -117,9 +155,10 @@ class SearchFriendViewController: UIViewController
         { (snapshot) in
             if let dictionary = snapshot.value as? [String: AnyObject]
             {
-                if let text = dictionary["account"] as? String
+                if let account = dictionary["account"] as? String,
+                   let userId  = dictionary["userID"]  as? String
                 {
-                    self.userInfomations.append(text)
+                    self.userInfomations.append(FriendAccountUserId(userAccount: account, userID: userId))
                 }
             }
         }
@@ -128,13 +167,13 @@ class SearchFriendViewController: UIViewController
         friendRef.observe(.childAdded)
         {
             (snapshot) in
-                if let friend = snapshot.value as? [String: AnyObject]
+            if let friend = snapshot.value as? [String: AnyObject]
+            {
+                if let text = friend["account"] as? String
                 {
-                    if let text = friend["account"] as? String
-                    {
-                        self.friendLists.append(text)
-                    }
+                    self.friendLists.append(text)
                 }
+            }
         }
     }
 }
@@ -156,11 +195,11 @@ extension UIView {
             drawBorder(rect: rect, color: borderColor)
     }
     
-    public func setView(hidden: Bool){
+    public func setView(hidden: Bool)
+    {
         UIView.transition(with: self, duration: 0.5, options: .transitionCrossDissolve, animations:{
             self.isHidden = hidden
         })
-        
     }
 }
 

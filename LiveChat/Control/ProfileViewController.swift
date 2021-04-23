@@ -9,11 +9,15 @@ import UIKit
 import FirebaseStorage
 import FirebaseAuth
 
+protocol changeViewDelegate                         //Mike Add
+{                                                   //Mike Add
+    func changeTabBar(account: FriendAccountUserId) //Mike Add
+}                                                   //Mike Add
+
 class ProfileViewController: UIViewController {
 
-    
     //MARK: - Properties
-    
+    var changeViewDelegate: changeViewDelegate? //Mike Add
     let profileView = ProfileView()
     let mySections: [MySections] = [.profileImage, .profile]
     var profileOrBackgroundImg: ProfileOrBackgroundImg = .profile
@@ -29,6 +33,7 @@ class ProfileViewController: UIViewController {
     }
     let userID = Auth.auth().currentUser?.uid
     var profileDetail = ProfileDetail()
+    var friendInfomation: FriendAccountUserId?  //Mike Add
     
     //MARK: - Life Cycle
     
@@ -38,7 +43,6 @@ class ProfileViewController: UIViewController {
         profileView.myTableView.delegate = self
         profileView.myTableView.dataSource = self
         downloadImgs()
-        
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -47,7 +51,6 @@ class ProfileViewController: UIViewController {
     }
     
     //MARK: - Functions
-    
     
     @objc func changeImg() {
         let ImagePicker = UIImagePickerController()
@@ -60,9 +63,12 @@ class ProfileViewController: UIViewController {
     func uploadImgs(image: UIImage) {
         
         let storageProfileImg =
-            Storage.storage().reference(withPath: "users/\(userID!)/profileImage.jpg")
+//            Storage.storage().reference(withPath: "users/\(userID!)/profileImage.jpg")
+            Storage.storage().reference(withPath: "users/\(friendInfomation?.userID)/profileImage.jpg") //Mike Modify
+
         let storageBackgroundImg =
-            Storage.storage().reference(withPath: "users/\(userID!)/backgroundImage.jpg")
+//            Storage.storage().reference(withPath: "users/\(userID!)/backgroundImage.jpg")
+            Storage.storage().reference(withPath: "users/\(friendInfomation?.userID)/backgroundImage.jpg")
         
         let uploadMetaData = StorageMetadata.init()
         uploadMetaData.contentType = "image/jpeg"
@@ -76,7 +82,6 @@ class ProfileViewController: UIViewController {
                 if let error = error {
                     print("Error: \(error)")
                 }else if let data = data {
-                    print("imgae url: \(data)")
                 }
             }
         }else if profileOrBackgroundImg == .background{
@@ -86,7 +91,6 @@ class ProfileViewController: UIViewController {
                 if let error = error {
                     print("Error: \(error)")
                 }else if let data = data {
-                    print("imgae url: \(data)")
                 }
             }
         }
@@ -96,7 +100,8 @@ class ProfileViewController: UIViewController {
     
     func uploadProfileInfo() {
         let storageProfileInfo =
-            Storage.storage().reference(withPath: "users/\(userID!)/profileInfo")
+//            Storage.storage().reference(withPath: "users/\(userID!)/profileInfo")
+            Storage.storage().reference(withPath: "users/\(friendInfomation?.userID)/profileInfo")   //Mike Modify
         let uploadMetaData = StorageMetadata.init()
         uploadMetaData.contentType = "profileInfo"
         
@@ -105,7 +110,6 @@ class ProfileViewController: UIViewController {
                 if let error = error {
                     print("Error: \(error)")
                 }else if let data = data {
-                    print("info: \(data)")
                 }
             }
         
@@ -187,6 +191,14 @@ extension ProfileViewController: UITableViewDelegate, UITableViewDataSource {
                 self.profileOrBackgroundImg = .background
                 self.changeImg()
             }
+            
+            cell.chatButtonAction = {
+                guard let userAccount = self.friendInfomation else {return}
+                self.dismiss(animated: true) {
+                    self.changeViewDelegate?.changeTabBar(account: userAccount)
+                }
+            }
+            
             cell.profileImg.image = self.profileImage
             cell.topBackgroundView.image = self.backgroundImage
             return cell
@@ -266,8 +278,6 @@ extension ProfileViewController: UIImagePickerControllerDelegate, UINavigationCo
 
 extension ProfileViewController: PassProfileDetailDelegate {
     func sendProfileDetail(detail: String, index: Int) {
-        print(detail)
-        print(index)
         profileDetail.profileDetail[index] = detail
     }
     

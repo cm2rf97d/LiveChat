@@ -13,6 +13,7 @@ import FirebaseDatabase
 class RegisterViewController: UIViewController,UITextFieldDelegate
 {
     let registerView = RegisterView()
+    var userId: String = ""
     
     override func viewDidLoad()
     {
@@ -41,15 +42,22 @@ class RegisterViewController: UIViewController,UITextFieldDelegate
         {
             FirebaseAuth.Auth.auth().createUser(withEmail: account, password: password, completion: {(user, error) in
                 
+                if let userId = Auth.auth().currentUser?.uid
+                {
+                    self.userId = userId
+                }
+                
                 if error == nil
                 {
                     // Add User Information
                     let userAccount = Database.database().reference().child("userAccount")
-                    let childUserAccount = userAccount.childByAutoId()
-                    if let account = self.registerView.accountTextField.text{
-                        let values = ["account": account] as [String : Any]
+                    let childUserAccount = userAccount.child(self.userId)
+                    if let account = self.registerView.accountTextField.text
+                    {
+                        let values = ["account": account, "userID": self.userId] as [String : Any]
                         childUserAccount.updateChildValues(values)
                     }
+
                     self.navigationController?.popViewController(animated: true)
                 }
                 else

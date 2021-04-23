@@ -37,7 +37,6 @@ class ProfileDetailViewController: UIViewController {
             if let text = self.profileDetailView.myTextField.text, let index = self.index {
                 self.sendProfileDataDelegate?.sendProfileDetail(detail: text, index: index)
             }
-            print("111")
             self.navigationController?.popViewController(animated: true)
         }
     }
