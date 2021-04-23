@@ -13,26 +13,28 @@ class ChatroomBannerCell: UITableViewCell {
     
     let fullSize = UIScreen.main.bounds.size
     static let identifier = "chatroomBannerCell"
-    let bannerImageView1 = UIImageView(image: UIImage(systemName: "house"))
-    let bannerImageView2 = UIImageView(image: UIImage(systemName: "person"))
-    let bannerImageView3 = UIImageView(image: UIImage(systemName: "pencil"))
-    lazy var images = [bannerImageView1, bannerImageView2, bannerImageView3]
+    var bannerViews: [UIImageView] {
+        var bannerView = [UIImageView]()
+        for i in 0...6 {
+            let imageView = UIImageView(image: UIImage(named: "\(i)"))
+            imageView.frame = CGRect(x: fullSize.width * CGFloat(i), y: 0, width: fullSize.width, height: 180)
+            bannerView.append(imageView)
+        }
+        return bannerView
+    }
     var tapPageControlAction: (() -> Void)?
     
     //MARK: - IBOutlets
     
     lazy var myScrollView: UIScrollView = {
         let sv = UIScrollView()
-        sv.contentSize = CGSize(width: fullSize.width * 3, height: 200)
-        bannerImageView1.frame = CGRect(x: fullSize.width * 0, y: 0, width: fullSize.width, height: 150)
-        bannerImageView2.frame = CGRect(x: fullSize.width * 1, y: 0, width: fullSize.width, height: 150)
-        bannerImageView3.frame = CGRect(x: fullSize.width * 2, y: 0, width: fullSize.width, height: 150)
+        sv.contentSize = CGSize(width: Int(fullSize.width) * bannerViews.count, height: 200)
         sv.isPagingEnabled = true
         sv.showsHorizontalScrollIndicator = false
         sv.showsVerticalScrollIndicator = false
-        sv.addSubview(bannerImageView1)
-        sv.addSubview(bannerImageView2)
-        sv.addSubview(bannerImageView3)
+        for banner in bannerViews {
+            sv.addSubview(banner)
+        }
         return sv
     }()
     
@@ -41,7 +43,7 @@ class ChatroomBannerCell: UITableViewCell {
         pc.backgroundColor = .clear
         pc.currentPageIndicatorTintColor = .systemRed
         pc.pageIndicatorTintColor = .gray
-        pc.numberOfPages = images.count
+        pc.numberOfPages = bannerViews.count
         pc.currentPage = 0
         pc.isUserInteractionEnabled = true
         

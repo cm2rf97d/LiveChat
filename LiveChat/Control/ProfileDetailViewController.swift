@@ -26,17 +26,17 @@ class ProfileDetailViewController: UIViewController {
         super.viewDidLoad()
         view = profileDetailView
         profileDetailView.myTextField.delegate = self
-        didTapBtn()
         profileDetailView.myTextField.text = receiveText
+        profileDetailView.tapBtnAction = {
+            self.didTapBtn()
+        }
     }
     
     //MARK: - Functions
     
     func didTapBtn() {
-        profileDetailView.tapBtnAction = {
-            if let text = self.profileDetailView.myTextField.text, let index = self.index {
-                self.sendProfileDataDelegate?.sendProfileDetail(detail: text, index: index)
-            }
+        if let text = self.profileDetailView.myTextField.text, let index = self.index {
+            self.sendProfileDataDelegate?.sendProfileDetail(detail: text, index: index)
             print("111")
             self.navigationController?.popViewController(animated: true)
         }

@@ -15,7 +15,7 @@ struct ProfileDetail {
 //    var birthDay: String
 //    var starSign: String
     var profileInfo = ["姓名", "性別", "年齡", "綽號", "生日", "星座"]
-    var profileDetail = [" ", " ", " ", " ", " ", " "]
+    var profileDetail: [String] = [" ", " ", " ", " ", " ", " "]
     
     
 

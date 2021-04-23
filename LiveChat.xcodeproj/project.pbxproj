@@ -21,7 +21,7 @@
 		27EDF9AC261C07CF00ADFDA6 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 27EDF9AA261C07CF00ADFDA6 /* LaunchScreen.storyboard */; };
 		27EDF9BA261C0FEF00ADFDA6 /* HomepageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27EDF9B9261C0FEF00ADFDA6 /* HomepageViewController.swift */; };
 		27EDF9BD261C100B00ADFDA6 /* HomePageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27EDF9BC261C100B00ADFDA6 /* HomePageView.swift */; };
-		27EDF9C4261C1A4A00ADFDA6 /* BuildFile in Frameworks */ = {isa = PBXBuildFile; productRef = 27EDF9C3261C1A4A00ADFDA6 /* SwiftPackageProductDependency */; };
+		27EDF9C4261C1A4A00ADFDA6 /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = 27EDF9C3261C1A4A00ADFDA6 /* SnapKit */; };
 		27EDF9D3261C50E200ADFDA6 /* RegisterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27EDF9D2261C50E200ADFDA6 /* RegisterView.swift */; };
 		27EDF9D6261C50F100ADFDA6 /* RegisterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27EDF9D5261C50F100ADFDA6 /* RegisterViewController.swift */; };
 		27EDF9DB261C5D2200ADFDA6 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 27EDF9DA261C5D2200ADFDA6 /* GoogleService-Info.plist */; };
@@ -92,7 +92,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				27EDF9C4261C1A4A00ADFDA6 /* BuildFile in Frameworks */,
+				27EDF9C4261C1A4A00ADFDA6 /* SnapKit in Frameworks */,
 				5E54B77CB13E7825A9F2B6D9 /* Pods_LiveChat.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -236,7 +236,7 @@
 			);
 			name = LiveChat;
 			packageProductDependencies = (
-				27EDF9C3261C1A4A00ADFDA6 /* SwiftPackageProductDependency */,
+				27EDF9C3261C1A4A00ADFDA6 /* SnapKit */,
 			);
 			productName = LiveChat;
 			productReference = 27EDF99C261C07CE00ADFDA6 /* LiveChat.app */;
@@ -266,7 +266,7 @@
 			);
 			mainGroup = 27EDF993261C07CE00ADFDA6;
 			packageReferences = (
-				27EDF9C2261C1A4A00ADFDA6 /* RemoteSwiftPackageReference */,
+				27EDF9C2261C1A4A00ADFDA6 /* XCRemoteSwiftPackageReference "SnapKit" */,
 			);
 			productRefGroup = 27EDF99D261C07CE00ADFDA6 /* Products */;
 			projectDirPath = "";
@@ -508,13 +508,13 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = TYC5BK4Q43;
 				INFOPLIST_FILE = LiveChat/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com..LiveChat;
+				PRODUCT_BUNDLE_IDENTIFIER = com..LiveChat11;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -528,13 +528,13 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = TYC5BK4Q43;
 				INFOPLIST_FILE = LiveChat/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com..LiveChat;
+				PRODUCT_BUNDLE_IDENTIFIER = com..LiveChat11;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -565,7 +565,7 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		27EDF9C2261C1A4A00ADFDA6 /* RemoteSwiftPackageReference */ = {
+		27EDF9C2261C1A4A00ADFDA6 /* XCRemoteSwiftPackageReference "SnapKit" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/SnapKit/SnapKit";
 			requirement = {
@@ -576,9 +576,9 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		27EDF9C3261C1A4A00ADFDA6 /* SwiftPackageProductDependency */ = {
+		27EDF9C3261C1A4A00ADFDA6 /* SnapKit */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 27EDF9C2261C1A4A00ADFDA6 /* RemoteSwiftPackageReference */;
+			package = 27EDF9C2261C1A4A00ADFDA6 /* XCRemoteSwiftPackageReference "SnapKit" */;
 			productName = SnapKit;
 		};
 /* End XCSwiftPackageProductDependency section */

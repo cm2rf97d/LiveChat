@@ -19,7 +19,7 @@ class ProfileImageTableViewCell: UITableViewCell {
     
     let profileImg: UIImageView = {
         let iv = UIImageView()
-        iv.backgroundColor = .black
+        iv.backgroundColor = .gray
         iv.layer.cornerRadius = 50
         iv.clipsToBounds = true
         iv.isUserInteractionEnabled = true

@@ -38,7 +38,6 @@ class ProfileViewController: UIViewController {
         profileView.myTableView.delegate = self
         profileView.myTableView.dataSource = self
         downloadImgs()
-        
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -99,8 +98,7 @@ class ProfileViewController: UIViewController {
             Storage.storage().reference(withPath: "users/\(userID!)/profileInfo")
         let uploadMetaData = StorageMetadata.init()
         uploadMetaData.contentType = "profileInfo"
-        
-        guard let profileDetailData = try? JSONSerialization.data(withJSONObject: profileDetail.profileDetail, options: []) else { return }
+        guard let profileDetailData = try? JSONSerialization.data(withJSONObject: self.profileDetail.profileDetail, options: []) else { return }
             storageProfileInfo.putData(profileDetailData, metadata: uploadMetaData) { (data, error) in
                 if let error = error {
                     print("Error: \(error)")
@@ -137,6 +135,7 @@ class ProfileViewController: UIViewController {
                 guard let teststrr = try? JSONSerialization.jsonObject(with: data, options: []) as? [String] else { return }
                 self.profileDetail.profileDetail = teststrr
                 self.profileView.myTableView.reloadData()
+                self.uploadProfileInfo()
             }
         }
     }
@@ -266,8 +265,6 @@ extension ProfileViewController: UIImagePickerControllerDelegate, UINavigationCo
 
 extension ProfileViewController: PassProfileDetailDelegate {
     func sendProfileDetail(detail: String, index: Int) {
-        print(detail)
-        print(index)
         profileDetail.profileDetail[index] = detail
     }
     
