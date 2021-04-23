@@ -58,9 +58,15 @@ class HomepageViewController: UIViewController,UITextFieldDelegate
     
     @objc func signInAction()
     {
-        if let account = homepageview.accountTextField.text, let password = homepageview.passwordTextField.text
+        if let account = homepageview.accountTextField.text,
+           let password = homepageview.passwordTextField.text
         {
             FirebaseAuth.Auth.auth().signIn(withEmail: account,password: password,completion:{(user, error) in
+                
+                if let userId = Auth.auth().currentUser?.uid
+                {
+                    currentUserId = userId
+                }
                 
                 if error == nil
                 {

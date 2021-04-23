@@ -19,3 +19,5 @@ struct FriendAccountUserId
     var userID: String
 }
 
+var currentUserId: String = ""
+

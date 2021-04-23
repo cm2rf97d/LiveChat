@@ -104,7 +104,7 @@ extension FriendsViewController: UITableViewDelegate,UITableViewDataSource
 
 extension FriendsViewController: changeViewDelegate
 {
-    func changeTabBar(account: FriendAccountUserId)
+    func changeTabBarAndShowChatRoom(account: FriendAccountUserId)
     {
         self.tabBarController?.selectedIndex = 0
         presentChatViewDelegate?.presentChatView(account: account)

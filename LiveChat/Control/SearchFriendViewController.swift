@@ -15,7 +15,6 @@ class SearchFriendViewController: UIViewController
 {
     var changeViewDelegate: changeViewDelegate?
     var user: FriendAccountUserId?
-    var userId: String = ""
     var friendLists: [String] = []
     var userInfomations: [FriendAccountUserId] = []
     let searchFriendView = SearchFriendView()
@@ -85,7 +84,7 @@ class SearchFriendViewController: UIViewController
     
     @objc func addFriend()
     {
-        let userGroup = Database.database().reference().child("Friend").child(self.userId)
+        let userGroup = Database.database().reference().child("Friend").child(currentUserId)
         let userFriendInfo = userGroup.childByAutoId()
         if let account = searchFriendView.friendLabel.text
         {
@@ -100,16 +99,16 @@ class SearchFriendViewController: UIViewController
                     { () -> String in
                         for i in 0..<self.userInfomations.count
                         {
-                            if self.userInfomations[i].userID == self.userId
+                            if self.userInfomations[i].userID == currentUserId
                             {
                                 let test = self.userInfomations[i].userAccount
                                 print("test = \(test)")
                                 return test
                             }
                         }
-                            return ""
+                        return ""
                     }
-                    friendConnection(friend: userInfomations[i], myInfo: self.userId, userName: userName())
+                    friendConnection(friend: userInfomations[i], myInfo: currentUserId, userName: userName())
                     break
                 }
             }
@@ -129,7 +128,7 @@ class SearchFriendViewController: UIViewController
         {
             if let user = self.user
             {
-                self.changeViewDelegate?.changeTabBar(account: user)
+                self.changeViewDelegate?.changeTabBarAndShowChatRoom(account: user)
             }
         }
     }
@@ -145,10 +144,6 @@ class SearchFriendViewController: UIViewController
     
     func loadUserInfo()
     {
-        if let userID = Auth.auth().currentUser?.uid
-        {
-            self.userId = userID
-        }
         
         let ref = Database.database().reference().child("userAccount")
         ref.observe(.childAdded)
@@ -163,7 +158,7 @@ class SearchFriendViewController: UIViewController
             }
         }
         
-        let friendRef = Database.database().reference().child("Friend").child(self.userId)
+        let friendRef = Database.database().reference().child("Friend").child(currentUserId)
         friendRef.observe(.childAdded)
         {
             (snapshot) in

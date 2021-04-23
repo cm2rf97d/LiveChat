@@ -41,16 +41,12 @@ class ChatLogVC: UIViewController {
     var userIDs = [String]()
     var userID: String?
     var message = Messages()
-    var currentId: String = ""
     
     // MARK: - Lifecycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
         view = chatLogView
-        if let currentId = Auth.auth().currentUser?.uid{
-            self.currentId = currentId
-        }
         chatLogView.chatLogTableView.delegate = self
         chatLogView.chatLogTableView.dataSource = self
         chatLogView.inputTextField.delegate = self
@@ -155,20 +151,29 @@ class ChatLogVC: UIViewController {
         guard chatLogView.inputTextField.text != "" else { return }
         let timeStamp = NSDate().timeIntervalSince1970
         if let chatName = chatName{
-            let ref = Database.database().reference().child("ChatRoom").child(self.currentId).child(chatName.userID)
+            let ref = Database.database().reference().child("ChatRoom").child(currentUserId).child(chatName.userID)
             let childRef = ref.childByAutoId()
             if let text = chatLogView.inputTextField.text {
                 let values = ["id": userID!, "text": text, "time": timeStamp] as [String : Any]
                 childRef.updateChildValues(values)
+                friendChatRecordUpload(chatName: chatName.userID, text: text, time: timeStamp)
                 
             }
             chatLogView.inputTextField.text = ""
         }
     }
     
+    func friendChatRecordUpload(chatName: String, text: String, time: TimeInterval)
+    {
+        let ref = Database.database().reference().child("ChatRoom").child(chatName).child(currentUserId)
+        let childRef = ref.childByAutoId()
+        let values = ["id": userID!, "text": text, "time": time] as [String : Any]
+        childRef.updateChildValues(values)
+    }
+    
     func observeMsg() {
         guard let chatName = chatName else {return}
-        let ref = Database.database().reference().child("ChatRoom").child(self.currentId).child(chatName.userID)
+        let ref = Database.database().reference().child("ChatRoom").child(currentUserId).child(chatName.userID)
         ref.observe(.childAdded) { (snapshot) in
             
             if let dictionary = snapshot.value as? [String: AnyObject] {

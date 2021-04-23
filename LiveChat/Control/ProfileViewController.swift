@@ -11,7 +11,7 @@ import FirebaseAuth
 
 protocol changeViewDelegate                         //Mike Add
 {                                                   //Mike Add
-    func changeTabBar(account: FriendAccountUserId) //Mike Add
+    func changeTabBarAndShowChatRoom(account: FriendAccountUserId) //Mike Add
 }                                                   //Mike Add
 
 class ProfileViewController: UIViewController {
@@ -195,7 +195,7 @@ extension ProfileViewController: UITableViewDelegate, UITableViewDataSource {
             cell.chatButtonAction = {
                 guard let userAccount = self.friendInfomation else {return}
                 self.dismiss(animated: true) {
-                    self.changeViewDelegate?.changeTabBar(account: userAccount)
+                    self.changeViewDelegate?.changeTabBarAndShowChatRoom(account: userAccount)
                 }
             }
             
