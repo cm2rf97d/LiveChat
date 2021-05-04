@@ -31,7 +31,7 @@
 		464B920D261FF6AA006AEEE2 /* ProfileInfoTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 464B920C261FF6AA006AEEE2 /* ProfileInfoTableViewCell.swift */; };
 		464B921026203228006AEEE2 /* FriendsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 464B920F26203228006AEEE2 /* FriendsView.swift */; };
 		464B921326203239006AEEE2 /* FriendsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 464B921226203239006AEEE2 /* FriendsViewController.swift */; };
-		464BB167261EB48C007718CC /* ChatLogTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 464BB166261EB48C007718CC /* ChatLogTableViewCell.swift */; };
+		464BB167261EB48C007718CC /* ChatLogUserCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 464BB166261EB48C007718CC /* ChatLogUserCell.swift */; };
 		464BB16B261ECB83007718CC /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 464BB16A261ECB83007718CC /* User.swift */; };
 		464BB16E261ED9EE007718CC /* Messages.swift in Sources */ = {isa = PBXBuildFile; fileRef = 464BB16D261ED9EE007718CC /* Messages.swift */; };
 		464BE20B2625540600208D99 /* ChatroomBannerCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 464BE20A2625540600208D99 /* ChatroomBannerCell.swift */; };
@@ -40,6 +40,8 @@
 		464D65472626F12400293379 /* ProfileDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = 464D65462626F12400293379 /* ProfileDetail.swift */; };
 		5E54B77CB13E7825A9F2B6D9 /* Pods_LiveChat.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B46A62400680574913F86BB5 /* Pods_LiveChat.framework */; };
 		D91DF32D26256FCF0010C1F5 /* ChatLogView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D91DF32C26256FCF0010C1F5 /* ChatLogView.swift */; };
+		D9257C652636BCFF000F30F1 /* ChatLogOtherPersonCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9257C642636BCFF000F30F1 /* ChatLogOtherPersonCell.swift */; };
+		D9257C692636C218000F30F1 /* ImageViewForAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9257C682636C218000F30F1 /* ImageViewForAPI.swift */; };
 		D9D5EFA32626D5CE000EC73C /* ScrollToEndpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9D5EFA22626D5CE000EC73C /* ScrollToEndpoint.swift */; };
 		D9FFBEE0261D8C4B00BF5841 /* ChatroomTVCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9FFBEDF261D8C4B00BF5841 /* ChatroomTVCell.swift */; };
 		D9FFBEE3261D8D0400BF5841 /* ChatLogVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9FFBEE2261D8D0400BF5841 /* ChatLogVC.swift */; };
@@ -72,7 +74,7 @@
 		464B920C261FF6AA006AEEE2 /* ProfileInfoTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileInfoTableViewCell.swift; sourceTree = "<group>"; };
 		464B920F26203228006AEEE2 /* FriendsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendsView.swift; sourceTree = "<group>"; };
 		464B921226203239006AEEE2 /* FriendsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendsViewController.swift; sourceTree = "<group>"; };
-		464BB166261EB48C007718CC /* ChatLogTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatLogTableViewCell.swift; sourceTree = "<group>"; };
+		464BB166261EB48C007718CC /* ChatLogUserCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatLogUserCell.swift; sourceTree = "<group>"; };
 		464BB16A261ECB83007718CC /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = User.swift; path = LiveChat/Cell/User.swift; sourceTree = SOURCE_ROOT; };
 		464BB16D261ED9EE007718CC /* Messages.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Messages.swift; path = LiveChat/Cell/Messages.swift; sourceTree = SOURCE_ROOT; };
 		464BE20A2625540600208D99 /* ChatroomBannerCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatroomBannerCell.swift; sourceTree = "<group>"; };
@@ -82,6 +84,8 @@
 		83A78F375B883F9D24DA5BD9 /* Pods-LiveChat.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LiveChat.release.xcconfig"; path = "Target Support Files/Pods-LiveChat/Pods-LiveChat.release.xcconfig"; sourceTree = "<group>"; };
 		B46A62400680574913F86BB5 /* Pods_LiveChat.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_LiveChat.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D91DF32C26256FCF0010C1F5 /* ChatLogView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatLogView.swift; sourceTree = "<group>"; };
+		D9257C642636BCFF000F30F1 /* ChatLogOtherPersonCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatLogOtherPersonCell.swift; sourceTree = "<group>"; };
+		D9257C682636C218000F30F1 /* ImageViewForAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageViewForAPI.swift; sourceTree = "<group>"; };
 		D9D5EFA22626D5CE000EC73C /* ScrollToEndpoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScrollToEndpoint.swift; sourceTree = "<group>"; };
 		D9FFBEDF261D8C4B00BF5841 /* ChatroomTVCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatroomTVCell.swift; sourceTree = "<group>"; };
 		D9FFBEE2261D8D0400BF5841 /* ChatLogVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatLogVC.swift; sourceTree = "<group>"; };
@@ -192,7 +196,8 @@
 			children = (
 				D9FFBEDF261D8C4B00BF5841 /* ChatroomTVCell.swift */,
 				464BE20A2625540600208D99 /* ChatroomBannerCell.swift */,
-				464BB166261EB48C007718CC /* ChatLogTableViewCell.swift */,
+				464BB166261EB48C007718CC /* ChatLogUserCell.swift */,
+				D9257C642636BCFF000F30F1 /* ChatLogOtherPersonCell.swift */,
 				464B9209261FF34A006AEEE2 /* ProfileImageTableViewCell.swift */,
 				464B920C261FF6AA006AEEE2 /* ProfileInfoTableViewCell.swift */,
 				278E012F262448DE00E0015B /* FriendsTableViewCell.swift */,
@@ -213,6 +218,7 @@
 			isa = PBXGroup;
 			children = (
 				D9D5EFA22626D5CE000EC73C /* ScrollToEndpoint.swift */,
+				D9257C682636C218000F30F1 /* ImageViewForAPI.swift */,
 			);
 			path = Method;
 			sourceTree = "<group>";
@@ -350,8 +356,10 @@
 				464B9204261FEDF2006AEEE2 /* ProfileView.swift in Sources */,
 				27CBCC432627FD7900ABC42C /* LoadingViewController.swift in Sources */,
 				27CBCC472627FDC600ABC42C /* LoadingView.swift in Sources */,
+				D9257C652636BCFF000F30F1 /* ChatLogOtherPersonCell.swift in Sources */,
 				27EDF9A2261C07CE00ADFDA6 /* SceneDelegate.swift in Sources */,
 				2793C1B8261C9F22000262CE /* ChatroomView.swift in Sources */,
+				D9257C692636C218000F30F1 /* ImageViewForAPI.swift in Sources */,
 				464B920A261FF34A006AEEE2 /* ProfileImageTableViewCell.swift in Sources */,
 				27EDF9D6261C50F100ADFDA6 /* RegisterViewController.swift in Sources */,
 				D9D5EFA32626D5CE000EC73C /* ScrollToEndpoint.swift in Sources */,
@@ -366,7 +374,7 @@
 				464B921326203239006AEEE2 /* FriendsViewController.swift in Sources */,
 				278E0130262448DE00E0015B /* FriendsTableViewCell.swift in Sources */,
 				464B920D261FF6AA006AEEE2 /* ProfileInfoTableViewCell.swift in Sources */,
-				464BB167261EB48C007718CC /* ChatLogTableViewCell.swift in Sources */,
+				464BB167261EB48C007718CC /* ChatLogUserCell.swift in Sources */,
 				27EDF9BA261C0FEF00ADFDA6 /* HomepageViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -508,13 +516,13 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = TYC5BK4Q43;
+				DEVELOPMENT_TEAM = 79T4246ALJ;
 				INFOPLIST_FILE = LiveChat/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com..LiveChat11;
+				PRODUCT_BUNDLE_IDENTIFIER = com.LiveChat11;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";

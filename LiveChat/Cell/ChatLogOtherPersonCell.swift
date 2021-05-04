@@ -1,30 +1,19 @@
 //
-//  ChatLogTableViewCell.swift
+//  ChatLogImageCell.swift
 //  LiveChat
 //
-//  Created by Wang Sheng Ping on 2021/4/8.
+//  Created by 董恩志 on 2021/4/26.
 //
 
 import UIKit
 
-class ChatLogTableViewCell: UITableViewCell {
+class ChatLogOtherPersonCell: UITableViewCell {
 
     //MARK: - Properties
     
-    static let identifier = "ChatLogCell"
-    let chatLogView = ChatLogView()
+    static let identifier = "ChatLogImageCell"
     
     //MARK: - IBOutlets
-    
-    let myTextlabel: UILabel = {
-        let label = UILabel()
-        label.textAlignment = .left
-        label.font = UIFont.systemFont(ofSize: 20)
-        label.numberOfLines = 0
-        label.textColor = .white
-//        label.lineBreakMode = .byCharWrapping
-        return label
-    }()
     
     let yourTextlabel: UILabel = {
         let label = UILabel()
@@ -34,13 +23,6 @@ class ChatLogTableViewCell: UITableViewCell {
         label.textColor = .black
 //        label.lineBreakMode = .byCharWrapping
         return label
-    }()
-    
-    let mybubleView: UIView = {
-        let view = UIView()
-        view.backgroundColor = .systemBlue
-        view.layer.cornerRadius = 15
-        return view
     }()
     
     let yourbubleView: UIView = {
@@ -64,17 +46,32 @@ class ChatLogTableViewCell: UITableViewCell {
         return image
     }()
     
+    let yourtimelabel: UILabel = {
+        let label = UILabel()
+        label.textAlignment = .left
+        label.font = UIFont.systemFont(ofSize: 15)
+//        label.numberOfLines = 0
+        label.textColor = .black
+//        label.lineBreakMode = .byCharWrapping
+        return label
+    }()
+    
+    var yourImageView: ImageViewForAPI = {
+        let view = ImageViewForAPI()
+        return view
+    }()
+    
     //MARK: - Init
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
-        addSubview(mybubleView)
-        addSubview(yourbubleView)
         backgroundColor = .clear
-        addSubview(myTextlabel)
+        addSubview(yourbubleView)
         addSubview(yourTextlabel)
         addSubview(yourID)
         addSubview(yourProfileImage)
+        addSubview(yourtimelabel)
+        addSubview(yourImageView)
         layouts()
     }
     
@@ -85,12 +82,6 @@ class ChatLogTableViewCell: UITableViewCell {
     //MARK: - Set Layouts
     
     func layouts() {
-        myTextlabel.snp.makeConstraints { (make) in
-            make.right.equalTo(self).offset(-32)
-            make.top.equalTo(self).offset(32)
-            make.bottom.equalTo(self).offset(-32)
-            make.width.lessThanOrEqualTo(250)
-        }
         
         yourTextlabel.snp.makeConstraints { (make) in
 //            make.left.equalTo(self).offset(32)
@@ -114,13 +105,6 @@ class ChatLogTableViewCell: UITableViewCell {
             make.height.equalTo(30)
             make.width.equalTo(30)
         }
-            
-        mybubleView.snp.makeConstraints { (make) in
-            make.right.equalTo(myTextlabel).offset(10)
-            make.top.equalTo(myTextlabel).offset(-10)
-            make.bottom.equalTo(myTextlabel).offset(10)
-            make.left.equalTo(myTextlabel).offset(-10)
-        }
         
         yourbubleView.snp.makeConstraints { (make) in
             make.right.equalTo(yourTextlabel).offset(10)
@@ -128,6 +112,18 @@ class ChatLogTableViewCell: UITableViewCell {
             make.bottom.equalTo(yourTextlabel).offset(10)
             make.left.equalTo(yourTextlabel).offset(-10)
         }
+        
+        yourtimelabel.snp.makeConstraints { (make) in
+            make.bottom.equalTo(yourbubleView).offset(-1)
+            make.left.equalTo(yourbubleView.snp.right).offset(5)
+        }
+        
+        yourImageView.snp.makeConstraints { (make) in
+            make.left.equalTo(yourID).offset(10)
+            make.top.equalTo(yourID.snp.bottom).offset(17)
+            make.bottom.equalTo(self).offset(-32)
+            make.size.lessThanOrEqualTo(250)
+        }
     }
-    
+
 }

@@ -13,7 +13,8 @@ class ChatLogView: UIView {
             
     let chatLogTableView: UITableView = {
         let tv = UITableView()
-        tv.register(ChatLogTableViewCell.self,forCellReuseIdentifier: ChatLogTableViewCell.identifier)
+        tv.register(ChatLogUserCell.self,forCellReuseIdentifier: ChatLogUserCell.identifier)
+        tv.register(ChatLogOtherPersonCell.self,forCellReuseIdentifier: ChatLogOtherPersonCell.identifier)
         tv.separatorStyle = .none
         tv.rowHeight = UITableView.automaticDimension
         tv.backgroundColor = .clear
