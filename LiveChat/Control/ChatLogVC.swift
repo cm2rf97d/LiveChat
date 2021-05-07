@@ -230,7 +230,7 @@ extension ChatLogVC: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath:IndexPath) -> UITableViewCell {
         
-        let cell = UITableViewCell()
+        let defaultCell = UITableViewCell()
 //        //cell 無法被點選
 //        cell.selectionStyle = .none
         //防止cell重用
@@ -241,50 +241,66 @@ extension ChatLogVC: UITableViewDelegate, UITableViewDataSource {
         
         if userID == userIDs[indexPath.row] {
             
-            let cell = tableView.dequeueReusableCell(withIdentifier:ChatLogUserCell.identifier, for: indexPath) as? ChatLogUserCell
+            guard let cell = tableView.dequeueReusableCell(withIdentifier:ChatLogUserCell.identifier, for: indexPath) as? ChatLogUserCell else {return defaultCell}
             //cell 無法被點選
-            cell?.selectionStyle = .none
+            cell.selectionStyle = .none
             //cell 顛倒
-            cell?.transform = CGAffineTransform(scaleX: 1, y: -1)
+            cell.transform = CGAffineTransform(scaleX: 1, y: -1)
             
-            cell?.myImageView.image = nil
+            cell.myImageView.image = nil
             
             if types[indexPath.row] == "image" {
-                cell?.mybubleView.isHidden = true
-                cell?.myTextlabel.isHidden = true
-                cell?.myImageView.setImage(url: URL(string: messages[indexPath.row])!)
+//                cell?.mybubleView.isHidden = true
+//                cell?.myTextlabel.isHidden = true
+                cell.myImageView.setImage(url: URL(string: messages[indexPath.row])!)
+                cell.myTextlabel.text = messages[indexPath.row]
+                cell.mytimelabel.text = times[indexPath.row]
+                cell.myTextlabel.textColor = .clear
+                cell.mybubleView.backgroundColor = .clear
+                return cell
             }
 
+//            cell?.mybubleView.isHidden = false
+//            cell?.myTextlabel.isHidden = false
+            cell.mybubleView.backgroundColor = .systemBlue
+            cell.myTextlabel.text = messages[indexPath.row]
+            cell.mytimelabel.text = times[indexPath.row]
             
-            cell?.myTextlabel.text = messages[indexPath.row]
-            cell?.mytimelabel.text = times[indexPath.row]
-            
-            return cell!
+            return cell
         }else{
-            let cell = tableView.dequeueReusableCell(withIdentifier:ChatLogOtherPersonCell.identifier, for: indexPath) as? ChatLogOtherPersonCell
+            guard let cell = tableView.dequeueReusableCell(withIdentifier:ChatLogOtherPersonCell.identifier, for: indexPath) as? ChatLogOtherPersonCell else {return defaultCell}
             
             //cell 無法被點選
-            cell?.selectionStyle = .none
+            cell.selectionStyle = .none
             //cell 顛倒
-            cell?.transform = CGAffineTransform(scaleX: 1, y: -1)
+            cell.transform = CGAffineTransform(scaleX: 1, y: -1)
             
-            cell?.yourImageView.image = nil
+            cell.yourImageView.image = nil
 
             if types[indexPath.row] == "image" {
-                cell?.yourbubleView.isHidden = true
-                cell?.yourTextlabel.isHidden = true
-                cell?.yourImageView.setImage(url: URL(string: messages[indexPath.row])!)
+//                cell?.yourbubleView.isHidden = true
+//                cell?.yourTextlabel.isHidden = true
+                cell.yourImageView.setImage(url: URL(string: messages[indexPath.row])!)
+                cell.yourTextlabel.text = messages[indexPath.row]
+                cell.yourtimelabel.text = times[indexPath.row]
+                cell.yourID.text = userIDs[indexPath.row]
+                cell.yourProfileImage.backgroundColor = .systemBlue
+                cell.yourTextlabel.textColor = .clear
+                cell.yourbubleView.backgroundColor = .clear
+                return cell
             }
-
-            cell?.yourID.text = userIDs[indexPath.row]
-            cell?.yourProfileImage.backgroundColor = .systemBlue
-            cell?.yourTextlabel.text = messages[indexPath.row]
-            cell?.yourtimelabel.text = times[indexPath.row]
             
-            return cell!
+//            cell?.yourbubleView.isHidden = false
+//            cell?.yourTextlabel.isHidden = false
+            cell.yourID.text = userIDs[indexPath.row]
+            cell.yourProfileImage.backgroundColor = .systemBlue
+            cell.yourTextlabel.text = messages[indexPath.row]
+            cell.yourtimelabel.text = times[indexPath.row]
+            
+            return cell
         }
         
-        return cell
+        return defaultCell
     }
 }
 

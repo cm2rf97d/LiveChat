@@ -11,7 +11,7 @@ class ChatLogOtherPersonCell: UITableViewCell {
 
     //MARK: - Properties
     
-    static let identifier = "ChatLogImageCell"
+    static let identifier = "ChatLogOtherPersonCell"
     
     //MARK: - IBOutlets
     

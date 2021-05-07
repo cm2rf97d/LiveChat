@@ -82,7 +82,7 @@ class ChatLogView: UIView {
 //            make.bottom.equalTo(bottomView.snp.top)
             make.left.right.equalTo(self)
             make.bottom.equalTo(bottomView.snp.top).offset(10)
-            make.top.equalTo(self).offset(100)
+            make.top.equalTo(self.snp.topMargin)
             
 //            make.bottom.equalTo(self)
         }
