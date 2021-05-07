@@ -15,7 +15,7 @@ class FriendsView: UIView {
         tableView.register(FriendsTableViewCell.self, forCellReuseIdentifier: FriendsTableViewCell.identifier)
         tableView.separatorStyle = .none
         tableView.backgroundColor = .systemGray2
-        tableView.rowHeight = 50
+        tableView.rowHeight = UITableView.automaticDimension
         return tableView
     }()
     
@@ -40,3 +40,4 @@ class FriendsView: UIView {
         }
     }
 }
+

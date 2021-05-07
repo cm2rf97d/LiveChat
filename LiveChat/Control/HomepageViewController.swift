@@ -66,6 +66,7 @@ class HomepageViewController: UIViewController,UITextFieldDelegate
                 if let userId = Auth.auth().currentUser?.uid
                 {
                     currentUserId = userId
+                    currentUserAccount = account //Mark add
                 }
                 
                 if error == nil

@@ -48,22 +48,43 @@ class RegisterViewController: UIViewController,UITextFieldDelegate
                 
                 if error == nil
                 {
-                    // Add User Information
-                    let userAccount = Database.database().reference().child("userAccount")
-                    let childUserAccount = userAccount.child(currentUserId)
-                    if let account = self.registerView.accountTextField.text
-                    {
-                        let values = ["account": account, "userID": currentUserId] as [String : Any]
-                        childUserAccount.updateChildValues(values)
+                    print("!!!!!!!!!!\(currentUserId)")
+                    let storageAccount =
+                        Storage.storage().reference(withPath: "users/\(account)/userAccount")
+                    let storageID =
+                        Storage.storage().reference(withPath: "users/\(account)/userID")
+                    
+                    let uploadMetaData = StorageMetadata.init()
+                    uploadMetaData.contentType = "userAccount"
+                                        
+                    if let account = self.registerView.accountTextField.text {
+                        let accountData = Data(account.utf8)
+                            storageAccount.putData(accountData, metadata: uploadMetaData) { (data, error) in
+                                if let error = error {
+                                    print("Error: \(error)")
+                                }else if let data = data {
+                                    print(data)
+                                    print("UserID: \(currentUserId)")
+                                }
+                            }
+                        let accountID = Data(currentUserId.utf8)
+                            storageID.putData(accountID, metadata: uploadMetaData) { (data, error) in
+                                if let error = error {
+                                    print("Error: \(error)")
+                                }else if let data = data {
+                                    print(data)
+                                    print("UserID: \(currentUserId)")
+                                }
+                            }
                     }
-
                     self.navigationController?.popViewController(animated: true)
                 }
                 else
                 {
-                    print("error")
+                    print("error: \(String(describing: error?.localizedDescription))")
                 }
             })
         }
     }
 }
+

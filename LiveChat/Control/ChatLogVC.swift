@@ -16,7 +16,14 @@ class ChatLogVC: UIViewController {
     // MARK: - Properties
     
 //    var chatName = ""
-    var chatName: FriendAccountUserId?
+    var chatName: MarkUser?
+    var chatUserID: String = ""
+    {
+        didSet
+        {
+            print("Mike === AAA === \(chatUserID)")
+        }
+    }
     let chatLogView = ChatLogView()
     let chatLogCell = ChatLogTableViewCell()
     var messages = [String]() {
@@ -46,6 +53,10 @@ class ChatLogVC: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        if let test = chatName
+        {
+            print("dnajksdnkj === \(test)")
+        }
         view = chatLogView
         chatLogView.chatLogTableView.delegate = self
         chatLogView.chatLogTableView.dataSource = self
@@ -75,7 +86,9 @@ class ChatLogVC: UIViewController {
     
     //MARK: navigation
     func setNavigation() {
-        self.navigationItem.title = chatName?.userAccount
+        if let chatName = chatName{
+            self.navigationItem.title = chatName.userAccount
+        }
     }
     
     override var canBecomeFirstResponder: Bool {
@@ -173,7 +186,9 @@ class ChatLogVC: UIViewController {
     
     func observeMsg() {
         guard let chatName = chatName else {return}
+        print("chatName.userID = \(self.chatUserID)")
         let ref = Database.database().reference().child("ChatRoom").child(currentUserId).child(chatName.userID)
+        print(ref)
         ref.observe(.childAdded) { (snapshot) in
             
             if let dictionary = snapshot.value as? [String: AnyObject] {
@@ -350,4 +365,5 @@ extension ChatLogVC: UITextFieldDelegate {
     }
     
 }
+
 

@@ -11,7 +11,7 @@ import FirebaseAuth
 
 protocol changeViewDelegate                         //Mike Add
 {                                                   //Mike Add
-    func changeTabBarAndShowChatRoom(account: FriendAccountUserId) //Mike Add
+    func changeTabBarAndShowChatRoom(account: MarkUser) //Mike Add
 }                                                   //Mike Add
 
 class ProfileViewController: UIViewController {
@@ -31,9 +31,19 @@ class ProfileViewController: UIViewController {
             profileView.myTableView.reloadData()
         }
     }
-    let userID = Auth.auth().currentUser?.uid
+    var userID = Auth.auth().currentUser?.uid
     var profileDetail = ProfileDetail()
     var friendInfomation: FriendAccountUserId?  //Mike Add
+    var isInteractive: Bool = true
+    var markUser: MarkUser?
+    var friendAccount: String?
+    var friendUser: MarkUser?
+    {
+        didSet
+        {
+            print(self.friendUser)
+        }
+    }
     
     //MARK: - Life Cycle
     
@@ -42,7 +52,13 @@ class ProfileViewController: UIViewController {
         view = profileView
         profileView.myTableView.delegate = self
         profileView.myTableView.dataSource = self
-        downloadImgs()
+        if let userAccount = self.friendAccount {
+            downloadImgs(userAccount: userAccount)
+            getUserId()
+            isInteractive = false
+        }else{
+            downloadImgs(userAccount: currentUserAccount)
+        }
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -60,15 +76,40 @@ class ProfileViewController: UIViewController {
         self.present(ImagePicker, animated: true, completion: nil)
     }
     
+    //Mike Add
+    func getUserId()
+    {
+        print("runrunrun")
+        if let friendAccount = friendAccount
+        {
+            print("Mike Chat Name ==  \(friendAccount)")
+            let downloadFriendList = Storage.storage().reference(withPath: "users/\(friendAccount)/userID")
+            print("downloadFriendList \(downloadFriendList)")
+            downloadFriendList.getData(maxSize: 1 * 1024 * 1024)
+            { (data, error) in
+                if let error = error
+                {
+                    print("$$$$$$$$$$$$$$$")
+                    print("Error: \(error.localizedDescription)")
+                }
+                else if let data = data
+                {
+                    print("::::::::::::::")
+                    let userID = String(decoding: data, as: UTF8.self)
+                    self.friendUser = MarkUser(userAccount: friendAccount, userID: userID, userImage: UIImage(), friendsList: [])
+                }
+            }
+        }
+    }
+    
     func uploadImgs(image: UIImage) {
         
         let storageProfileImg =
-//            Storage.storage().reference(withPath: "users/\(userID!)/profileImage.jpg")
-            Storage.storage().reference(withPath: "users/\(friendInfomation?.userID)/profileImage.jpg") //Mike Modify
+            Storage.storage().reference(withPath: "users/\(currentUserAccount)/profileImage.jpg") //Mike Modify
+        print("1111\(currentUserId)")
 
         let storageBackgroundImg =
-//            Storage.storage().reference(withPath: "users/\(userID!)/backgroundImage.jpg")
-            Storage.storage().reference(withPath: "users/\(friendInfomation?.userID)/backgroundImage.jpg")
+            Storage.storage().reference(withPath: "users/\(currentUserAccount)/backgroundImage.jpg")
         
         let uploadMetaData = StorageMetadata.init()
         uploadMetaData.contentType = "image/jpeg"
@@ -82,6 +123,7 @@ class ProfileViewController: UIViewController {
                 if let error = error {
                     print("Error: \(error)")
                 }else if let data = data {
+                    print(data)
                 }
             }
         }else if profileOrBackgroundImg == .background{
@@ -91,6 +133,7 @@ class ProfileViewController: UIViewController {
                 if let error = error {
                     print("Error: \(error)")
                 }else if let data = data {
+                    print(data)
                 }
             }
         }
@@ -98,26 +141,30 @@ class ProfileViewController: UIViewController {
         
     }
     
-    func uploadProfileInfo() {
+    func uploadProfileInfo()
+    {
         let storageProfileInfo =
-//            Storage.storage().reference(withPath: "users/\(userID!)/profileInfo")
-            Storage.storage().reference(withPath: "users/\(friendInfomation?.userID)/profileInfo")   //Mike Modify
+            Storage.storage().reference(withPath: "users/\(currentUserAccount)/profileInfo")   //Mike Modify
         let uploadMetaData = StorageMetadata.init()
         uploadMetaData.contentType = "profileInfo"
         guard let profileDetailData = try? JSONSerialization.data(withJSONObject: self.profileDetail.profileDetail, options: []) else { return }
-            storageProfileInfo.putData(profileDetailData, metadata: uploadMetaData) { (data, error) in
-                if let error = error {
+        storageProfileInfo.putData(profileDetailData, metadata: uploadMetaData)
+            { (data, error) in
+                if let error = error
+                {
                     print("Error: \(error)")
                 }else if let data = data {
+                    print(data)
                 }
             }
         
     }
     
-    func downloadImgs() {
-        let downloadProfileImg = Storage.storage().reference(withPath: "users/\(userID!)/profileImage.jpg")
-        let downloadBackgroundImg = Storage.storage().reference(withPath: "users/\(userID!)/backgroundImage.jpg")
-        let downloadProfileInfo = Storage.storage().reference(withPath: "users/\(userID!)/profileInfo")
+    func downloadImgs(userAccount: String) {
+        let downloadProfileImg = Storage.storage().reference(withPath: "users/\(userAccount)/profileImage.jpg")
+        let downloadBackgroundImg = Storage.storage().reference(withPath: "users/\(userAccount)/backgroundImage.jpg")
+        let downloadProfileInfo = Storage.storage().reference(withPath: "users/\(userAccount)/profileInfo")
+        
         
         downloadProfileImg.getData(maxSize: 1 * 1024 * 1024) { (data, error) in
             if let error = error {
@@ -183,6 +230,9 @@ extension ProfileViewController: UITableViewDelegate, UITableViewDataSource {
         switch mySections[indexPath.section] {
         case .profileImage:
             guard let cell = tableView.dequeueReusableCell(withIdentifier: ProfileImageTableViewCell.identifier, for: indexPath) as? ProfileImageTableViewCell else { return UITableViewCell()}
+//            cell.profileImg.isUserInteractionEnabled = !aaa
+            cell.topBackgroundView.isUserInteractionEnabled = isInteractive
+            cell.chatBtn.isHidden = isInteractive
             cell.tapProfileImgAction = {
                 self.profileOrBackgroundImg = .profile
                 self.changeImg()
@@ -192,10 +242,14 @@ extension ProfileViewController: UITableViewDelegate, UITableViewDataSource {
                 self.changeImg()
             }
             
-            cell.chatButtonAction = {
-                guard let userAccount = self.friendInfomation else {return}
-                self.dismiss(animated: true) {
-                    self.changeViewDelegate?.changeTabBarAndShowChatRoom(account: userAccount)
+            cell.chatButtonAction =
+            {
+                if let userAccount = self.friendUser
+                {
+                    self.dismiss(animated: true)
+                    {
+                        self.changeViewDelegate?.changeTabBarAndShowChatRoom(account: userAccount)
+                    }
                 }
             }
             
@@ -283,3 +337,4 @@ extension ProfileViewController: PassProfileDetailDelegate {
     
     
 }
+

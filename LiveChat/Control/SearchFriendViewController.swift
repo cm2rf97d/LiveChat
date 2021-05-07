@@ -10,22 +10,45 @@ import Firebase
 import FirebaseAuth
 import FirebaseDatabase
 import Lottie
+import FirebaseStorage
+
+protocol SendFriendsList {
+    func friendsListDelegate(account: MarkUser)
+}
 
 class SearchFriendViewController: UIViewController
 {
     var changeViewDelegate: changeViewDelegate?
     var user: FriendAccountUserId?
-    var friendLists: [String] = []
-    var userInfomations: [FriendAccountUserId] = []
+    var friendLists: [MarkUser] = []
+    var userInfomations: [String] = []
+    {
+        didSet
+        {
+            print(userInfomations)
+        }
+    }
     let searchFriendView = SearchFriendView()
+    //Mark test:
+    var markUser = MarkUser(userAccount: "", userID: "", userImage: UIImage(), friendsList: []) {
+        didSet{
+            print("yoooooo\(markUser)")
+        }
+    }
+    var markFriends: [MarkUser] = []
+    var userAccount: String = ""
+    var friendsListDelegate: SendFriendsList?
+    var userExist: UserExist = .yes
+    var friendAccount: String = ""
     
     override func viewDidLoad()
     {
         super.viewDidLoad()
 
         setNavigation()
-        loadUserInfo()
         searchFriendView.searchButtonAction = searchFriend
+        print("My friends: \(userInfomations)")
+        
     }
     
     override func loadView()
@@ -45,91 +68,163 @@ class SearchFriendViewController: UIViewController
         self.dismiss(animated: true, completion: nil)
     }
     
+    //Mark add:
+    func downloadProfileImg(userAccount: String) {
+        let downloadProfileImg = Storage.storage().reference(withPath: "users/\(userAccount)/profileImage.jpg")
+        let downloadUserAccount = Storage.storage().reference(withPath: "users/\(userAccount)/userAccount")
+        let downloadUserID = Storage.storage().reference(withPath: "users/\(userAccount)/userID")
+        
+        
+        downloadProfileImg.getData(maxSize: 1 * 1024 * 1024) { (data, error) in
+            if let error = error {
+                print("Error: \(error.localizedDescription)")
+            }else if let data = data{
+                if let image = UIImage(data: data){
+                    self.markUser.userImage = image
+                    self.searchFriendView.friendImageView.image = image
+                }
+            }
+        }
+        
+        downloadUserAccount.getData(maxSize: 1 * 1024 * 1024) { (data, error) in
+            if let error = error {
+                self.userExist = .no
+                print("Error: \(error.localizedDescription)")
+            }else if let data = data{
+                self.userExist = .yes
+                self.markUser.userAccount = String(decoding: data, as: UTF8.self)
+            }
+        }
+        
+        downloadUserID.getData(maxSize: 1 * 1024 * 1024) { (data, error) in
+            if let error = error {
+                self.userExist = .no
+                print("Error: \(error.localizedDescription)")
+            }else if let data = data{
+                self.userExist = .yes
+                self.markUser.userID = String(decoding: data, as: UTF8.self)
+            }
+        }
+
+        print("cmnelmnewklnk\(self.markUser)")
+        
+    }
+    
     @objc func searchFriend()
     {
         if let userAccount = searchFriendView.searchTextField.text
         {
-//            if userInfomations.contains(where: { $0.userAccount == userAccount})
-            for i in 0..<userInfomations.count
-            {
-                if userInfomations[i].userAccount == userAccount
-                {
-                    if friendLists.contains(userAccount)
-                    {
-                        self.user = userInfomations[i]
-                        searchFriendView.addFriendButton.setTitle("聊天", for: .normal)
-                        searchFriendView.addButtonAction = chatWithFriend
+            downloadProfileImg(userAccount: userAccount)
+            DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                if self.userExist == .yes {
+                    if self.markUser.friendsList.contains(userAccount){
+                        self.searchFriendView.friendImageView.setView(hidden: false)
+                        self.searchFriendView.addFriendButton.setView(hidden: false)
+                        self.searchFriendView.addFriendButton.setTitle("Chat", for: .normal)
+                        self.searchFriendView.friendLabel.text = userAccount
+                        self.searchFriendView.addButtonAction = self.chatWithFriend
+                        self.friendAccount = userAccount
+                    }else{
+                        self.userAccount = userAccount
+                        self.downloadProfileImg(userAccount: userAccount)
+                        self.searchFriendView.friendLabel.text = userAccount
+                        self.searchFriendView.addFriendButton.setTitle("add", for: .normal)
+                        self.searchFriendView.friendImageView.setView(hidden: false)
+                        self.searchFriendView.addFriendButton.setView(hidden: false)
+                        self.searchFriendView.addButtonAction = self.addFriend
                     }
-                    else
-                    {
-                        searchFriendView.addFriendButton.setTitle("加入", for: .normal)
-                        searchFriendView.addButtonAction = addFriend
-                    }
-                    searchFriendView.friendLabel.text = userAccount
-                    searchFriendView.friendImageView.setView(hidden: false)
-                    searchFriendView.addFriendButton.setView(hidden: false)
-                    break
-                }
-                else
-                {
-                    searchFriendView.friendLabel.text = "Not Exist Account"
-                    searchFriendView.friendLabel.setView(hidden: false)
-                    searchFriendView.friendImageView.setView(hidden: true)
-                    searchFriendView.addFriendButton.setView(hidden: true)
+                }else{
+                    self.searchFriendView.friendLabel.text = "Not Exist Account"
+                    self.searchFriendView.friendLabel.setView(hidden: false)
+                    self.searchFriendView.friendImageView.setView(hidden: true)
+                    self.searchFriendView.addFriendButton.setView(hidden: true)
                 }
             }
-            searchFriendView.friendLabel.setView(hidden: false)
+        }else{
+            
         }
     }
     
     @objc func addFriend()
     {
-        let userGroup = Database.database().reference().child("Friend").child(currentUserId)
-        let userFriendInfo = userGroup.childByAutoId()
-        if let account = searchFriendView.friendLabel.text
+        let storageProfileInfo =
+            Storage.storage().reference(withPath: "users/\(currentUserAccount)/friendList")
+        let uploadMetaData = StorageMetadata.init()
+        uploadMetaData.contentType = "friendList"
+        
+        if let account = self.searchFriendView.searchTextField.text
         {
-            for i in 0..<userInfomations.count
-            {
-                if userInfomations[i].userAccount == account
-                {
-                    let values = ["account": userInfomations[i].userAccount,
-                                  "userID": userInfomations[i].userID] as [String : Any]
-                    userFriendInfo.updateChildValues(values)
-                    let userName =
-                    { () -> String in
-                        for i in 0..<self.userInfomations.count
-                        {
-                            if self.userInfomations[i].userID == currentUserId
-                            {
-                                let test = self.userInfomations[i].userAccount
-                                print("test = \(test)")
-                                return test
-                            }
-                        }
-                        return ""
+            markUser.friendsList.append(account)
+            guard let profileDetailData = try? JSONSerialization.data(withJSONObject: self.markUser.friendsList, options: []) else { return }
+                storageProfileInfo.putData(profileDetailData, metadata: uploadMetaData)
+                { (data, error) in
+                    if let error = error
+                    {
+                        print("Error: \(error)")
                     }
-                    friendConnection(friend: userInfomations[i], myInfo: currentUserId, userName: userName())
-                    break
+                    else if let data = data
+                    {
+                        print(data)
+                    }
+                    self.friendsListDelegate?.friendsListDelegate(account: self.markUser)
+                }
+            
+            let friendListInfo =
+                Storage.storage().reference(withPath: "users/\(account)/friendList")
+            var test: [String] = []
+            getFriendList(friendAccount: account) { (data) in
+                test = data
+                test.append(currentUserAccount)
+                guard let friendListData = try? JSONSerialization.data(withJSONObject: test, options: []) else { return }
+                friendListInfo.putData(friendListData, metadata: uploadMetaData)
+                { (data, error) in
+                    if let error = error
+                    {
+                        print("Error: \(error)")
+                    }
+                    else if let data = data
+                    {
+                        print(data)
+                    }
                 }
             }
+            print("test = \(test)")
+            
             
         }
+        
         self.presentLoadingVC()
         DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 2)
         {
             self.searchFriend()
             self.dismiss(animated: true, completion: nil)
+            print("123123123")
         }
+    }
+    
+    func getFriendList(friendAccount: String, completion: @escaping(([String])->()))
+    {
+        var returnFriendList: [String] = []
+        let downloadFriendList = Storage.storage().reference(withPath: "users/\(friendAccount)/friendList")
+        
+        downloadFriendList.getData(maxSize: 1 * 1024 * 1024) { (data, error) in
+            if let error = error {
+                print("Error: \(error.localizedDescription)")
+            }else if let data = data{
+                guard let friendArray = try? JSONSerialization.jsonObject(with: data, options: []) as? [String] else { return }
+                returnFriendList = friendArray
+                completion(returnFriendList)
+            }
+        }
+        
     }
     
     @objc func chatWithFriend()
     {
         self.dismiss(animated: true)
         {
-            if let user = self.user
-            {
-                self.changeViewDelegate?.changeTabBarAndShowChatRoom(account: user)
-            }
+            print("ggggg\(self.markUser)")
+            self.changeViewDelegate?.changeTabBarAndShowChatRoom(account: self.markUser)
         }
     }
     
@@ -142,35 +237,6 @@ class SearchFriendViewController: UIViewController
         userFriendInfo.updateChildValues(values)
     }
     
-    func loadUserInfo()
-    {
-        
-        let ref = Database.database().reference().child("userAccount")
-        ref.observe(.childAdded)
-        { (snapshot) in
-            if let dictionary = snapshot.value as? [String: AnyObject]
-            {
-                if let account = dictionary["account"] as? String,
-                   let userId  = dictionary["userID"]  as? String
-                {
-                    self.userInfomations.append(FriendAccountUserId(userAccount: account, userID: userId))
-                }
-            }
-        }
-        
-        let friendRef = Database.database().reference().child("Friend").child(currentUserId)
-        friendRef.observe(.childAdded)
-        {
-            (snapshot) in
-            if let friend = snapshot.value as? [String: AnyObject]
-            {
-                if let text = friend["account"] as? String
-                {
-                    self.friendLists.append(text)
-                }
-            }
-        }
-    }
 }
 
 extension UIView {
@@ -208,3 +274,10 @@ extension UIViewController
         present(loadingVC, animated: true, completion: nil)
     }
 }
+
+extension SearchFriendViewController {
+    enum UserExist {
+        case yes, no
+    }
+}
+
