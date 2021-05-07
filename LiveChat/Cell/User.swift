@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import UIKit
 
 struct Users {
     var id: String
@@ -17,7 +18,19 @@ struct FriendAccountUserId
 {
     var userAccount: String
     var userID: String
+//    var userImage: UIImage   //Mark modified
 }
 
 var currentUserId: String = ""
+var currentUserAccount: String = ""
 
+
+//Mark test:
+
+struct MarkUser
+{
+    var userAccount: String
+    var userID: String
+    var userImage: UIImage
+    var friendsList: [String]
+}

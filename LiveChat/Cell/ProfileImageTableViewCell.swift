@@ -44,7 +44,7 @@ class ProfileImageTableViewCell: UITableViewCell {
         view.backgroundColor = .black
         view.isUserInteractionEnabled = true
         view.addSubview(profileImg)
-        view.addSubview(chatBtn)
+//        view.addSubview(chatBtn)
         return view
     }()
     
@@ -53,6 +53,7 @@ class ProfileImageTableViewCell: UITableViewCell {
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         contentView.addSubview(topBackgroundView)
+        contentView.addSubview(chatBtn)
         layouts()
         
         let tapProfile = UITapGestureRecognizer(target: self, action: #selector(profileDidTap))
@@ -104,3 +105,4 @@ class ProfileImageTableViewCell: UITableViewCell {
     }
     
 }
+

@@ -46,6 +46,7 @@ class SearchFriendView: UIView {
         imageView.isHidden = true
         imageView.backgroundColor = .systemBlue
         imageView.layer.cornerRadius = 80
+        imageView.clipsToBounds = true
         return imageView
     }()
     
@@ -146,3 +147,4 @@ class SearchFriendView: UIView {
         }
     }
 }
+

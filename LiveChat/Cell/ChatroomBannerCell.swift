@@ -28,7 +28,7 @@ class ChatroomBannerCell: UITableViewCell {
     
     lazy var myScrollView: UIScrollView = {
         let sv = UIScrollView()
-        sv.contentSize = CGSize(width: Int(fullSize.width) * bannerViews.count, height: 200)
+        sv.contentSize = CGSize(width: Int(fullSize.width) * bannerViews.count, height: 180)
         sv.isPagingEnabled = true
         sv.showsHorizontalScrollIndicator = false
         sv.showsVerticalScrollIndicator = false
@@ -74,7 +74,7 @@ class ChatroomBannerCell: UITableViewCell {
     
     func layouts() {
         myScrollView.snp.makeConstraints { (make) in
-            make.edges.equalTo(self)
+            make.edges.equalTo(contentView)
         }
         
         pageControl.snp.makeConstraints { (make) in
@@ -86,3 +86,4 @@ class ChatroomBannerCell: UITableViewCell {
     }
 
 }
+

@@ -15,13 +15,15 @@ class FriendsTableViewCell: UITableViewCell {
     {
         let imageView = UIImageView()
         imageView.backgroundColor = .systemBlue
+        imageView.layer.cornerRadius = 25
         return imageView
     }()
     
     let friendslabel: UILabel =
     {
         let label = UILabel()
-        label.textAlignment = .center
+        label.textAlignment = .left
+        label.font = UIFont.systemFont(ofSize: 20)
         return label
     }()
     
@@ -42,18 +44,18 @@ class FriendsTableViewCell: UITableViewCell {
     {
         friendsImageView.snp.makeConstraints
         { (make) in
-            make.width.equalTo(50)
-            make.height.equalTo(40)
+            make.width.height.equalTo(50)
             make.left.equalTo(20)
             make.centerY.equalTo(self)
         }
         
         friendslabel.snp.makeConstraints
         { (make) in
-            make.centerY.equalTo(self)
             make.left.equalTo(friendsImageView.snp.right).offset(10)
-            make.width.equalTo(200)
-            make.height.equalTo(40)
+            make.width.equalTo(250)
+            make.top.equalTo(self.snp.top).offset(+20)
+            make.bottom.equalTo(self.snp.bottom).offset(-20)
         }
     }
 }
+

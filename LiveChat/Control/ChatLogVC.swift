@@ -15,8 +15,15 @@ class ChatLogVC: UIViewController {
     
     // MARK: - Properties
     
-    //    var chatName = ""
-    var chatName: FriendAccountUserId?
+//    var chatName = ""
+    var chatName: MarkUser?
+    var chatUserID: String = ""
+    {
+        didSet
+        {
+            print("Mike === AAA === \(chatUserID)")
+        }
+    }
     let chatLogView = ChatLogView()
     let chatLogCell = ChatLogUserCell()
     var messages = [String]() {
@@ -66,7 +73,9 @@ class ChatLogVC: UIViewController {
     
     //MARK: navigation
     func setNavigation() {
-        self.navigationItem.title = chatName?.userAccount
+        if let chatName = chatName{
+            self.navigationItem.title = chatName.userAccount
+        }
     }
     
     override var canBecomeFirstResponder: Bool {
