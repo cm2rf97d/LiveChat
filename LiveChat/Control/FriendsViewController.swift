@@ -104,13 +104,16 @@ extension FriendsViewController: UITableViewDelegate,UITableViewDataSource
 {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int
     {
-        return markUser.friendsList.count
+//        return markUser.friendsList.count
+        return markFriends.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell
     {
         guard let cell = tableView.dequeueReusableCell(withIdentifier:FriendsTableViewCell.identifier, for: indexPath) as? FriendsTableViewCell else { return UITableViewCell() }
-        cell.friendslabel.text = markUser.friendsList[indexPath.row]
+//        cell.friendslabel.text = markUser.friendsList[indexPath.row]
+        cell.friendslabel.text = markFriends[indexPath.row].userAccount
+        cell.friendsImageView.image = markFriends[indexPath.row].userImage
         
         return cell
     }

@@ -117,22 +117,26 @@ class SearchFriendViewController: UIViewController
             downloadProfileImg(userAccount: userAccount)
             DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
                 if self.userExist == .yes {
-                    if self.markUser.friendsList.contains(userAccount){
-                        self.searchFriendView.friendImageView.setView(hidden: false)
-                        self.searchFriendView.addFriendButton.setView(hidden: false)
-                        self.searchFriendView.addFriendButton.setTitle("Chat", for: .normal)
-                        self.searchFriendView.friendLabel.text = userAccount
-                        self.searchFriendView.addButtonAction = self.chatWithFriend
-                        self.friendAccount = userAccount
-                    }else{
-                        self.userAccount = userAccount
-                        self.downloadProfileImg(userAccount: userAccount)
-                        self.searchFriendView.friendLabel.text = userAccount
-                        self.searchFriendView.addFriendButton.setTitle("add", for: .normal)
-                        self.searchFriendView.friendImageView.setView(hidden: false)
-                        self.searchFriendView.addFriendButton.setView(hidden: false)
-                        self.searchFriendView.addButtonAction = self.addFriend
+                    self.getFriendList(friendAccount: currentUserAccount) { (data) in
+                        self.markUser.friendsList = data
+                        if self.markUser.friendsList.contains(userAccount){
+                            self.searchFriendView.friendImageView.setView(hidden: false)
+                            self.searchFriendView.addFriendButton.setView(hidden: false)
+                            self.searchFriendView.addFriendButton.setTitle("Chat", for: .normal)
+                            self.searchFriendView.friendLabel.text = userAccount
+                            self.searchFriendView.addButtonAction = self.chatWithFriend
+                            self.friendAccount = userAccount
+                        }else{
+                            self.userAccount = userAccount
+                            self.downloadProfileImg(userAccount: userAccount)
+                            self.searchFriendView.friendLabel.text = userAccount
+                            self.searchFriendView.addFriendButton.setTitle("add", for: .normal)
+                            self.searchFriendView.friendImageView.setView(hidden: false)
+                            self.searchFriendView.addFriendButton.setView(hidden: false)
+                            self.searchFriendView.addButtonAction = self.addFriend
+                        }
                     }
+                    
                 }else{
                     self.searchFriendView.friendLabel.text = "Not Exist Account"
                     self.searchFriendView.friendLabel.setView(hidden: false)
@@ -174,6 +178,7 @@ class SearchFriendViewController: UIViewController
             var test: [String] = []
             getFriendList(friendAccount: account) { (data) in
                 test = data
+                print("eeeeeeeeee\(test)")
                 test.append(currentUserAccount)
                 guard let friendListData = try? JSONSerialization.data(withJSONObject: test, options: []) else { return }
                 friendListInfo.putData(friendListData, metadata: uploadMetaData)
@@ -189,8 +194,6 @@ class SearchFriendViewController: UIViewController
                 }
             }
             print("test = \(test)")
-            
-            
         }
         
         self.presentLoadingVC()
@@ -210,6 +213,7 @@ class SearchFriendViewController: UIViewController
         downloadFriendList.getData(maxSize: 1 * 1024 * 1024) { (data, error) in
             if let error = error {
                 print("Error: \(error.localizedDescription)")
+                completion(returnFriendList)
             }else if let data = data{
                 guard let friendArray = try? JSONSerialization.jsonObject(with: data, options: []) as? [String] else { return }
                 returnFriendList = friendArray

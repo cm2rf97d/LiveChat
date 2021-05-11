@@ -49,12 +49,12 @@ class ChatroomVC: UIViewController, presentChatViewDelegate
         chatroomView.chatTableView.dataSource = self
         setNavigation()
         setTimer()
-        getFriendList()
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
+        getFriendList()
         tabBarController?.tabBar.isHidden = false
     }
     
@@ -88,12 +88,15 @@ class ChatroomVC: UIViewController, presentChatViewDelegate
             else if let data = data
             {
                 guard let friendArray = try? JSONSerialization.jsonObject(with: data, options: []) as? [String] else { return }
-                self.friends = friendArray
-                self.getFriendInfo(friendMember: self.friends)
-                    {(data) in self.friendInformations = data
-                    print("out")
-                    print("bbbbbb\(data)")
+                if self.friends != friendArray {
+                    self.friends = friendArray
+                    self.getFriendInfo(friendMember: self.friends)
+                        {(data) in self.friendInformations = data
+                        print("out")
+                        print("bbbbbb\(data)")
+                    }
                 }
+                
             }
         }
         
@@ -150,7 +153,24 @@ class ChatroomVC: UIViewController, presentChatViewDelegate
                         print("ccccccccc\(data)")
     //                    friendMembers.append(MarkUser(userAccount: friendAccount, userID: friendUserId, userImage: UIImage(), friendsList: []))
                         markUser.userID = friendUserId
-                        if markUser.userID == "" || markUser.userAccount == ""{
+                        
+                        
+                    }
+                }
+            
+            
+            downloadFriendUserImage.getData(maxSize: 1 * 1024 * 1024)
+            { (data, error) in
+                if let error = error
+                {
+                    print("Error: \(error.localizedDescription)")
+                }
+                else if let data = data
+                {
+                    if let friendImage = UIImage(data: data) {
+                        print("ccccccccc\(data)")
+                        markUser.userImage = friendImage
+                        if markUser.userID == "" || markUser.userAccount == "" {
                             
                             DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
                                 friendMembers.append(markUser)
@@ -161,28 +181,11 @@ class ChatroomVC: UIViewController, presentChatViewDelegate
                             friendMembers.append(markUser)
                             return myData(friendMembers)
                         }
-                        
+
+    //                    return myData([markUser])
                     }
                 }
-            
-            
-//            downloadFriendUserImage.getData(maxSize: 1 * 1024 * 1024)
-//            { (data, error) in
-//                if let error = error
-//                {
-//                    print("Error: \(error.localizedDescription)")
-//                }
-//                else if let data = data
-//                {
-//                    if let friendImage = UIImage(data: data) {
-//                        print("ccccccccc\(data)")
-//                        markUser.userImage = friendImage
-//
-//
-//    //                    return myData([markUser])
-//                    }
-//                }
-//            }
+            }
             
             print("friendAccount = \(friendInformations)")
             print("friendUserId = \(friendUserId)")
@@ -245,7 +248,7 @@ extension ChatroomVC : UITableViewDelegate,UITableViewDataSource {
         case .chatroom:
             let cell = chatroomView.chatTableView.dequeueReusableCell(withIdentifier: ChatroomTVCell.chatCellID, for: indexPath) as! ChatroomTVCell
             cell.chatPartnerNameLable.text = friendInformations[indexPath.row].userAccount
-            cell.chatPartnerImage.image = UIImage(systemName: "pin")
+            cell.chatPartnerImage.image = friendInformations[indexPath.row].userImage
             cell.timeLabel.text = "時間time"
             return cell
         }
@@ -287,19 +290,21 @@ extension ChatroomVC: UIScrollViewDelegate {
     
     func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
         
-        
-        let translatedPoint = scrollView.panGestureRecognizer.translation(in:scrollView)
-        print(translatedPoint.x)
-        if translatedPoint.x < 0 {
-            changeBanner()
-        }else{
-            currentPage -= 1
-            if currentPage < 0 {
-                currentPage = 6
+        if scrollView != chatroomView.chatTableView {
+            let translatedPoint = scrollView.panGestureRecognizer.translation(in:scrollView)
+            print(translatedPoint.x)
+            if translatedPoint.x < 0 {
+                changeBanner()
+            }else{
+                currentPage -= 1
+                if currentPage < 0 {
+                    currentPage = 6
+                }
             }
+            print(currentPage)
+            xOffset = fullSizeWidth * CGFloat(self.currentPage)
         }
-        print(currentPage)
-        xOffset = fullSizeWidth * CGFloat(self.currentPage)
+        
 
     }
     

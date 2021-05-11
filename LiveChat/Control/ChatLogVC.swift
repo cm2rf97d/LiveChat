@@ -15,30 +15,26 @@ class ChatLogVC: UIViewController {
     
     // MARK: - Properties
     
-//    var chatName = ""
+    //    var chatName = ""
     var chatName: MarkUser?
-    var chatUserID: String = ""
-    {
-        didSet
-        {
-            print("Mike === AAA === \(chatUserID)")
-        }
-    }
+//    var chatUserID: String = ""
+//    {
+//        didSet
+//        {
+//            print("Mike === AAA === \(chatUserID)")
+//        }
+//    }
     let chatLogView = ChatLogView()
     let chatLogCell = ChatLogUserCell()
-    var messages = [String]() {
+    
+    //    var userIDs = [String]()
+    var userID: String?
+    var message = Messages(id: [], text: [], time: [], type: []) {
         didSet{
             chatLogView.chatLogTableView.reloadData()
-            //            scrollToBottom()
-            //            chatLogView.myTableView.scrollTo(direction: .bottom)
+
         }
     }
-    
-    var userIDs = [String]()
-    var userID: String?
-    var message = Messages()
-    var times = [String]()
-    var types = [String]()
     
     // MARK: - Lifecycle
     
@@ -58,6 +54,13 @@ class ChatLogVC: UIViewController {
         chatLogView.chatLogTableView.transform = CGAffineTransform(scaleX: 1, y: -1)
         touchToLoadImage()
         chatLogView.sendBtn.addTarget(self, action: #selector(sendMessage), for: .touchUpInside)
+        
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        self.tabBarController?.tabBar.isHidden = true
     }
     
     override func viewDidDisappear(_ animated: Bool) {
@@ -152,7 +155,8 @@ class ChatLogVC: UIViewController {
         let timeStamp = NSDate().timeIntervalSince1970
         let type = "text"
         if let chatName = chatName{
-            let ref = Database.database().reference().child("ChatRoom").child(currentUserId).child(chatName.userID)
+            let ref = Database.database().reference().child("ChatRoom").child(currentUserId).child(chatName.userID) //userID
+            #warning("test")
             let childRef = ref.childByAutoId()
             if let text = chatLogView.inputTextField.text {
                 let values = ["id": userID!,
@@ -160,28 +164,29 @@ class ChatLogVC: UIViewController {
                               "time": timeStamp,
                               "type": type] as [String : Any]
                 childRef.updateChildValues(values)
-//                friendChatRecordUpload(chatName: chatName.userID,text: text, time: timeStamp,type: type)
+                friendChatRecordUpload(chatName: chatName.userID,text: text, time: timeStamp,type: type)
                 
             }
             chatLogView.inputTextField.text = ""
         }
     }
     
-//    func friendChatRecordUpload(chatName: String, text: String, time: TimeInterval, type: String)
-//    {
-//        let ref = Database.database().reference().child("ChatRoom").child(chatName).child(currentUserId)
-//        let childRef = ref.childByAutoId()
-//        let type = type
-//        let values = ["id": userID!,
-//                      "text": text,
-//                      "time": time,
-//                      "type": type] as [String : Any]
-//        childRef.updateChildValues(values)
-//    }
+    func friendChatRecordUpload(chatName: String, text: String, time: TimeInterval, type: String)
+    {
+        let ref = Database.database().reference().child("ChatRoom").child(chatName).child(currentUserId)
+        let childRef = ref.childByAutoId()
+        let type = type
+        let values = ["id": userID!,
+                      "text": text,
+                      "time": time,
+                      "type": type] as [String : Any]
+        childRef.updateChildValues(values)
+    }
     
     func observeMsg() {
         guard let chatName = chatName else {return}
-        let ref = Database.database().reference().child("ChatRoom").child(currentUserId).child(chatName.userID)
+        let ref = Database.database().reference().child("ChatRoom").child(currentUserId).child(chatName.userID) //userID
+        #warning("test")
         ref.observe(.childAdded) { (snapshot) in
             
             if let dictionary = snapshot.value as? [String: AnyObject] {
@@ -192,20 +197,11 @@ class ChatLogVC: UIViewController {
                    let type = dictionary["type"] as? String
                 {
                     
-                    //                    self.message.text?.insert(text, at: 0)
-                    self.messages.insert(text, at: 0)
-                    //                    self.userIDs.append(id)
-                    self.userIDs.insert(id, at: 0)
                     
-                    let timeInterval = TimeInterval(time)
-                    let date = Date(timeIntervalSince1970: timeInterval)
-                    let formatter = DateFormatter()
-                    formatter.dateFormat = "hh:mm"
-                    let alarmTime = formatter.string(from: date)
-                    
-                    self.times.insert(alarmTime, at: 0)
-                    
-                    self.types.insert(type, at: 0)
+                    self.message.text.insert(text, at: 0)
+                    self.message.id.insert(id, at: 0)
+                    self.message.time.insert(time, at: 0)
+                    self.message.type.insert(type, at: 0)
                 }
             }
         }
@@ -234,23 +230,22 @@ class ChatLogVC: UIViewController {
 extension ChatLogVC: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection numberOfRowsInSectionsection: Int) -> Int {
-        messages.count
+        message.text.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath:IndexPath) -> UITableViewCell {
         
-        let defaultCell = UITableViewCell()
-//        //cell 無法被點選
-//        cell.selectionStyle = .none
+        //        //cell 無法被點選
+        //        cell.selectionStyle = .none
         //防止cell重用
         //        cell.yourID.text = nil
         //        cell.yourProfileImage.backgroundColor = nil
-//        //cell 顛倒
-//        cell.transform = CGAffineTransform(scaleX: 1, y: -1)
+        //        //cell 顛倒
+        //        cell.transform = CGAffineTransform(scaleX: 1, y: -1)
         
-        if userID == userIDs[indexPath.row] {
+        if userID == message.id[indexPath.row] {
             
-            guard let cell = tableView.dequeueReusableCell(withIdentifier:ChatLogUserCell.identifier, for: indexPath) as? ChatLogUserCell else {return defaultCell}
+            let cell = tableView.dequeueReusableCell(withIdentifier:ChatLogUserCell.identifier, for: indexPath) as! ChatLogUserCell
             //cell 無法被點選
             cell.selectionStyle = .none
             //cell 顛倒
@@ -258,26 +253,23 @@ extension ChatLogVC: UITableViewDelegate, UITableViewDataSource {
             
             cell.myImageView.image = nil
             
-            if types[indexPath.row] == "image" {
-//                cell?.mybubleView.isHidden = true
-//                cell?.myTextlabel.isHidden = true
-                cell.myImageView.setImage(url: URL(string: messages[indexPath.row])!)
-                cell.myTextlabel.text = messages[indexPath.row]
-                cell.mytimelabel.text = times[indexPath.row]
+            if message.type[indexPath.row] == "image" {
+                
+                cell.myImageView.setImage(url: URL(string: (message.text[indexPath.row]))!)
+                cell.myTextlabel.text = message.text[indexPath.row]
+                cell.mytimelabel.text = message.timeChange[indexPath.row]
                 cell.myTextlabel.textColor = .clear
                 cell.mybubleView.backgroundColor = .clear
                 return cell
             }
-
-//            cell?.mybubleView.isHidden = false
-//            cell?.myTextlabel.isHidden = false
-            cell.mybubleView.backgroundColor = .systemBlue
-            cell.myTextlabel.text = messages[indexPath.row]
-            cell.mytimelabel.text = times[indexPath.row]
             
+            cell.myTextlabel.textColor = .white
+            cell.mybubleView.backgroundColor = .systemBlue
+            cell.myTextlabel.text = message.text[indexPath.row]
+            cell.mytimelabel.text = message.timeChange[indexPath.row]
             return cell
         }else{
-            guard let cell = tableView.dequeueReusableCell(withIdentifier:ChatLogOtherPersonCell.identifier, for: indexPath) as? ChatLogOtherPersonCell else {return defaultCell}
+            let cell = tableView.dequeueReusableCell(withIdentifier:ChatLogOtherPersonCell.identifier, for: indexPath) as! ChatLogOtherPersonCell
             
             //cell 無法被點選
             cell.selectionStyle = .none
@@ -285,31 +277,28 @@ extension ChatLogVC: UITableViewDelegate, UITableViewDataSource {
             cell.transform = CGAffineTransform(scaleX: 1, y: -1)
             
             cell.yourImageView.image = nil
-
-            if types[indexPath.row] == "image" {
-//                cell?.yourbubleView.isHidden = true
-//                cell?.yourTextlabel.isHidden = true
-                cell.yourImageView.setImage(url: URL(string: messages[indexPath.row])!)
-                cell.yourTextlabel.text = messages[indexPath.row]
-                cell.yourtimelabel.text = times[indexPath.row]
-                cell.yourID.text = userIDs[indexPath.row]
-                cell.yourProfileImage.backgroundColor = .systemBlue
+            
+            if message.type[indexPath.row] == "image" {
+                
+                cell.yourImageView.setImage(url: URL(string: (message.text[indexPath.row]))!)
+                cell.yourTextlabel.text = message.text[indexPath.row]
+                cell.yourtimelabel.text = message.timeChange[indexPath.row]
+                cell.yourID.text = chatName?.userAccount
+                cell.yourProfileImage.image = chatName?.userImage
                 cell.yourTextlabel.textColor = .clear
                 cell.yourbubleView.backgroundColor = .clear
                 return cell
             }
             
-//            cell?.yourbubleView.isHidden = false
-//            cell?.yourTextlabel.isHidden = false
-            cell.yourID.text = userIDs[indexPath.row]
-            cell.yourProfileImage.backgroundColor = .systemBlue
-            cell.yourTextlabel.text = messages[indexPath.row]
-            cell.yourtimelabel.text = times[indexPath.row]
-            
+            cell.yourID.text = chatName?.userAccount
+            cell.yourProfileImage.image = chatName?.userImage
+            cell.yourTextlabel.text = message.text[indexPath.row]
+            cell.yourtimelabel.text = message.timeChange[indexPath.row]
+            cell.yourTextlabel.textColor = .black
+            cell.yourbubleView.backgroundColor = .white
             return cell
         }
         
-        return defaultCell
     }
 }
 
@@ -392,11 +381,11 @@ extension ChatLogVC: UIImagePickerControllerDelegate,UINavigationControllerDeleg
     
     func sendMessageWithImageUrl(imageUrl: String) {
         let timeStamp = NSDate().timeIntervalSince1970
-//        let ref = Database.database().reference().child("\(chatName)")
-//        let childRef = ref.childByAutoId()
+        //        let ref = Database.database().reference().child("\(chatName)")
+        //        let childRef = ref.childByAutoId()
         
         if let chatName = chatName{
-
+            
             let ref = Database.database().reference().child("ChatRoom").child(currentUserId).child(chatName.userID)
             let childRef = ref.childByAutoId()
             let type = "image"
@@ -406,6 +395,7 @@ extension ChatLogVC: UIImagePickerControllerDelegate,UINavigationControllerDeleg
                           "type": type] as [String : Any]
             
             childRef.updateChildValues(values)
+            friendChatRecordUpload(chatName: chatName.userID,text: imageUrl, time: timeStamp,type: type)
         }
         
     }

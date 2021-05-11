@@ -14,8 +14,9 @@ class FriendsTableViewCell: UITableViewCell {
     let friendsImageView: UIImageView =
     {
         let imageView = UIImageView()
-        imageView.backgroundColor = .systemBlue
+        imageView.backgroundColor = .clear
         imageView.layer.cornerRadius = 25
+        imageView.clipsToBounds = true
         return imageView
     }()
     

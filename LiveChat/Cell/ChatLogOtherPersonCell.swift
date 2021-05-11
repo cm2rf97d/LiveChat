@@ -43,6 +43,8 @@ class ChatLogOtherPersonCell: UITableViewCell {
     var yourProfileImage: UIImageView = {
         let image = UIImageView()
         image.layer.cornerRadius = 15
+        image.backgroundColor = .clear
+        image.clipsToBounds = true
         return image
     }()
     

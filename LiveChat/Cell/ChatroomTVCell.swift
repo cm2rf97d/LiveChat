@@ -23,6 +23,9 @@ class ChatroomTVCell: UITableViewCell {
         var chatPartnerImage: UIImageView = {
             let image = UIImageView()
 //            image.backgroundColor = #colorLiteral(red: 0.2392156869, green: 0.6745098233, blue: 0.9686274529, alpha: 1)
+            image.layer.cornerRadius = 15
+            image.backgroundColor = .clear
+            image.clipsToBounds = true
             return image
         }()
         

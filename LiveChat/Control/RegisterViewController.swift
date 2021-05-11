@@ -53,6 +53,7 @@ class RegisterViewController: UIViewController,UITextFieldDelegate
                         Storage.storage().reference(withPath: "users/\(account)/userAccount")
                     let storageID =
                         Storage.storage().reference(withPath: "users/\(account)/userID")
+                    let storageImage = Storage.storage().reference(withPath: "users/\(account)/profileImage.jpg")
                     
                     let uploadMetaData = StorageMetadata.init()
                     uploadMetaData.contentType = "userAccount"
@@ -76,6 +77,10 @@ class RegisterViewController: UIViewController,UITextFieldDelegate
                                     print("UserID: \(currentUserId)")
                                 }
                             }
+                        let image = UIImage(named: "defaultImg")
+                        uploadMetaData.contentType = "image/jpeg"
+                        guard let dataImg = image?.jpegData(compressionQuality: 0.75) else { return }
+                        storageImage.putData(dataImg, metadata: uploadMetaData)
                     }
                     self.navigationController?.popViewController(animated: true)
                 }
