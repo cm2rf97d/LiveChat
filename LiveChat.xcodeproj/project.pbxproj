@@ -42,6 +42,7 @@
 		D91DF32D26256FCF0010C1F5 /* ChatLogView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D91DF32C26256FCF0010C1F5 /* ChatLogView.swift */; };
 		D9257C652636BCFF000F30F1 /* ChatLogOtherPersonCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9257C642636BCFF000F30F1 /* ChatLogOtherPersonCell.swift */; };
 		D9257C692636C218000F30F1 /* ImageViewForAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9257C682636C218000F30F1 /* ImageViewForAPI.swift */; };
+		D9911B1F264A80A400B59D2F /* ApiModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9911B1E264A80A400B59D2F /* ApiModel.swift */; };
 		D9D5EFA32626D5CE000EC73C /* ScrollToEndpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9D5EFA22626D5CE000EC73C /* ScrollToEndpoint.swift */; };
 		D9FFBEE0261D8C4B00BF5841 /* ChatroomTVCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9FFBEDF261D8C4B00BF5841 /* ChatroomTVCell.swift */; };
 		D9FFBEE3261D8D0400BF5841 /* ChatLogVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9FFBEE2261D8D0400BF5841 /* ChatLogVC.swift */; };
@@ -86,6 +87,7 @@
 		D91DF32C26256FCF0010C1F5 /* ChatLogView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatLogView.swift; sourceTree = "<group>"; };
 		D9257C642636BCFF000F30F1 /* ChatLogOtherPersonCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatLogOtherPersonCell.swift; sourceTree = "<group>"; };
 		D9257C682636C218000F30F1 /* ImageViewForAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageViewForAPI.swift; sourceTree = "<group>"; };
+		D9911B1E264A80A400B59D2F /* ApiModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ApiModel.swift; path = "/Users/dongenzhi/Desktop/code learning/LiveChat/LiveChat/Model/ApiModel.swift"; sourceTree = "<absolute>"; };
 		D9D5EFA22626D5CE000EC73C /* ScrollToEndpoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScrollToEndpoint.swift; sourceTree = "<group>"; };
 		D9FFBEDF261D8C4B00BF5841 /* ChatroomTVCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatroomTVCell.swift; sourceTree = "<group>"; };
 		D9FFBEE2261D8D0400BF5841 /* ChatLogVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatLogVC.swift; sourceTree = "<group>"; };
@@ -187,6 +189,7 @@
 				464BB16A261ECB83007718CC /* User.swift */,
 				464BB16D261ED9EE007718CC /* Messages.swift */,
 				464D65462626F12400293379 /* ProfileDetail.swift */,
+				D9911B1E264A80A400B59D2F /* ApiModel.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -360,6 +363,7 @@
 				27EDF9A2261C07CE00ADFDA6 /* SceneDelegate.swift in Sources */,
 				2793C1B8261C9F22000262CE /* ChatroomView.swift in Sources */,
 				D9257C692636C218000F30F1 /* ImageViewForAPI.swift in Sources */,
+				D9911B1F264A80A400B59D2F /* ApiModel.swift in Sources */,
 				464B920A261FF34A006AEEE2 /* ProfileImageTableViewCell.swift in Sources */,
 				27EDF9D6261C50F100ADFDA6 /* RegisterViewController.swift in Sources */,
 				D9D5EFA32626D5CE000EC73C /* ScrollToEndpoint.swift in Sources */,

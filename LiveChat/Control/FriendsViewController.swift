@@ -26,13 +26,18 @@ class FriendsViewController: UIViewController
             friendView.friendsTableView.reloadData()
         }
     }
-    var markFriends: [MarkUser] = []
+    var markFriends: [MarkUser] = [] {
+        didSet{
+            friendView.friendsTableView.reloadData()
+        }
+    }
     var friendsProfileImg: [UIImage] = [] {
         didSet{
             friendView.friendsTableView.reloadData()
             print("bbbbb\(self.friendsProfileImg)")
         }
     }
+    var friends: [String] = []
     
     override func viewDidLoad()
     {
@@ -41,6 +46,9 @@ class FriendsViewController: UIViewController
         friendView.friendsTableView.dataSource = self
         setNavigation()
         getFriendList()
+        
+        //        let friends = markFriends.map({$0.friendsList.map({$0.})})
+        
         markUser.userID = currentUserId
     }
     
@@ -59,28 +67,42 @@ class FriendsViewController: UIViewController
             }else if let data = data{
                 guard let friendArray = try? JSONSerialization.jsonObject(with: data, options: []) as? [String] else { return }
                 self.markUser.friendsList = friendArray
-                self.getFriendsImg(array: friendArray)
+                self.friends = friendArray
+                self.getFriendInfo(friendMember: self.friends) { (data) in
+                    self.markFriends = data
+                }
+                //                var friendUser = MarkUser(userAccount: "", userID: "", userImage: UIImage(named: "defaultImg")!, friendsList: [])
+                
+                //                for i in friendArray
+                //                {
+                //                    self.getFriendsImg(name: i)
+                //                    friendUser.userAccount = i
+                //                    friendUser.userImage = self.getFriendsImg(name: i)
+                //                    self.markFriends.append(friendUser)
+                //                }
             }
         }
     }
     
-    func getFriendsImg(array: [String]) {
-        for name in array{
-            print("name: ")
-            let downloadProfileImage = Storage.storage().reference(withPath: "users/\(name)/profileImage.jpg")
-           
-            downloadProfileImage.getData(maxSize: 1 * 1024 * 1024) { (data, error) in
-                if let error = error {
-                    self.friendsProfileImg.append(UIImage())
-                    print("Error: \(error.localizedDescription)")
-                }else if let data = data {
-                    if let image = UIImage(data: data) {
-                        self.friendsProfileImg.append(image)
-                    }
-                }
-            }
-        }
-    }
+    //    func getFriendsImg(name: String) -> UIImage{
+    ////        for name in array{
+    //            print("name: ")
+    //            let downloadProfileImage = Storage.storage().reference(withPath: "users/\(name)/profileImage.jpg")
+    //        var friendImage: UIImage?
+    //            downloadProfileImage.getData(maxSize: 1 * 1024 * 1024) { (data, error) in
+    //                if let error = error {
+    //                    self.friendsProfileImg.append(UIImage())
+    //                    print("Error: \(error.localizedDescription)")
+    //                }else if let data = data {
+    //                    if let image = UIImage(data: data) {
+    ////                        self.friendsProfileImg.append(image)
+    //                        friendImage = image
+    //                    }
+    //                }
+    //            }
+    //        return friendImage //?? UIImage(named: "defaultImg")!
+    ////        }
+    //    }
     
     func setNavigation()
     {
@@ -104,14 +126,14 @@ extension FriendsViewController: UITableViewDelegate,UITableViewDataSource
 {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int
     {
-//        return markUser.friendsList.count
+        //        return markUser.friendsList.count
         return markFriends.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell
     {
         guard let cell = tableView.dequeueReusableCell(withIdentifier:FriendsTableViewCell.identifier, for: indexPath) as? FriendsTableViewCell else { return UITableViewCell() }
-//        cell.friendslabel.text = markUser.friendsList[indexPath.row]
+        //        cell.friendslabel.text = markUser.friendsList[indexPath.row]
         cell.friendslabel.text = markFriends[indexPath.row].userAccount
         cell.friendsImageView.image = markFriends[indexPath.row].userImage
         
