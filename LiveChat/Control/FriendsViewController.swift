@@ -109,6 +109,8 @@ class FriendsViewController: UIViewController
         self.navigationItem.title = "好友"
         let addFriendBTN = UIBarButtonItem(image: UIImage(systemName: "plus"), style: .plain, target: self, action: #selector(addNewFriend))
         self.navigationItem.rightBarButtonItem = addFriendBTN
+        self.navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
+        self.navigationController?.navigationBar.shadowImage = UIImage()
     }
     
     @objc func addNewFriend()
@@ -144,7 +146,7 @@ extension FriendsViewController: UITableViewDelegate,UITableViewDataSource
     {
         let vc = ProfileViewController()
         vc.changeViewDelegate = self
-        vc.friendAccount = markUser.friendsList[indexPath.row]
+        vc.friendAccount = markFriends[indexPath.row].userAccount
         present(vc, animated: true, completion: nil)
     }
 }

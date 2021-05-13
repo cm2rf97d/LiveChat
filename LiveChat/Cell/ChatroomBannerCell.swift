@@ -8,57 +8,49 @@
 import UIKit
 
 class ChatroomBannerCell: UITableViewCell {
-
+    
     //MARK: - Properties
     
     let fullSize = UIScreen.main.bounds.size
     static let identifier = "chatroomBannerCell"
-    var bannerViews: [UIImageView] {
-        var bannerView = [UIImageView]()
-        for i in 0...6 {
-            let imageView = UIImageView(image: UIImage(named: "\(i)"))
-            imageView.frame = CGRect(x: fullSize.width * CGFloat(i), y: 0, width: fullSize.width, height: 180)
-            bannerView.append(imageView)
+    let chatRoomVC = ChatroomVC()
+    var friendsImages: [MarkUser] = [] {
+        didSet{
+        chatRoomVC.chatroomView.chatTableView.reloadData()
+        myCollectionView.reloadData()
         }
-        return bannerView
     }
-    var tapPageControlAction: (() -> Void)?
+
     
     //MARK: - IBOutlets
     
-    lazy var myScrollView: UIScrollView = {
-        let sv = UIScrollView()
-        sv.contentSize = CGSize(width: Int(fullSize.width) * bannerViews.count, height: 180)
-        sv.isPagingEnabled = true
-        sv.showsHorizontalScrollIndicator = false
-        sv.showsVerticalScrollIndicator = false
-        for banner in bannerViews {
-            sv.addSubview(banner)
-        }
-        return sv
-    }()
-    
-    lazy var pageControl: UIPageControl = {
-        let pc = UIPageControl()
-        pc.backgroundColor = .clear
-        pc.currentPageIndicatorTintColor = .systemRed
-        pc.pageIndicatorTintColor = .gray
-        pc.numberOfPages = bannerViews.count
-        pc.currentPage = 0
-        pc.isUserInteractionEnabled = true
+    lazy var myCollectionView: UICollectionView = {
+        let layout = UICollectionViewFlowLayout()
+        layout.scrollDirection = .horizontal
+//        layout.minimumInteritemSpacing = 20
+        layout.minimumLineSpacing = 20
+        layout.itemSize = CGSize(width: 60, height: 60)
         
-        return pc
+        let cv = UICollectionView(frame: .zero, collectionViewLayout: layout)
+        cv.register(FriendsImageBannerCell.self, forCellWithReuseIdentifier: FriendsImageBannerCell.identifier)
+        cv.backgroundColor = .clear
+        cv.showsHorizontalScrollIndicator = false
+        
+        
+        
+        return cv
     }()
     
     //MARK: - Init
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
-        contentView.addSubview(myScrollView)
-        contentView.addSubview(pageControl)
+        self.backgroundColor = .clear
+        contentView.addSubview(myCollectionView)
         layouts()
         selectionStyle = .none
-        pageControl.addTarget(self, action: #selector(tapPageControl), for: .touchUpInside)
+        myCollectionView.delegate = self
+        myCollectionView.dataSource = self
         
     }
     
@@ -66,24 +58,39 @@ class ChatroomBannerCell: UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
-    @objc func tapPageControl() {
-        tapPageControlAction?()
-    }
     
     //MARK: - Set Layouts
     
     func layouts() {
-        myScrollView.snp.makeConstraints { (make) in
-            make.edges.equalTo(contentView)
-        }
         
-        pageControl.snp.makeConstraints { (make) in
-            make.bottom.equalTo(self.snp.bottom).offset(-10)
-            make.height.equalTo(10)
-            make.centerX.width.equalTo(self)
+        myCollectionView.snp.makeConstraints { (make) in
+            make.edges.equalTo(contentView)
             
         }
     }
 
 }
 
+
+extension ChatroomBannerCell: UICollectionViewDelegate, UICollectionViewDataSource {
+    
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        
+//        DispatchQueue.main.asyncAfter(deadline: .now() + 4) {
+//            print("nnnnnnn\(self.friendsImages.count)")
+//
+//        }
+        return friendsImages.count
+        
+        
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: FriendsImageBannerCell.identifier, for: indexPath) as? FriendsImageBannerCell else { return UICollectionViewCell() }
+        cell.imageView1.image = friendsImages[indexPath.row].userImage
+        
+        return cell
+    }
+    
+    
+}

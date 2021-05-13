@@ -12,6 +12,8 @@ import FirebaseAuth
 class HomepageViewController: UIViewController,UITextFieldDelegate
 {
     let homepageview = HomePageView()
+    let customButton = UIButton()
+    let tabbarControl = UITabBarController()
     
     // MARK: - Life Cycle
     override func viewDidLoad()
@@ -71,21 +73,9 @@ class HomepageViewController: UIViewController,UITextFieldDelegate
                 
                 if error == nil
                 {
-                    let profileVC = ProfileViewController()
-                    let nvProfileVC = UINavigationController(rootViewController: profileVC)
-                    let friendsVC = FriendsViewController()
-                    let nvFriendsVC = UINavigationController(rootViewController: friendsVC)
-                    let vc = ChatroomVC()
-                    friendsVC.presentChatViewDelegate = vc
-                    let nvvc = UINavigationController(rootViewController: vc)
-                    nvvc.tabBarItem.image = UIImage(systemName: "message.fill")
-                    nvProfileVC.tabBarItem.image = UIImage(systemName: "person.fill")
-                    nvFriendsVC.tabBarItem.image = UIImage(systemName: "person.3.fill")
-                    let tabbarControl = UITabBarController()
-                    tabbarControl.viewControllers = [nvvc, nvProfileVC, nvFriendsVC]
-                    
-                    tabbarControl.modalPresentationStyle = .fullScreen
-                    self.present(tabbarControl, animated: true, completion: nil)
+                    let tabVC = MyTabberController()
+                    tabVC.modalPresentationStyle = .fullScreen
+                    self.present(tabVC, animated: true, completion: nil)
                 }
                 else
                 {
@@ -120,4 +110,6 @@ class HomepageViewController: UIViewController,UITextFieldDelegate
     {
         self.navigationController?.pushViewController(RegisterViewController(), animated: true)
     }
+    
 }
+

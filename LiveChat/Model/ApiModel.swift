@@ -1,8 +1,8 @@
 //
 //  ApiModel.swift
-//  
+//  LiveChat
 //
-//  Created by 董恩志 on 2021/5/11.
+//  Created by Wang Sheng Ping on 2021/5/12.
 //
 
 import UIKit
@@ -45,8 +45,6 @@ extension UIViewController {
                     friendAccount = String(decoding: data, as: UTF8.self)
                     print("ccccccccc\(data)")
                     markUser.userAccount = friendAccount
-    //                    friendMembers.append(MarkUser(userAccount: friendAccount, userID: "", userImage: UIImage(), friendsList: []))
-    //                    return myData([markUser])
                 }
             }
             
@@ -60,10 +58,7 @@ extension UIViewController {
                     {
                         friendUserId = String(decoding: data, as: UTF8.self)
                         print("ccccccccc\(data)")
-    //                    friendMembers.append(MarkUser(userAccount: friendAccount, userID: friendUserId, userImage: UIImage(), friendsList: []))
                         markUser.userID = friendUserId
-                        
-                        
                     }
                 }
             
@@ -81,7 +76,7 @@ extension UIViewController {
                         markUser.userImage = friendImage
                         if markUser.userID == "" || markUser.userAccount == "" {
                             
-                            DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+                            DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
                                 friendMembers.append(markUser)
                                 return myData(friendMembers)
                             }
@@ -91,17 +86,11 @@ extension UIViewController {
                             return myData(friendMembers)
                         }
 
-    //                    return myData([markUser])
                     }
                 }
             }
             
-    //        print("friendAccount = \(friendInformations)")
-    //        print("friendUserId = \(friendUserId)")
-    //            friendMembers.append(MarkUser(userAccount: friendAccount, userID: friendUserId, userImage: UIImage(), friendsList: []))
-            
         }
-    //        return myData(friendMembers)
     }
 
 }

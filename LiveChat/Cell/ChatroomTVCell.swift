@@ -23,7 +23,7 @@ class ChatroomTVCell: UITableViewCell {
         var chatPartnerImage: UIImageView = {
             let image = UIImageView()
 //            image.backgroundColor = #colorLiteral(red: 0.2392156869, green: 0.6745098233, blue: 0.9686274529, alpha: 1)
-            image.layer.cornerRadius = 15
+            image.layer.cornerRadius = 25
             image.backgroundColor = .clear
             image.clipsToBounds = true
             return image
@@ -50,10 +50,11 @@ class ChatroomTVCell: UITableViewCell {
         
         func setLayoutForChatPartnerImage() {
             chatPartnerImage.snp.makeConstraints { (make) in
-                make.width.equalTo(self).multipliedBy(0.15)
-                make.top.equalTo(self)
-                make.bottom.equalTo(self)
-                make.left.equalTo(self)
+                make.width.height.equalTo(50)
+//                make.top.equalTo(self)
+//                make.bottom.equalTo(self)
+                make.centerY.equalTo(self)
+                make.left.equalTo(self).offset(8)
             }
         }
         

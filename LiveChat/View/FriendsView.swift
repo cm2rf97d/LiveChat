@@ -11,10 +11,10 @@ class FriendsView: UIView {
 
     let friendsTableView: UITableView =
     {
-        let tableView = UITableView()
+        let tableView = UITableView(frame: CGRect(), style: .insetGrouped)
         tableView.register(FriendsTableViewCell.self, forCellReuseIdentifier: FriendsTableViewCell.identifier)
         tableView.separatorStyle = .none
-        tableView.backgroundColor = .systemGray2
+        tableView.backgroundColor = .clear
         tableView.rowHeight = UITableView.automaticDimension
         return tableView
     }()
@@ -23,6 +23,7 @@ class FriendsView: UIView {
         super.init(frame: frame)
         addSubview(friendsTableView)
         layouts()
+        setGradientLayer()
     }
     
     required init?(coder: NSCoder) {
@@ -34,10 +35,13 @@ class FriendsView: UIView {
         friendsTableView.snp.makeConstraints
         { (make) in
             make.width.equalTo(UIScreen.main.bounds.width)
-            make.height.equalTo(UIScreen.main.bounds.height)
+//            make.height.equalTo(UIScreen.main.bounds.height)
             make.centerX.equalTo(self)
-            make.centerY.equalTo(self)
+//            make.centerY.equalTo(self)
+            make.top.equalTo(self.snp.topMargin)
+            make.bottom.equalTo(self.snp.bottomMargin)
         }
     }
+    
 }
 

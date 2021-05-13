@@ -34,6 +34,7 @@ class FriendsTableViewCell: UITableViewCell {
         addSubview(friendslabel)
         addSubview(friendsImageView)
         layouts()
+//        self.backgroundColor = .clear
     }
     
     required init?(coder: NSCoder)
