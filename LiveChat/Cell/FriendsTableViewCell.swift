@@ -34,6 +34,7 @@ class FriendsTableViewCell: UITableViewCell {
         addSubview(friendslabel)
         addSubview(friendsImageView)
         layouts()
+        selectionStyle = .none
 //        self.backgroundColor = .clear
     }
     

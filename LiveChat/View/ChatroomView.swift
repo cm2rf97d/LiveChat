@@ -17,8 +17,36 @@ class ChatroomView: UIView
             tableView.rowHeight = 60
             tableView.backgroundColor = .clear
             tableView.separatorStyle = .none
+            
             return tableView
         }()
+    
+    lazy var headerView: UIView = {
+        let view = UIView()
+        let shapeLayer = CAShapeLayer()
+        shapeLayer.frame = CGRect(x: 0, y: 0, width: 0, height: 3)
+        shapeLayer.fillColor = UIColor.clear.cgColor
+        shapeLayer.lineWidth = 3
+        shapeLayer.strokeColor = UIColor.systemIndigo.cgColor
+        
+        let path = UIBezierPath()
+        let fullSizeWidth = chatTableView.frame.width
+        
+        path.move(to: .init(x: -22, y: 50))
+        path.addQuadCurve(to: CGPoint(x: 0, y: 0), controlPoint: CGPoint(x: -18, y: 5))
+        path.addLine(to: CGPoint(x: fullSizeWidth - 40, y: 0))
+        path.addQuadCurve(to: CGPoint(x: fullSizeWidth - 18, y: 50), controlPoint: CGPoint(x: fullSizeWidth - 22, y: 5))
+        shapeLayer.path = path.cgPath
+        
+        let animation = CABasicAnimation(keyPath: "strokeEnd")
+        animation.fromValue = 0
+        animation.toValue = 1
+        animation.duration = 3
+        shapeLayer.add(animation, forKey: nil)
+        
+        view.layer.addSublayer(shapeLayer)
+        return view
+    }()
         
         // MARK: - Autolayout
         func autoLayoutForChatTableView() {

@@ -77,6 +77,7 @@ class ChatroomTVCell: UITableViewCell {
             setLayoutForChatPartnerImage()
             setLayoutForTimeLabel()
             setLayoutForChatPartnerName()
+            selectionStyle = .none
         }
         
         required init?(coder: NSCoder) {

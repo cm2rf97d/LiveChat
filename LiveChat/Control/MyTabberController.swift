@@ -7,26 +7,47 @@
 
 import UIKit
 
+var customButton = UIButton()
+
 class MyTabberController: UITabBarController {
 
-    let customButton = UIButton()
+    
+//    var testBool = false
+//    {
+//        didSet
+//        {
+//            if testBool == true
+//            {
+//                self.customButton.isHidden = true
+//            }
+//            else
+//            {
+//                self.customButton.isHidden = false
+//            }
+//        }
+//    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        setTabber()
+        
         self.tabBar.backgroundImage = UIImage()
         self.tabBar.shadowImage = UIImage()
+        setTabbar()
+//        self.tabBar.bringSubviewToFront(customButton)
 //        self.tabBar.isTranslucent = false
         // Do any additional setup after loading the view.
+        
     }
     
-    func setTabber() {
-        self.settingButton()
+    func setTabbar() {
         let profileVC = ProfileViewController()
         let nvProfileVC = UINavigationController(rootViewController: profileVC)
         let friendsVC = FriendsViewController()
         let nvFriendsVC = UINavigationController(rootViewController: friendsVC)
         let vc = ChatroomVC()
+//        if vc.isBtnHidden == true {
+//            self.customButton.isHidden = true
+//        }
         friendsVC.presentChatViewDelegate = vc
         let nvvc = UINavigationController(rootViewController: vc)
         nvvc.tabBarItem.image = UIImage(systemName: "message.fill")
@@ -42,10 +63,10 @@ class MyTabberController: UITabBarController {
     func rotateProfileIcon() {
         customButton.tintColor = .systemBlue
         UIView.animate(withDuration: 0.5) {
-            self.customButton.transform = CGAffineTransform(rotationAngle: CGFloat.pi)
+            customButton.transform = CGAffineTransform(rotationAngle: CGFloat.pi)
         }
         UIView.animate(withDuration: 0.5, delay: 0.2, options: UIView.AnimationOptions.curveEaseIn, animations: { () -> Void in
-          self.customButton.transform = CGAffineTransform(rotationAngle: CGFloat.pi * 2.0)
+          customButton.transform = CGAffineTransform(rotationAngle: CGFloat.pi * 2.0)
         }, completion: nil)
     }
     
@@ -57,27 +78,27 @@ class MyTabberController: UITabBarController {
         customButton.setImage(image, for: .normal)
         customButton.tintColor = .gray
         customButton.backgroundColor = .systemTeal
-        customButton.frame.size = CGSize(width: 70, height: 70)
-        // 這邊希望他超出 tabBar 範圍，因此在這邊提高其 y 軸位置。
-        customButton.center = CGPoint(x: (self.tabBar.bounds.midX), y: (self.tabBar.bounds.midY) - customButton.frame.height / 3)
-//        customButton.backgroundColor = .white
+//        customButton.frame.size = CGSize(width: 70, height: 70)
+//        customButton.center = CGPoint(x: (self.tabBar.bounds.midX), y: (self.tabBar.bounds.midY) - customButton.frame.height / 3)
         customButton.layer.cornerRadius = 35
         customButton.layer.borderColor = UIColor.black.cgColor
         customButton.layer.borderWidth = 3
+//        customButton.layer.masksToBounds = true
         customButton.clipsToBounds = true
-        // 取消按鈕點選 highLight 效果
         customButton.adjustsImageWhenHighlighted = false
-        // 為客製化按鈕新增一個點擊事件
         customButton.addTarget(self, action: #selector(showViewController), for: .touchDown)
-        
-        self.tabBar.addSubview(customButton)
+        self.view.addSubview(customButton)
+        customButton.snp.makeConstraints { (make) in
+            make.centerX.equalTo(tabBar)
+            make.centerY.equalTo(tabBar.snp.top)
+            make.width.height.equalTo(70)
+        }
     }
     
     @objc func showViewController() {
-        // 設置按鈕背景色，讓他看起來有 highlighted 的效果
         customButton.tintColor = .systemBlue
         rotateProfileIcon()
-        // 跳轉至 tabBarController 相對應的索引值的
+        print("oooooooo")
         self.selectedIndex = 1
     }
     
@@ -91,22 +112,29 @@ class MyTabberController: UITabBarController {
         
        }
     
-    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        
-            touches.forEach { (touch) in
-                let position = touch.location(in: customButton)
-                let offset = customButton.frame.height / 3
-                print("llllllllll\(offset)")
-                if customButton.frame.minX <= position.x && position.x <= customButton.frame.maxX {
-                    if customButton.frame.minY - offset <= position.y && position.y <= customButton.frame.maxY - offset{
-                        print("min:\(customButton.frame.minY), max:\(customButton.frame.maxY)")
-                
-                        showViewController()
-                    }
-                }
-            }
-        }
-
-
+//    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+//        super.touchesBegan(touches, with: event)
+//            touches.forEach { (touch) in
+//                let position = touch.location(in: tabBar)
+//                let offset = customButton.frame.height / 3
+//                print("llllllllll\(position.y)")
+//                if customButton.frame.minX <= position.x && position.x <= customButton.frame.maxX {
+//                    if customButton.frame.minY - offset <= position.y && position.y <= customButton.frame.maxY - offset{
+//                        print("min:\(customButton.frame.minY), max:\(customButton.frame.maxY)")
+//
+//                        showViewController()
+//                    }
+//                }
+//            }
+//        }
+//
+//    override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
+//        super.touchesMoved(touches, with: event)
+//        guard let location = touches.first?.location(in: tabBar) else { return }
+//        print(location)
+//    }
+    
 }
+
+
 

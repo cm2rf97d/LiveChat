@@ -14,7 +14,7 @@ class ChatroomBannerCell: UITableViewCell {
     let fullSize = UIScreen.main.bounds.size
     static let identifier = "chatroomBannerCell"
     let chatRoomVC = ChatroomVC()
-    var friendsImages: [MarkUser] = [] {
+    var markUser: [MarkUser] = [] {
         didSet{
         chatRoomVC.chatroomView.chatTableView.reloadData()
         myCollectionView.reloadData()
@@ -80,16 +80,23 @@ extension ChatroomBannerCell: UICollectionViewDelegate, UICollectionViewDataSour
 //            print("nnnnnnn\(self.friendsImages.count)")
 //
 //        }
-        return friendsImages.count
+        return markUser.count
         
         
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: FriendsImageBannerCell.identifier, for: indexPath) as? FriendsImageBannerCell else { return UICollectionViewCell() }
-        cell.imageView1.image = friendsImages[indexPath.row].userImage
+        cell.imageView1.image = markUser[indexPath.row].userImage
         
         return cell
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+//        let profileVC = ProfileViewController()
+//        profileVC.friendUser = markUser[indexPath.row]
+//        chatRoomVC.present(profileVC, animated: true, completion: nil)
+        
     }
     
     

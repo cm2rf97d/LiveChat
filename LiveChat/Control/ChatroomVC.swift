@@ -30,6 +30,7 @@ class ChatroomVC: UIViewController, presentChatViewDelegate
             chatroomView.chatTableView.reloadData()
         }
     }
+    var isBtnHidden: Bool = false
     
     // MARK: - Lifecycle
     override func viewDidLoad() {
@@ -136,7 +137,7 @@ extension ChatroomVC : UITableViewDelegate,UITableViewDataSource {
         switch chatroomSections[indexPath.section] {
         case .banner:
             guard let cell = chatroomView.chatTableView.dequeueReusableCell(withIdentifier: ChatroomBannerCell.identifier, for: indexPath) as? ChatroomBannerCell else { return UITableViewCell()}
-            cell.friendsImages = self.friendInformations
+            cell.markUser = self.friendInformations
             
             return cell
         case .chatroom:
@@ -151,13 +152,14 @@ extension ChatroomVC : UITableViewDelegate,UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let vc = ChatLogVC()
-        
+
         switch chatroomSections[indexPath.section] {
         case .banner:
             break
         case .chatroom:
             vc.chatName = friendInformations[indexPath.row]
-            tabBarController?.tabBar.isHidden = true
+            customButton.isHidden = true
+            self.tabBarController?.tabBar.isHidden = true
             navigationController?.pushViewController(vc, animated: true)   
         }
         
@@ -170,7 +172,30 @@ extension ChatroomVC : UITableViewDelegate,UITableViewDataSource {
         case .chatroom:
             return 60
         }
+        
     }
+    
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        switch chatroomSections[section]{
+        case .banner:
+            return UIView()
+        case .chatroom:
+            return chatroomView.headerView
+        }
+    }
+    
+//    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+//        return " "
+//    }
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        switch chatroomSections[section]{
+        case .banner:
+            return 0
+        case .chatroom:
+            return 20
+        }
+    }
+    
 }
 
 //extension ChatroomVC: UIScrollViewDelegate {
