@@ -255,14 +255,20 @@ extension ProfileViewController: UITableViewDelegate, UITableViewDataSource {
             
             cell.profileImg.image = self.profileImage
             cell.topBackgroundView.image = self.backgroundImage
+//            cell.topBackgroundView.backgroundColor = .white
+            
             return cell
         case .profile:
             guard let cell = tableView.dequeueReusableCell(withIdentifier: ProfileInfoTableViewCell.identifier, for: indexPath) as? ProfileInfoTableViewCell else { return UITableViewCell()}
             
-            cell.textLabel?.text = profileDetail.profileInfo[indexPath.row]
-            cell.detailTextLabel?.text = profileDetail.profileDetail[indexPath.row]
+            let bubleView = UIView()
+            bubleView.backgroundColor = .clear
             
+            cell.selectedBackgroundView = bubleView
+            cell.titleLabel.text = profileDetail.profileInfo[indexPath.row]
+            cell.detailLabel.text = profileDetail.profileDetail[indexPath.row]
             
+
             return cell
         }
         
@@ -286,10 +292,14 @@ extension ProfileViewController: UITableViewDelegate, UITableViewDataSource {
         
         switch mySections[indexPath.section] {
         case .profileImage:
-            return fullSizeHeight * 0.3
+            return fullSizeHeight
         case .profile:
-            return 50
+            return UITableView.automaticDimension
         }
+//        if mySections[indexPath.section] == .profileImage {
+//            return fullSizeHeight
+//        }
+//        return CGFloat(tableView.autoresizingMask.rawValue)
     }
     
     //MARK: Header

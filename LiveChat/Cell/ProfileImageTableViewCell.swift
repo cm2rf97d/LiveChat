@@ -8,7 +8,7 @@
 import UIKit
 
 class ProfileImageTableViewCell: UITableViewCell {
-
+    
     
     //MARK: - Properties
     var tapProfileImgAction: (() -> Void)?
@@ -44,9 +44,39 @@ class ProfileImageTableViewCell: UITableViewCell {
         view.backgroundColor = .black
         view.isUserInteractionEnabled = true
         view.addSubview(profileImg)
-//        view.addSubview(chatBtn)
+        //        view.addSubview(chatBtn)
         return view
     }()
+    
+    let nameLabel: UILabel = {
+        let label = UILabel()
+        label.font = UIFont.systemFont(ofSize: 30)
+        label.textColor = .white
+        label.text = "test"
+        label.textAlignment = NSTextAlignment.center
+        return label
+    }()
+    
+    let selfIntroLabel: UILabel = {
+        let label = UILabel()
+        label.font = UIFont.systemFont(ofSize: 25)
+        label.textColor = .white
+        label.text = "你好嗎"
+        label.textAlignment = NSTextAlignment.center
+        return label
+    }()
+    
+//    let editBtn: UIButton = {
+//        let btn = UIButton()
+//        btn.setTitle("編輯個人檔案", for: .normal)
+//        btn.setTitleColor(.black, for: .normal)
+//        btn.backgroundColor = .clear
+//        btn.layer.cornerRadius = 5
+//        btn.layer.borderWidth = 1
+//        btn.layer.borderColor = UIColor.gray.cgColor
+//        return btn
+//    }()
+    
     
     //MARK: - Init
     
@@ -54,6 +84,9 @@ class ProfileImageTableViewCell: UITableViewCell {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         contentView.addSubview(topBackgroundView)
         contentView.addSubview(chatBtn)
+        contentView.addSubview(nameLabel)
+        contentView.addSubview(selfIntroLabel)
+//        contentView.addSubview(editBtn)
         layouts()
         
         let tapProfile = UITapGestureRecognizer(target: self, action: #selector(profileDidTap))
@@ -87,12 +120,13 @@ class ProfileImageTableViewCell: UITableViewCell {
             make.top.width.centerX.equalTo(self)
             make.height.equalTo(self)
         }
-
+        
         profileImg.snp.makeConstraints { (make) in
             make.centerY.equalTo(topBackgroundView)
             make.centerX.equalTo(self)
-            make.height.equalTo(100)
-            make.width.equalTo(100)
+//            make.top.equalTo(self).offset(2)
+//            make.left.equalTo(self).offset(10)
+            make.size.equalTo(100)
         }
         
         chatBtn.snp.makeConstraints { (make) in
@@ -102,6 +136,26 @@ class ProfileImageTableViewCell: UITableViewCell {
             make.height.equalTo(30)
         }
         
+        nameLabel.snp.makeConstraints { (make) in
+            make.top.equalTo(profileImg.snp.bottom).offset(10)
+            make.centerX.equalTo(self)
+//            make.left.equalTo(profileImg)
+        }
+        
+        selfIntroLabel.snp.makeConstraints { (make) in
+            make.top.equalTo(nameLabel.snp.bottom).offset(5)
+            make.centerX.equalTo(self)
+//            make.left.equalTo(profileImg)
+        }
+        
+//        editBtn.snp.makeConstraints { (make) in
+//            make.top.equalTo(selfIntroLabel.snp.bottom).offset(10)
+//            make.left.equalTo(profileImg)
+//            make.right.equalTo(self).offset(-10)
+//            make.bottom.lessThanOrEqualTo(self).offset(-10)
+//        }
+        
+
     }
     
 }

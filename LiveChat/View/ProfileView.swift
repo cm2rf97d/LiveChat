@@ -36,7 +36,8 @@ class ProfileView: UIView {
     func layouts() {
         
         myTableView.snp.makeConstraints { (make) in
-            make.top.bottom.equalTo(self.safeAreaInsets)
+            make.top.equalTo(self.snp_topMargin)
+            make.bottom.equalTo(self.snp_bottomMargin)
             make.centerX.width.equalTo(self)
         }
         

@@ -9,22 +9,21 @@ import UIKit
 
 struct Messages {
     
-    var id: [String]
-    var text: [String]
-    var time: [Double]
-    var type: [String]
+    var id: String
+    var text: String
+    var time: Double
+    var type: String
     
-    var timeChange: [String] {
-        time.map { (data) -> String in
-            
-            let timeInterval = TimeInterval(data)
+    var timeChange: String {
+        
+            let timeInterval = TimeInterval(time)
             let date = Date(timeIntervalSince1970: timeInterval)
             let formatter = DateFormatter()
             formatter.dateFormat = "HH:mm"
             let alarmTime = formatter.string(from: date)
             
             return alarmTime
-        }
+        
     }
 
 }
