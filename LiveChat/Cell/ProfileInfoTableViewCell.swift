@@ -34,7 +34,7 @@ class ProfileInfoTableViewCell: UITableViewCell {
     
     let textbubleView: UIView = {
         let view = UIView()
-        view.backgroundColor = .systemBlue
+        view.backgroundColor = .white
         view.layer.cornerRadius = 15
         return view
     }()
@@ -46,8 +46,8 @@ class ProfileInfoTableViewCell: UITableViewCell {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         backgroundColor = .clear
         addSubview(textbubleView)
-        addSubview(titleLabel)
         addSubview(detailLabel)
+        addSubview(titleLabel)
         constraints()
     }
     

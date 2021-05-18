@@ -64,6 +64,10 @@ class ChatLogVC: UIViewController {
         
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        customButton.isHidden = true
+    }
+    
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
 //        self.tabBarController?.tabBar.isHidden = true
@@ -132,7 +136,7 @@ class ChatLogVC: UIViewController {
         let height = (keyboardFrame?.cgRectValue.height)
         chatLogView.bottomView.snp.remakeConstraints { (make) in
             make.left.width.equalTo(self.chatLogView)
-            make.bottom.equalTo(-height!+50)
+            make.bottom.equalTo(-height!+chatLogView.inputTextField.frame.height-15)
             make.height.equalTo(100)
         }
         
@@ -308,7 +312,7 @@ extension ChatLogVC: UIImagePickerControllerDelegate,UINavigationControllerDeleg
     
     func touchToLoadImage() {
         let tap = UITapGestureRecognizer(target: self, action: #selector(handleUpLoadTap))
-        chatLogView.uploadImageView.addGestureRecognizer(tap)
+        chatLogView.uploadImageBtn.addGestureRecognizer(tap)
     }
     
     @objc func handleUpLoadTap() {

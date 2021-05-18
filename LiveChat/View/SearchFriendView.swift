@@ -78,7 +78,7 @@ class SearchFriendView: UIView {
         addSubview(friendLabel)
         addSubview(addFriendButton)
         autoLayout()
-        
+        setGradientLayer()
     }
     
     required init?(coder: NSCoder)

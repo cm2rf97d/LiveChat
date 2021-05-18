@@ -13,10 +13,10 @@ class ChatroomVC: UIViewController, presentChatViewDelegate
 {
     // MARK: - Properties
     var chatroomView = ChatroomView()
-    var chatRoomUserId: [String] = []  //Mike Add
+//    var chatRoomUserId: [String] = []  //Mike Add
     let chatroomSections: [ChatroomSections] = [.banner, .chatroom]
-    let fullSizeWidth = UIScreen.main.bounds.width
-    var timer = Timer()
+//    let fullSizeWidth = UIScreen.main.bounds.width
+//    var timer = Timer()
     var friends: [String] = [] {
         didSet{
             chatroomView.chatTableView.reloadData()
@@ -27,6 +27,12 @@ class ChatroomVC: UIViewController, presentChatViewDelegate
     {
         didSet
         {
+//            friendInformations.sort { (data1, data2) -> Bool in
+//                guard data1.time != nil && data2.time != nil else {
+//                    return data1.userID > data2.userID
+//                }
+//                return data1.time! > data2.time!
+//            }
             chatroomView.chatTableView.reloadData()
         }
     }
@@ -144,7 +150,24 @@ extension ChatroomVC : UITableViewDelegate,UITableViewDataSource {
             let cell = chatroomView.chatTableView.dequeueReusableCell(withIdentifier: ChatroomTVCell.chatCellID, for: indexPath) as! ChatroomTVCell
             cell.chatPartnerNameLable.text = friendInformations[indexPath.row].userAccount
             cell.chatPartnerImage.image = friendInformations[indexPath.row].userImage
-            cell.timeLabel.text = "時間time"
+            
+            let ref = Database.database().reference().child("ChatRoom").child(currentUserId).child(friendInformations[indexPath.row].userID)
+            
+            ref.observe(.childAdded) { [self] (snapshot) in
+                
+                downLoadMessage(value: snapshot.value as! [String : AnyObject]) { (data) in
+                    if data.id == friendInformations[indexPath.row].userID {
+                        let time = data.timeChange
+                        let text = data.text
+                        
+                        cell.timeLabel.text = time
+                        cell.messagelabel.text = text
+                                            friendInformations[indexPath.row].time = data.time
+                    }
+                }
+               
+            }
+            
             cell.backgroundColor = .clear
             return cell
         }
@@ -158,7 +181,7 @@ extension ChatroomVC : UITableViewDelegate,UITableViewDataSource {
             break
         case .chatroom:
             vc.chatName = friendInformations[indexPath.row]
-            customButton.isHidden = true
+            
             self.tabBarController?.tabBar.isHidden = true
             navigationController?.pushViewController(vc, animated: true)   
         }

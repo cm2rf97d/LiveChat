@@ -59,6 +59,8 @@ class ProfileViewController: UIViewController {
         }else{
             downloadImgs(userAccount: currentUserAccount)
         }
+        self.navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
+        self.navigationController?.navigationBar.shadowImage = UIImage()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -232,7 +234,11 @@ extension ProfileViewController: UITableViewDelegate, UITableViewDataSource {
             guard let cell = tableView.dequeueReusableCell(withIdentifier: ProfileImageTableViewCell.identifier, for: indexPath) as? ProfileImageTableViewCell else { return UITableViewCell()}
 //            cell.profileImg.isUserInteractionEnabled = !aaa
             cell.topBackgroundView.isUserInteractionEnabled = isInteractive
-            cell.chatBtn.isHidden = isInteractive
+            cell.editBtn.isHidden = isInteractive
+            cell.chatLabel.isHidden = isInteractive
+            cell.nameLabel.text = profileDetail.profileDetail.first
+            cell.selfIntroLabel.text = profileDetail.profileDetail[3]
+            
             cell.tapProfileImgAction = {
                 self.profileOrBackgroundImg = .profile
                 self.changeImg()

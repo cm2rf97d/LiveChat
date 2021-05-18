@@ -136,6 +136,7 @@ extension FriendsViewController: UITableViewDelegate,UITableViewDataSource
     {
         guard let cell = tableView.dequeueReusableCell(withIdentifier:FriendsTableViewCell.identifier, for: indexPath) as? FriendsTableViewCell else { return UITableViewCell() }
         //        cell.friendslabel.text = markUser.friendsList[indexPath.row]
+        cell.backgroundColor = .clear
         cell.friendslabel.text = markFriends[indexPath.row].userAccount
         cell.friendsImageView.image = markFriends[indexPath.row].userImage
         

@@ -33,4 +33,5 @@ struct MarkUser
     var userID: String
     var userImage: UIImage
     var friendsList: [String]
+    var time: TimeInterval?
 }

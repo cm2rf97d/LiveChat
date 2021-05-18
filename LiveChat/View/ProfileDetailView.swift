@@ -47,6 +47,7 @@ class ProfileDetailView: UIView {
         addSubview(myStackView)
         layouts()
         myBtn.addTarget(self, action: #selector(didTapBtn), for: .touchUpInside)
+        setGradientLayer()
     }
     
     required init?(coder: NSCoder) {

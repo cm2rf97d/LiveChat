@@ -24,14 +24,15 @@ class ChatLogView: UIView {
     let inputTextField: UITextField = {
         let tf = UITextField()
         tf.placeholder = "Enter..."
-        tf.backgroundColor = .clear
+        tf.backgroundColor = .white
         tf.borderStyle = .roundedRect
         return tf
     }()
     
     let sendBtn: UIButton = {
         let btn = UIButton(type: .system)
-        btn.setTitle("Send", for: .normal)
+//        btn.setTitle("Send", for: .normal)
+        btn.setImage(UIImage(systemName: "arrow.right.circle.fill"), for: .normal)
         return btn
     }()
     
@@ -41,20 +42,27 @@ class ChatLogView: UIView {
         return sl
     }()
     
-    let uploadImageView: UIImageView = {
-        let imageView = UIImageView()
-        imageView.image = UIImage(named: "imageIcon")
-        imageView.isUserInteractionEnabled = true
-        return imageView
+//    let uploadImageBtn: UIImageView = {
+//        let imageView = UIImageView()
+//        imageView.image = UIImage(systemName: "photo.fill.on.rectangle.fill")
+//        imageView.isUserInteractionEnabled = true
+//        return imageView
+//    }()
+    
+    let uploadImageBtn: UIButton = {
+        let btn = UIButton(type: .system)
+//        btn.setTitle("Send", for: .normal)
+        btn.setImage(UIImage(systemName: "photo.fill.on.rectangle.fill"), for: .normal)
+        return btn
     }()
         
     lazy var bottomView: UIView = {
         let bv = UIView()
-        bv.backgroundColor = .white
+        bv.backgroundColor = .clear
         bv.addSubview(inputTextField)
         bv.addSubview(sendBtn)
         bv.addSubview(separatorLine)
-        bv.addSubview(uploadImageView)
+        bv.addSubview(uploadImageBtn)
         
         return bv
     }()
@@ -63,10 +71,11 @@ class ChatLogView: UIView {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        backgroundColor = #colorLiteral(red: 0.8039215803, green: 0.8039215803, blue: 0.8039215803, alpha: 1)
+        backgroundColor = .clear
         addSubview(chatLogTableView)
         addSubview(bottomView)
         layouts()
+        setGradientLayer()
 //        uploadImageView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(ChatLogVC.handleUpLoadTap)))
 //        sendBtn.addTarget(self, action: #selector(ChatLogVC.sendMsg), for: .touchUpInside)
     }
@@ -81,7 +90,7 @@ class ChatLogView: UIView {
 //            make.left.right.top.equalTo(self)
 //            make.bottom.equalTo(bottomView.snp.top)
             make.left.right.equalTo(self)
-            make.bottom.equalTo(bottomView.snp.top).offset(10)
+            make.bottom.equalTo(bottomView.snp.top)
             make.top.equalTo(self.snp.topMargin)
             
 //            make.bottom.equalTo(self)
@@ -94,17 +103,19 @@ class ChatLogView: UIView {
         }
 
         inputTextField.snp.makeConstraints { (make) in
-            make.top.equalTo(bottomView).multipliedBy(0.1)
-            make.left.equalTo(uploadImageView.snp.right).offset(10)
+            make.top.equalTo(bottomView).offset(10)
+            make.left.equalTo(uploadImageBtn.snp.right)
             make.right.equalTo(sendBtn.snp.left)
+            make.centerX.equalTo(bottomView)
 //            make.width.equalTo(bottomView).multipliedBy(0.7)
-            make.height.equalTo(bottomView).multipliedBy(0.5)
+            make.height.equalTo(bottomView).multipliedBy(0.4)
         }
 
         sendBtn.snp.makeConstraints { (make) in
-            make.right.equalTo(bottomView)
+            make.right.equalTo(bottomView).offset(-5)
             make.height.equalTo(bottomView).multipliedBy(0.5)
             make.width.equalTo(bottomView).multipliedBy(0.2)
+            make.centerY.equalTo(inputTextField)
         }
 
         separatorLine.snp.makeConstraints { (make) in
@@ -112,11 +123,12 @@ class ChatLogView: UIView {
             make.height.equalTo(1)
         }
         
-        uploadImageView.snp.makeConstraints { (make) in
-            make.top.equalTo(separatorLine.snp.bottom).offset(1)
+        uploadImageBtn.snp.makeConstraints { (make) in
+//            make.top.equalTo(separatorLine.snp.bottom).offset(1)
             make.left.equalTo(bottomView).offset(5)
-            make.height.equalTo(bottomView.snp.width).multipliedBy(0.08)
-            make.width.equalTo(bottomView).multipliedBy(0.08)
+            make.height.equalTo(bottomView.snp.width).multipliedBy(0.5)
+            make.width.equalTo(bottomView).multipliedBy(0.2)
+            make.centerY.equalTo(inputTextField)
         }
     }
 }

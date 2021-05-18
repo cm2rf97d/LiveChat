@@ -27,17 +27,17 @@ class ProfileImageTableViewCell: UITableViewCell {
         return iv
     }()
     
-    let chatBtn: UIButton = {
-        let btn = UIButton()
-        btn.setTitle("聊天", for: .normal)
-        btn.setTitleColor(.white, for: .normal)
-        btn.setTitleColor(.darkText, for: .highlighted)
-        btn.backgroundColor = .systemPink
-        btn.layer.cornerRadius = 5
-        btn.layer.borderWidth = 1
-        btn.layer.borderColor = UIColor.gray.cgColor
-        return btn
-    }()
+//    let chatBtn: UIButton = {
+//        let btn = UIButton()
+//        btn.setTitle("聊天", for: .normal)
+//        btn.setTitleColor(.white, for: .normal)
+//        btn.setTitleColor(.darkText, for: .highlighted)
+//        btn.backgroundColor = .systemPink
+//        btn.layer.cornerRadius = 5
+//        btn.layer.borderWidth = 1
+//        btn.layer.borderColor = UIColor.gray.cgColor
+//        return btn
+//    }()
     
     lazy var topBackgroundView: UIImageView = {
         let view = UIImageView()
@@ -52,7 +52,6 @@ class ProfileImageTableViewCell: UITableViewCell {
         let label = UILabel()
         label.font = UIFont.systemFont(ofSize: 30)
         label.textColor = .white
-        label.text = "test"
         label.textAlignment = NSTextAlignment.center
         return label
     }()
@@ -61,21 +60,37 @@ class ProfileImageTableViewCell: UITableViewCell {
         let label = UILabel()
         label.font = UIFont.systemFont(ofSize: 25)
         label.textColor = .white
-        label.text = "你好嗎"
         label.textAlignment = NSTextAlignment.center
         return label
     }()
     
-//    let editBtn: UIButton = {
-//        let btn = UIButton()
-//        btn.setTitle("編輯個人檔案", for: .normal)
+    let editBtn: UIButton = {
+        let btn = UIButton()
+//        btn.setTitle("聊天", for: .normal)
+        
+//        let image = UIImage(systemName: "message.fill")
+//        let tintedImage = image?.withRenderingMode(.alwaysTemplate)
+        let config = UIImage.SymbolConfiguration(
+            pointSize: 40, weight: .medium, scale: .default)
+        let image = UIImage(systemName: "message.fill", withConfiguration: config)
+        
+        btn.setImage(image, for: .normal)
+        btn.tintColor = .white
+        
 //        btn.setTitleColor(.black, for: .normal)
-//        btn.backgroundColor = .clear
-//        btn.layer.cornerRadius = 5
-//        btn.layer.borderWidth = 1
-//        btn.layer.borderColor = UIColor.gray.cgColor
-//        return btn
-//    }()
+        btn.backgroundColor = .clear
+        
+        return btn
+    }()
+    
+    let chatLabel: UILabel = {
+        let label = UILabel()
+        label.font = UIFont.systemFont(ofSize: 15)
+        label.text = "聊天"
+        label.textColor = .white
+        label.textAlignment = NSTextAlignment.center
+        return label
+    }()
     
     
     //MARK: - Init
@@ -83,17 +98,20 @@ class ProfileImageTableViewCell: UITableViewCell {
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         contentView.addSubview(topBackgroundView)
-        contentView.addSubview(chatBtn)
+//        contentView.addSubview(chatBtn)
         contentView.addSubview(nameLabel)
         contentView.addSubview(selfIntroLabel)
-//        contentView.addSubview(editBtn)
+        contentView.addSubview(editBtn)
+        contentView.addSubview(chatLabel)
         layouts()
         
         let tapProfile = UITapGestureRecognizer(target: self, action: #selector(profileDidTap))
         profileImg.addGestureRecognizer(tapProfile)
         let tapBackground = UITapGestureRecognizer(target: self, action: #selector(backgroundDidTap))
         topBackgroundView.addGestureRecognizer(tapBackground)
-        chatBtn.addTarget(self, action: #selector(chatWithFriend), for: .touchUpInside) //Mike Add
+        editBtn.addTarget(self, action: #selector(chatWithFriend), for: .touchUpInside)
+        //Mike Add
+        
     }
     
     
@@ -129,12 +147,12 @@ class ProfileImageTableViewCell: UITableViewCell {
             make.size.equalTo(100)
         }
         
-        chatBtn.snp.makeConstraints { (make) in
-            make.centerX.equalTo(self)
-            make.top.equalTo(profileImg.snp.bottom).offset(+8)
-            make.width.equalTo(50)
-            make.height.equalTo(30)
-        }
+//        chatBtn.snp.makeConstraints { (make) in
+//            make.centerX.equalTo(self)
+//            make.top.equalTo(profileImg.snp.bottom).offset(+8)
+//            make.width.equalTo(50)
+//            make.height.equalTo(30)
+//        }
         
         nameLabel.snp.makeConstraints { (make) in
             make.top.equalTo(profileImg.snp.bottom).offset(10)
@@ -148,14 +166,20 @@ class ProfileImageTableViewCell: UITableViewCell {
 //            make.left.equalTo(profileImg)
         }
         
-//        editBtn.snp.makeConstraints { (make) in
-//            make.top.equalTo(selfIntroLabel.snp.bottom).offset(10)
-//            make.left.equalTo(profileImg)
+        editBtn.snp.makeConstraints { (make) in
+//            make.top.equalTo(selfIntroLabel.snp.bottom).offset(20)
+//            make.left.equalTo(self).offset(10)
 //            make.right.equalTo(self).offset(-10)
-//            make.bottom.lessThanOrEqualTo(self).offset(-10)
-//        }
+            make.centerX.equalTo(self)
+//            make.height.equalTo(50)
+//            make.width.equalTo(50)
+            make.top.equalTo(selfIntroLabel.snp.bottom).offset(30)
+        }
         
-
+        chatLabel.snp.makeConstraints { (make) in
+            make.top.equalTo(editBtn.snp.bottom).offset(5)
+            make.centerX.equalTo(self)
+        }
     }
     
 }

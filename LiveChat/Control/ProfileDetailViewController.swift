@@ -32,6 +32,15 @@ class ProfileDetailViewController: UIViewController {
         }
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        self.tabBarController?.tabBar.isHidden = true
+        customButton.isHidden = true
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        self.tabBarController?.tabBar.isHidden = false
+        customButton.isHidden = false
+    }
     //MARK: - Functions
     
     func didTapBtn() {

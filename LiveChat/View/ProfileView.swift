@@ -16,6 +16,7 @@ class ProfileView: UIView {
         tv.register(ProfileImageTableViewCell.self, forCellReuseIdentifier: ProfileImageTableViewCell.identifier)
         tv.register(ProfileInfoTableViewCell.self, forCellReuseIdentifier: ProfileInfoTableViewCell.identifier)
         tv.separatorStyle = .none
+        tv.backgroundColor = .clear
         return tv
     }()
     
@@ -25,6 +26,7 @@ class ProfileView: UIView {
         super.init(frame: frame)
         addSubview(myTableView)
         layouts()
+        setGradientLayer()
     }
     
     required init?(coder: NSCoder) {
